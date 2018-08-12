@@ -90,9 +90,33 @@ y_pred = normal_full_layer(full_two_dropout,2)
 import os
 os.chdir(os.path.join(os.getcwd(),"peach cherry apple"))
 for f in enumerate(os.listdir()):
-	os.rename(f[1],'mixed2_' +str(f[0]+1) + '.jpg2' )
-	print(f)
+    os.rename(f[1],'mixed2_' +str(f[0]+1) + '.jpg2' )
+    print(f)
 for f in enumerate(os.listdir()):
-	os.rename(f[1],'mixed2_' +str(f[0]+1) + '.jpg' )
-	print(f)	
-	
+    os.rename(f[1],'mixed2_' +str(f[0]+1) + '.jpg' )
+    print(f)
+
+print(os.getcwd())
+path = os.path.join(os.getcwd(),'cat_pic.jpg')
+img = cv2.imread(path,1)
+plt.imshow(img)
+
+#Converting BGR to RGB
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+plt.imshow(img)
+
+#Mirroring wrt y axis.
+plt.imshow(np.fliplr(img))
+
+#Color shifting
+h,w,bpp = np.shape(img)
+for py in range(0,h):
+    for px in range(0,w):   
+        img[py][px][0]=img[py][px][0] + 50
+        img[py][px][1]=img[py][px][1] - 30
+        img[py][px][2]=img[py][px][2] + 100        
+plt.imshow(img)
+
+#Cropping
+crop_img = img[20:300, 10:400]
+plt.imshow(crop_img)
