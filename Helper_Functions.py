@@ -117,6 +117,14 @@ for py in range(0,h):
         img[py][px][2]=img[py][px][2] + 100        
 plt.imshow(img)
 
-#Cropping
+# Cropping
 crop_img = img[20:300, 10:400]
 plt.imshow(crop_img)
+
+# Adding noise
+noisy1 = img + 3 * image.std() * np.random.random(image.shape)
+
+alot  = 2 * image.max() * np.random.random(image.shape)
+noisy2 = image + alot
+
+
