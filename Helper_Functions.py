@@ -131,3 +131,7 @@ noisy2 = image + alot
 f = open('train.txt', 'r')
 x = f.read().splitlines()
 f.close()
+
+#Shape of a tensor in TensorFlow
+
+tensor_name.get_shape().as_list()
