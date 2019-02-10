@@ -135,3 +135,8 @@ f.close()
 #Shape of a tensor in TensorFlow
 
 tensor_name.get_shape().as_list()
+
+#Embed a Youtube video on jupyter
+
+from IPython.display import YouTubeVideo
+YouTubeVideo('dEFd_2_b6X8')
