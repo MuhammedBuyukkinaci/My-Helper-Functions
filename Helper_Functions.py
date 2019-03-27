@@ -140,3 +140,12 @@ tensor_name.get_shape().as_list()
 
 from IPython.display import YouTubeVideo
 YouTubeVideo('dEFd_2_b6X8')
+
+#Nice Distribution Plot
+plt.figure(figsize=(16,6))
+features = train_df.columns.values[2:202]
+plt.title("Distribution of max values per row in the train and test set")
+sns.distplot(train_df[features].max(axis=1),color="brown", kde=True,bins=120, label='train')
+sns.distplot(test_df[features].max(axis=1),color="yellow", kde=True,bins=120, label='test')
+plt.legend()
+plt.show()
