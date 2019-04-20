@@ -149,3 +149,14 @@ sns.distplot(train_df[features].max(axis=1),color="brown", kde=True,bins=120, la
 sns.distplot(test_df[features].max(axis=1),color="yellow", kde=True,bins=120, label='test')
 plt.legend()
 plt.show()
+
+#Fixing the seed
+import os, torch, random,numpy as np, tensorflow as tf
+def seed_everything(seed=1234):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    tf.set_random_seed(seed)
+    #torch.manual_seed(seed)
+    #torch.cuda.manual_seed(seed)
+    #torch.backends.cudnn.deterministic = True
