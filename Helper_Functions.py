@@ -191,3 +191,10 @@ model = Net().to(device)
 
 summary(model, (3, 32, 32))
 
+#Numpy np.average Weighted average
+import numpy as np
+k = np.average([3,5,7],weights = [10,5,20])
+print(k)
+#k = 5.571428
+
+
