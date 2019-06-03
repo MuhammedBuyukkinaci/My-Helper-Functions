@@ -198,3 +198,46 @@ print(k)
 #k = 5.571428
 
 
+#Embedding Layer on Tabular Data
+#https://www.kaggle.com/kernels/scriptcontent/14377501/download
+def create_model(data, catcols, numcols):    
+    inputs = []
+    outputs = []
+    for c in catcols:
+        num_unique_values = int(data[c].nunique())
+        embed_dim = int(min(np.ceil((num_unique_values)/2), 50))
+        inp = layers.Input(shape=(1,))
+        out = layers.Embedding(num_unique_values + 1, embed_dim, name=c)(inp)
+        out = layers.SpatialDropout1D(0.3)(out)
+        out = layers.Reshape(target_shape=(embed_dim, ))(out)
+        inputs.append(inp)
+        outputs.append(out)
+    
+    num_input = layers.Input(shape=(data[numcols].shape[1], ))
+    inputs.append(num_input)
+    outputs.append(num_input)
+    
+    x = layers.Concatenate()(outputs)
+    x = BatchNormalization()(x)
+    x = Dropout(0.3)(x)
+    x = Dense(128, activation="relu")(x)
+    x = Dropout(0.3)(x)
+    x = BatchNormalization()(x)
+    x = Dense(32, activation="relu")(x)
+    x = Dropout(0.3)(x)
+    x = BatchNormalization()(x)
+    y = Dense(1, activation="sigmoid")(x)
+    
+    model = Model(inputs=inputs, outputs=y)
+    model.compile(loss='binary_crossentropy', optimizer='adam')
+    return model
+
+clf = create_model(data, catcols, numcols)
+clf.fit([train.loc[:, catcols].values[:, k] for k in range(train.loc[:, catcols].values.shape[1])] + 
+	[train.loc[:, numcols].values], 
+        train.target.values,
+        batch_size=BATCH_SIZE,
+        epochs=EPOCHS)
+test_preds = clf.predict([test.loc[:, catcols].values[:, k] for k in range(test.loc[:, catcols].values.shape[1])] 
+			 + [test.loc[:, numcols].values])
+
