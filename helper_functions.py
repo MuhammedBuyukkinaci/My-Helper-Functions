@@ -247,4 +247,14 @@ sel = VarianceThreshold(threshold=1.5).fit(train2[cols])
 train3 = sel.transform(train2[cols])
 test3 = sel.transform(test2[cols])
 
+#Hash a string
+
+import hashlib
+
+public_ids = []
+for i in range(256*512+1):
+    st = str(i)+"test"
+    public_ids.append( hashlib.md5(st.encode()).hexdigest() )
+
+
 
