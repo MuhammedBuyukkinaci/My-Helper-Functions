@@ -256,5 +256,11 @@ for i in range(256*512+1):
     st = str(i)+"test"
     public_ids.append( hashlib.md5(st.encode()).hexdigest() )
 
+# np.allclose, returning two n dimensional arrays are close to each other
+import numpy as np
 
+if np.allclose(useful_train,useful_public):
+    print('Public dataset has the SAME structure as train')
+else:
+    print('Public dataset DOES NOT HAVE the same structure as train')
 
