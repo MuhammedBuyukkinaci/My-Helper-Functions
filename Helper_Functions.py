@@ -241,3 +241,10 @@ clf.fit([train.loc[:, catcols].values[:, k] for k in range(train.loc[:, catcols]
 test_preds = clf.predict([test.loc[:, catcols].values[:, k] for k in range(test.loc[:, catcols].values.shape[1])] 
 			 + [test.loc[:, numcols].values])
 
+#Variance Threshold to select features
+from sklearn.feature_selection import VarianceThreshold
+sel = VarianceThreshold(threshold=1.5).fit(train2[cols])
+train3 = sel.transform(train2[cols])
+test3 = sel.transform(test2[cols])
+
+
