@@ -264,3 +264,6 @@ if np.allclose(useful_train,useful_public):
 else:
     print('Public dataset DOES NOT HAVE the same structure as train')
 
+# all models in sklearn scikit-learn
+from sklearn.utils.testing import all_estimators
+estimators = all_estimators()
