@@ -267,3 +267,21 @@ else:
 # all models in sklearn scikit-learn
 from sklearn.utils.testing import all_estimators
 estimators = all_estimators()
+
+#Multiprocessing
+import multiprocessing
+
+
+def load_data(data):
+    return pd.read_csv(data)
+
+with multiprocessing.Pool() as pool:
+    train, test, sub = pool.map(load_data, ['../input/train.csv', '../input/test.csv', '../input/sample_submission.csv'])
+
+
+
+
+
+
+
+
