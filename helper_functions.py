@@ -278,7 +278,11 @@ def load_data(data):
 with multiprocessing.Pool() as pool:
     train, test, sub = pool.map(load_data, ['../input/train.csv', '../input/test.csv', '../input/sample_submission.csv'])
 
-
+#DataFramedeki tüm column'ları çarpmak için
+pd.DataFrame([[1,2,3,4],[5,6,7,8]]).prod(axis=1)
+#return a pd.Series object
+#24
+#1680
 
 
 
