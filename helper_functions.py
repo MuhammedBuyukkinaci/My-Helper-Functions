@@ -284,7 +284,13 @@ pd.DataFrame([[1,2,3,4],[5,6,7,8]]).prod(axis=1)
 #24
 #1680
 
-
+#pd.DataFrame().iteritems()
+#https://www.kaggle.com/c/ieee-fraud-detection/discussion/101203
+for col, values in df_train.iteritems():
+    num_uniques = values.nunique()
+    print ('{name}: {num_unique}'.format(name=col, num_unique=num_uniques))
+    print (values.unique())
+    print ('\n')
 
 
 
