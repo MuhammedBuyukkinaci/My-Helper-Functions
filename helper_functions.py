@@ -311,6 +311,7 @@ def resumetable(df):
 
     return summary
 
+#https://www.kaggle.com/nroman/eda-for-cis-fraud-detection
 # This code is stolen from Chris Deotte. 
 def relax_data(df_train, df_test, col):
     cv1 = pd.DataFrame(df_train[col].value_counts().reset_index().rename({col:'train'},axis=1))
@@ -330,3 +331,41 @@ def relax_data(df_train, df_test, col):
     df_train[col] = df_train[col].map(cc)
     df_test[col] = df_test[col].map(cc)
     return df_train, df_test
+
+#https://www.kaggle.com/nroman/eda-for-cis-fraud-detection
+def plot_numerical(feature):
+    """
+    Plot some information about a numerical feature for both train and test set.
+    Args:
+        feature (str): name of the column in DataFrame
+    """
+    fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(16, 18))
+    sns.kdeplot(train[feature], ax=axes[0][0], label='Train');
+    sns.kdeplot(test[feature], ax=axes[0][0], label='Test');
+
+    sns.kdeplot(train[train['isFraud']==0][feature], ax=axes[0][1], label='isFraud 0')
+    sns.kdeplot(train[train['isFraud']==1][feature], ax=axes[0][1], label='isFraud 1')
+
+    test[feature].index += len(train)
+    axes[1][0].plot(train[feature], '.', label='Train');
+    axes[1][0].plot(test[feature], '.', label='Test');
+    axes[1][0].set_xlabel('row index');
+    axes[1][0].legend()
+    test[feature].index -= len(train)
+
+    axes[1][1].plot(train[train['isFraud']==0][feature], '.', label='isFraud 0');
+    axes[1][1].plot(train[train['isFraud']==1][feature], '.', label='isFraud 1');
+    axes[1][1].set_xlabel('row index');
+    axes[1][1].legend()
+
+    pd.DataFrame({'train': [train[feature].isnull().sum()], 'test': [test[feature].isnull().sum()]}).plot(kind='bar', rot=0, ax=axes[2][0]);
+    pd.DataFrame({'isFraud 0': [train[(train['isFraud']==0) & (train[feature].isnull())][feature].shape[0]],
+                  'isFraud 1': [train[(train['isFraud']==1) & (train[feature].isnull())][feature].shape[0]]}).plot(kind='bar', rot=0, ax=axes[2][1]);
+
+    fig.suptitle(feature, fontsize=18);
+    axes[0][0].set_title('Train/Test KDE distribution');
+    axes[0][1].set_title('Target value KDE distribution');
+    axes[1][0].set_title('Index versus value: Train/Test distribution');
+    axes[1][1].set_title('Index versus value: Target distribution');
+    axes[2][0].set_title('Number of NaNs');
+    axes[2][1].set_title('Target value distribution among NaN values');
