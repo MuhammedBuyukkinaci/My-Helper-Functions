@@ -311,4 +311,22 @@ def resumetable(df):
 
     return summary
 
-
+# This code is stolen from Chris Deotte. 
+def relax_data(df_train, df_test, col):
+    cv1 = pd.DataFrame(df_train[col].value_counts().reset_index().rename({col:'train'},axis=1))
+    cv2 = pd.DataFrame(df_test[col].value_counts().reset_index().rename({col:'test'},axis=1))
+    cv3 = pd.merge(cv1,cv2,on='index',how='outer')
+    factor = len(df_test)/len(df_train)
+    cv3['train'].fillna(0,inplace=True)
+    cv3['test'].fillna(0,inplace=True)
+    cv3['remove'] = False
+    cv3['remove'] = cv3['remove'] | (cv3['train'] < len(df_train)/10000)
+    cv3['remove'] = cv3['remove'] | (factor*cv3['train'] < cv3['test']/3)
+    cv3['remove'] = cv3['remove'] | (factor*cv3['train'] > 3*cv3['test'])
+    cv3['new'] = cv3.apply(lambda x: x['index'] if x['remove']==False else 0,axis=1)
+    cv3['new'],_ = cv3['new'].factorize(sort=True)
+    cv3.set_index('index',inplace=True)
+    cc = cv3['new'].to_dict()
+    df_train[col] = df_train[col].map(cc)
+    df_test[col] = df_test[col].map(cc)
+    return df_train, df_test
