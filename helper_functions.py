@@ -369,3 +369,28 @@ def plot_numerical(feature):
     axes[1][1].set_title('Index versus value: Target distribution');
     axes[2][0].set_title('Number of NaNs');
     axes[2][1].set_title('Target value distribution among NaN values');
+
+#https://www.kaggle.com/nroman/eda-for-cis-fraud-detection
+#covariate_shift
+def covariate_shift(feature):
+    df_card1_train = pd.DataFrame(data={feature: train[feature], 'isTest': 0})
+    df_card1_test = pd.DataFrame(data={feature: test[feature], 'isTest': 1})
+
+    # Creating a single dataframe
+    df = pd.concat([df_card1_train, df_card1_test], ignore_index=True)
+    
+    # Encoding if feature is categorical
+    if str(df[feature].dtype) in ['object', 'category']:
+        df[feature] = LabelEncoder().fit_transform(df[feature].astype(str))
+    
+    # Splitting it to a training and testing set
+    X_train, X_test, y_train, y_test = train_test_split(df[feature], df['isTest'], test_size=0.33, random_state=47, stratify=df['isTest'])
+
+    clf = lgb.LGBMClassifier(**params, num_boost_round=500)
+    clf.fit(X_train.values.reshape(-1, 1), y_train)
+    roc_auc =  roc_auc_score(y_test, clf.predict_proba(X_test.values.reshape(-1, 1))[:, 1])
+
+    del df, X_train, y_train, X_test, y_test
+    gc.collect();
+    
+    return roc_auc
