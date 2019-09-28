@@ -394,3 +394,9 @@ def covariate_shift(feature):
     gc.collect();
     
     return roc_auc
+
+
+# selecting categorical features or extracting
+#train  is a pd DataFrame.
+numerical_cols = train.select_dtypes(exclude = 'object').columns
+categorical_cols = train.select_dtypes(include = 'object').columns
