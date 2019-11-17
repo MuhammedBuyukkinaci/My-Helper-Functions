@@ -400,3 +400,9 @@ def covariate_shift(feature):
 #train  is a pd DataFrame.
 numerical_cols = train.select_dtypes(exclude = 'object').columns
 categorical_cols = train.select_dtypes(include = 'object').columns
+
+#Calling a method with argument in Pandas Multi Columns
+def temp(a1,a2,a3=3):
+    return a1 + a2 + a3
+df = pd.DataFrame({'A':[3,4,5],'B':[4,5,6]})
+df[['A','B']].apply(lambda x: temp(x[0],x[1],a3=4),axis=1)
