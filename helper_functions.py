@@ -410,3 +410,31 @@ df[['A','B']].apply(lambda x: temp(x[0],x[1],a3=4),axis=1)
 #Rolling mean in pandas series transform method and shift
 temp_df['rolling_mean_'+str(i)] = temp_df.groupby(['id'])[TARGET].transform(lambda x: x.shift(1).rolling(i).mean())
 
+#Convert a dataframe to sparse matrix to lower memory usage
+from scipy import sparse 
+temp_matrix = sparse.csr_matrix(temp_df)
+
+print(type(temp_matrix))
+#scipy.sparse.csr.csr_matrix
+
+print(temp_matrix[:5].todense())
+#matrix([[nan, nan, nan, nan, nan, nan],
+#        [nan, nan, nan, nan, nan, nan],
+#        [nan, nan, nan, nan, nan, nan],
+#        [nan, nan, nan, nan, nan, nan],
+#        [nan, nan, nan, nan, nan, nan]])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
