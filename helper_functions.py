@@ -406,3 +406,7 @@ def temp(a1,a2,a3=3):
     return a1 + a2 + a3
 df = pd.DataFrame({'A':[3,4,5],'B':[4,5,6]})
 df[['A','B']].apply(lambda x: temp(x[0],x[1],a3=4),axis=1)
+
+#Rolling mean in pandas series transform method and shift
+temp_df['rolling_mean_'+str(i)] = temp_df.groupby(['id'])[TARGET].transform(lambda x: x.shift(1).rolling(i).mean())
+
