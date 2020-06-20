@@ -425,7 +425,12 @@ print(temp_matrix[:5].todense())
 #        [nan, nan, nan, nan, nan, nan]])
 
 
-
+#Forcing python to return a data type
+def rmsse(self, valid_preds: pd.DataFrame, lv: int) -> pd.Series:
+	valid_y = getattr(self, f'lv{lv}_valid_df')
+	score = ((valid_y - valid_preds) ** 2).mean(axis=1)
+	scale = getattr(self, f'lv{lv}_scale')
+	return (score / scale).map(np.sqrt)
 
 
 
