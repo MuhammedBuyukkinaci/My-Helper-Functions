@@ -432,7 +432,15 @@ def rmsse(self, valid_preds: pd.DataFrame, lv: int) -> pd.Series:
 	scale = getattr(self, f'lv{lv}_scale')
 	return (score / scale).map(np.sqrt)
 
+#How to reduce lightgbm memory usage
+X_train_np = X_train.values.astype(np.float32)
+X_valid_np = X_valid.values.astype(np.float32)
 
+del X_train, X_valid
+gc.collect()
+
+train_dataset = lgb.Dataset(X_train_np, label = y_train, feature_name = list(features))
+train_dataset = lgb.Dataset(X_valid_np, label = y_valid, feature_name = list(features))
 
 
 
