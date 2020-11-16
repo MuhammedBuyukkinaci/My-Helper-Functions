@@ -442,7 +442,9 @@ gc.collect()
 train_dataset = lgb.Dataset(X_train_np, label = y_train, feature_name = list(features))
 train_dataset = lgb.Dataset(X_valid_np, label = y_valid, feature_name = list(features))
 
-
+#Plotting correlation matrix colorized
+corr = data[data['year'].isin([2013,2014,2015,2016])][features[:26] + ['quantity'] ].corr()
+corr.style.background_gradient(cmap='coolwarm')
 
 
 
