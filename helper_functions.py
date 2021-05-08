@@ -446,7 +446,26 @@ train_dataset = lgb.Dataset(X_valid_np, label = y_valid, feature_name = list(fea
 corr = data[data['year'].isin([2013,2014,2015,2016])][features[:26] + ['quantity'] ].corr()
 corr.style.background_gradient(cmap='coolwarm')
 
+# Inheritance
 
+class Person:
+    def __init__(self, fname, lname):
+        self.firstname = fname
+        self.lastname = lname
+
+    def printname(self):
+        print(self.firstname, self.lastname)
+
+class Student(Person):
+    # Overriding __init__ method of Person
+    def __init__(self, fname, lname, year):
+        # Thanks to super() function, it is going to inherit from the parent Class automatically.
+        super().__init__(fname, lname)
+        self.graduationyear = year
+
+    #
+    def welcome(self):
+        print("Welcome", self.firstname, self.lastname, "to the class of", self.graduationyear)
 
 
 
