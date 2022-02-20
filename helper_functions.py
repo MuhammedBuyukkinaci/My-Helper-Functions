@@ -452,7 +452,7 @@ class Person:
     def __init__(self, fname, lname):
         self.firstname = fname
         self.lastname = lname
-    # A method in Parent Class
+    # A method in Parent Class. Also avail
     def printname(self):
         print(self.firstname, self.lastname)
 
@@ -466,6 +466,31 @@ class Student(Person):
     # A new method in Child Class.
     def welcome(self):
         print("Welcome", self.firstname, self.lastname, "to the class of", self.graduationyear)
+
+# Plot Precision Recall Curve F1
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.metrics import precision_score, recall_score,f1_score
+
+def plot_precision_recall_f1(preds,truth):
+    f1_list = []
+    precision_list = []
+    recall_list = []
+    for i in np.arange(0.01,1.0,0.01):
+        preds_converted = (preds >= i)*1
+        
+        f1_list.append( f1_score(truth,preds_converted) )
+        precision_list.append( precision_score(truth,preds_converted,zero_division=0) )
+        recall_list.append( recall_score(truth,preds_converted) )
+    
+    stats_data = pd.concat( [pd.Series(f1_list,name='f1'),pd.Series(precision_list,name='precision'),pd.Series(recall_list,name='recall')] , axis=1 )
+    stats_data.index = np.arange(0.01,1.0,0.001)
+    
+    plt.plot(stats_data['f1'],label='f1')
+    plt.plot(stats_data['precision'],label='precision')
+    plt.plot(stats_data['recall'],label='recall')
+    plt.legend()
+    plt.show()
 
 
 
