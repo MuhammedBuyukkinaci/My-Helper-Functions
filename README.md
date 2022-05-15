@@ -177,20 +177,56 @@ logging.basicConfig(format = "{asctime} {levelname:<8} {message}",  style = '{' 
 
 21) If you are using try and except words in Python code, python logging is great to capture what is going on. It gives tracebacks etc.
 
+```
 a = 2
 
 b = 0
 
-```
+
 try:
     mysub = a /b
-except:
+except Exception as e:
     logging.critical("exception occurred: ",exc_info=True)
     #The above line prints traceback errors
 
 ```
 
-21) The standard logging format is `'%(asctime)s - %(levelname)s - %(message)s'`
+21) The standard logging format is `'%(asctime)s - %(levelname)s - %(message)s'`.
+
+22) filemode in logging.basicConfig() is either 'a' (append) or 'w' (write). 'w' deletes the log file and recreates it. 'a' just adds new logs to existing files.
+
+23) We can add process id to logging.basicConfig via '%(process)d' to format attribute.
+
+24) If we want to trace back the error, use one of the lines below based on your desired log level.
+
+```
+logging.info("info level: ",exc_info=True)
+logging.warning("warning level: ",exc_info=True)
+logging.error("error level",exc_info=True)
+logging.critical("warning level: ",exc_info=True)
+```
+
+25) We can define a configuration file in conf format or yaml format and load it in Python code like below.
+
+```
+import logging
+import logging.config
+logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
+
+```
+
+26) We can set filemode either 'a'  (append) or 'w' (write) in logging.FileHandler(mode = 'w').
+
+27) `The difference between different logging options are below:
+
+- logger.error("message here"): will print out only error
+- logger.error("message here", stack_info=True, exc_info=True): will print error, traceback and stack.
+- logger.error("message here", exc_info=True): will print out error and traceback(same as **logger.exception("message here")**)
+- logger.exception(e): will print out error and traceback (same as **logger.error("message here", exc_info=True)** )
+
+
+28) [graypy](https://github.com/severb/graypy) is a python library to send python logs into Graylog in the format of GELF (Graylog Extended Log Format).
+
 
 
 
