@@ -227,6 +227,108 @@ logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
 
 28) [graypy](https://github.com/severb/graypy) is a python library to send python logs into Graylog in the format of GELF (Graylog Extended Log Format).
 
+# Unit Testing
 
+1) Good Unit Test will make sure that everything is working as it should.
+
+2) Testing code with print statements isn't easy to automate. It is hard to maintain.
+
+3) Naming convention: If we want to test a module named **calc.py**, testing file should be **test_calc.py**.
+
+4) The methods in Class in testing file should start with **test_**. This is a naming convention. If we want to test add function, method name should be **test_add**.
+
+5) We can obtain unittest assert methods from [here](https://docs.python.org/3/library/unittest.html#unittest.TestCase.debug).
+
+6) To test the code, run the folloing on Terminal
+
+```
+python -m unittest test_calc.py
+```
+
+7) If we want to run in a way of `python test_calc.py` instead of `python -m unittest test_calc.py` , add the following to the bottom line of **test_calc.py**
+
+```
+if __name__ == '__main__':
+    unittest.main()
+```
+
+8) We should test a couple of edge cases(different scenarios for different inputs) instead of testing one scenario.
+
+9) When we added 3 different `self.assertEqual(result,15)` to test_add method of TestCalc class, we run one test by 3 different checks.
+
+10) If there are 4 tests in our test script and the third one failed, the output is like **. . F .**
+
+11) assertRaises is taking 3 or more parameters like `self.assertRaises(ValueError,calc.divide,10,0)`. The **ValueError** is the error we want to see. **calc.divide** is the method we called. 10 and 0 are parameters we passed into **calc.divide**.  We aren't directly calling via calc.divide(10,0) because it raises a ValueError doesn't check the situation. However, testing exceptions aren't preferred mostly.
+
+12) Testing exceptions via context managers are more preferrable like below
+
+```
+with self.assertRaises(ValueError):
+    calc.divide(10,0)
+```
+
+13) Programmers try to make their code DRY(Don't repeat yourself). If we are using some piece of code in multiple tests, we should use `setUp()` and `tearDown()` method in out test. **setUp** method will run its code before every single test and **tearDown** method will run its code after every test. For instance, we can create a DB in `setUp()` and destroy it in `tearDown()`.
+
+```file.py
+
+class TestEmployee(unittest.TestCase):
+    def setUp(self):
+        self.emp_1 = Employee('Muhammed','Buyukkinaci',5000)
+        self.emp_2 = Employee('Ahmet','Yilmaz',4000)
+
+    def tearDown(self):
+        pass
+
+    def test_something(self):
+        self.assertEqual(self.emp_1.fullname,'Muhammed Buyukkinaci')
+
+
+```
+
+14) If we want to run a piece of code at the BEGINNING of tests just ONCE, we can use **setUpClass(cls)** method. If we want to run a piece of code at the END of tests just ONCE, we can use **tearDownClass(cls)**. They are classmethods and no need to create an instance from the class. An example usage is to read a table from DB and use it in all test scenarios.
+
+```file.py
+class TestEmployee(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        print('setUpClass')
+
+    @classmethod
+    def tearDownClass(cls):
+    
+        print('tearDownClass')
+
+    def test_something1(self):
+        print("test_something1")
+        self.assertEqual(self.emp_1.fullname,'Muhammed Buyukkinaci')
+
+    def test_something2(self):
+        print("test_something2")
+        self.assertEqual(self.emp_1.fullname,'Muhammed Buyukkinaci')
+    
+    def test_something3(self):
+        print("test_something3")
+        self.assertEqual(self.emp_1.fullname,'Muhammed Buyukkinaci')
+
+    # The output is as follows:
+
+    # setUpClass
+    # test_something1
+    # test_something2
+    # test_something3
+    # tearDownClass
+
+```
+
+15) In short, mocking is creating objects that simulate the behavior of real objects in unit testing. The aim of mocking is to isolate and focus on the code, not to focus on extermal resources. Mocking means creating a fake version of an external or internal service that can stand in for the real one.
+
+16) For example, we wrote a function which scrapes data from a website. However, the website was down. Therefore, our tests would fail. This isn't what we want. In this scenario, using mocks in unit testing sound logical.
+
+17) Test should be isolated. Your tests shouldn't rely on other tests or affet other tests. Run each test independently.
+
+18) Test Driven Development is that you write tests before you write the code.
+
+19) Any testing is better than no testing. Even if you write some basic assertions, It is better than nothing.
 
 
