@@ -15,6 +15,15 @@ This repository is containing functions that I use in Python a lot.
 
 6) property usage in Python classes. property is making a method as an attribute of a Class
 
+7) self is a conventional name in Python classes, not a magical keyword. It could be s or me or whatever we name. 
+
+8) To check if a variable has a numeric type of Float, integer, Decimal etc; use isinstance.
+
+```filename.py
+import numbers
+isinstance(variable_name,numbers.Number)
+```
+
 ![property](./images/000.png)
 
 # Python Logging
@@ -229,6 +238,8 @@ logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
 
 # Unit Testing
 
+[Video Link](https://www.youtube.com/watch?v=6tNS--WetLI)
+
 1) Good Unit Test will make sure that everything is working as it should.
 
 2) Testing code with print statements isn't easy to automate. It is hard to maintain.
@@ -330,5 +341,37 @@ class TestEmployee(unittest.TestCase):
 18) Test Driven Development is that you write tests before you write the code.
 
 19) Any testing is better than no testing. Even if you write some basic assertions, It is better than nothing.
+
+20) unittest module in Python is originally inspired from Java's JUnit.
+
+# Pytest
+
+[Video Link 1](https://www.youtube.com/watch?v=etosV2IWBF0)
+
+[Video Link 2](https://www.youtube.com/watch?v=fv259R38gqc)
+
+1) Test is code that runs to check the validity of other code.
+
+2) Pytest is the basis for a rich ecosystem of testing plugins and extensions.
+
+3) `assert` is the way to do testing in Pytest
+
+4) Ist API is easier than unittest API.
+
+![property](./images/002.png)
+
+5) pytest looks for a file starting with test_. Also, the name of function to be tested should start with test_
+
+6) If there are 2 assertions in one function, it is one test; not 2 tests.
+
+7) The test should be roughly divided into 3 phases: **Arrange**, **Act**, **Assert**. Arrange is setting up anything that needs to go before the action happens.
+
+8) In test driven development, declare something that clearly doesn't exist yet. We want test to drive out what it is I want to make.
+
+9) Functions names in test file must be unique.
+
+10)
+
+
 
 
