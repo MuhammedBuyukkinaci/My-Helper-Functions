@@ -236,6 +236,24 @@ logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
 
 28) [graypy](https://github.com/severb/graypy) is a python library to send python logs into Graylog in the format of GELF (Graylog Extended Log Format).
 
+# Python Testing
+
+1) Exploratory testing is a test without a plan.
+
+2) In order to have a complete set of manual tests, what is required is to list all features our application has, different types of input it can accept and the expected results.
+
+3) Testing multiple parts of our application is called **Integration testing**.
+
+4) If you have many test files, create a folder named **tests** and locate your tests there.
+
+5) Testing in Django and Flask is slightly different than unittest.
+
+6) Functional tests follow 3A's principle.
+
+- Arrange: the conditions for the test
+- Act: calling some function or method
+- Assert: check the condition is True
+
 # Unit Testing
 
 [Video Link](https://www.youtube.com/watch?v=6tNS--WetLI)
@@ -350,6 +368,8 @@ class TestEmployee(unittest.TestCase):
 
 [Video Link 2](https://www.youtube.com/watch?v=fv259R38gqc)
 
+[Blog Post](https://realpython.com/pytest-python-testing/)
+
 1) Test is code that runs to check the validity of other code.
 
 2) Pytest is the basis for a rich ecosystem of testing plugins and extensions.
@@ -370,7 +390,148 @@ class TestEmployee(unittest.TestCase):
 
 9) Functions names in test file must be unique.
 
-10)
+10) The reason why we write tests is to validate our code and not to have to go through process of manually checking things over and over again.
+
+11) Assert by themselves without pytest can explode our code if assert is False
+
+12) Using try/except in Python means "I give up, I don't know how to do this. Somebody above me, please handle this".
+
+13) If we want to raise an error and run our test properly, use below
+
+```demo.py
+def add(a,b):
+    if a==99:
+        raise MysteryError()
+    return a + b
+```
+
+```test_demo.py
+def test_error():
+    # Waiting the code to fail. The test runs properly in terminal
+    with pytest.raises(demo.MysteryError):
+        demo.add(99,1)s
+```
+
+14) If the first assertion in test method fails, it aborts the rest of the test.
+
+```test_demo.py
+def test_sth():
+    assert 1 == 1 # running and successful
+    assert 2 == 1 # running and fail; the below asserts not run
+    assert 3 > 2 # not running
+```
+
+15) Pytest has a feature called parametrize to run all asserts even if the above asset fails to run. If we have multiple failures in test, we have multiple error log chunks. It is a useful tool if you want to test your code against a bunch of
+scenarios.
+
+16) We can group tests in test files via creating Classes like TestAdd.
+
+17) Fixtures have various capabilities. Each test using fixture must explicitly accept that fixture as an argument.
+- Fixtures allow us to set up some import things before each test to runlike unittest's setUp and tearDown methods.Fixtures are for setup/reuse purposes. 
+- Fixtures are providing data.
+- Fixtures are also similar to unittest's mocking.
+
+18) Create a conftext.py and define a fixture named *my_fixture*. Feed this **my_fixture** in test_fixture of test_demo.py.
+
+```conftest.py
+import pytest
+@pytest.fixture
+def my_fixture():
+    return 51
+```
+
+```test_demo.py
+def test_fixture(my_fixture):
+    assert my_fixture ==51
+```
+
+19) There is a library called pytest django, which is an extension to Django Framework.
+
+20) capsys is a pretty cool tool to capture system output.
+
+21) Mnkeypatch is a fixture. monkeypatching is a terminology used when you want to dynamically add runtimes, swap out the behavior of a thing.
+
+22) tmpdir is creating a new file and prints results on it and delete it ultimately.
+
+23) Multiple fixtures operate at the same time.
+
+24) Pytest's fixture mechanism is implicit and hard to understand here this idea comes from.
+
+25) To list available fixtures on Terminal
+
+```
+pytest --fixtures
+```
+
+26) F means test failed and E means there is an unexpected exception.
+
+27) If we have 4 tests in our script and only want to test 2 of these 4, filter them via pytest -k 'test_add'. Usage is `pytest test_demo.py -k 'test_with_param'`.
+
+```test_filter_based_on_name.py
+def test_add_tuple():
+    #some code here
+def test_add_list():
+    #some code here
+def test_subtract_tuple():
+    #some code here
+def test_subtract_tuple():
+    #some code here
+```
+
+28) We can assign marks to our tests and check only these tests via -m parameter on console. A test may have multiple marks. Example: `pytest test_demo.py -k 'test_with_param'`
+
+29) If we write 2 tests and both are using the same data, we can define a fixture via `@pytest.fixture` decorator and pass the fixture via argument into test method.
+
+30) We should move fixtures to a different module(conftest.py) and import fixtures from test script.
+
+31) After assigning marks to tests, register them on *pytest.ini*.
+
+```pytest.ini
+# content of pytest.ini. pytest.ini located in where pytest is executed.
+[pytest]
+markers =
+    basics: basic assertions
+    addition: a marker meaning addition
+```
+
+32) To run test in test_demo.py whose marks are 'basics'
+
+```
+pytest test_demo.py -m basics
+```
+
+33) Default markers are below obtained via `pytest --markers`:
+
+- @pytest.mark.filterwarnings(warning): add a warning filter to the given test. see https://docs.pytest.org/en/stable/how-to/capture-warnings.- html#pytest-mark-filterwarnings 
+
+- @pytest.mark.skip(reason=None): skip the given test function with an optional reason. Example: skip(reason="no way of currently testing this") - skips the test.
+
+- @pytest.mark.skipif(condition, ..., *, reason=...): skip the given test function if any of the conditions evaluate to True. Example: skipif(sys.- platform == 'win32') skips the test if we are on the win32 platform. See https://docs.pytest.org/en/stable/reference/reference.- html#pytest-mark-skipif
+
+- @pytest.mark.xfail(condition, ..., *, reason=..., run=True, raises=None, strict=xfail_strict): mark the test function as an expected failure if - any of the conditions evaluate to True. Optionally specify a reason for better reporting and run=False if you don't even want to execute the test - function. If only specific exception(s) are expected, you can list them in raises, and if the test fails in other ways, it will be reported as a - true failure. See https://docs.pytest.org/en/stable/reference/reference.html#pytest-mark-xfail
+
+- @pytest.mark.parametrize(argnames, argvalues): call a test function multiple times passing in different arguments in turn. argvalues generally - needs to be a list of values if argnames specifies only one name or a list of tuples of values if argnames specifies multiple names. Example: - @parametrize('arg1', [1,2]) would lead to two calls of the decorated test function, one with arg1=1 and another with arg1=2.see https://docs.- pytest.org/en/stable/how-to/parametrize.html for more info and examples.
+
+- @pytest.mark.usefixtures(fixturename1, fixturename2, ...): mark tests as needing all of the specified fixtures. see https://docs.pytest.org/en/- stable/explanation/fixtures.html#usefixtures 
+
+- @pytest.mark.tryfirst: mark a hook implementation function such that the plugin machinery will try to call it first/as early as possible.
+
+- @pytest.mark.trylast: mark a hook implementation function such that the plugin machinery will try to call it last/as late as possible.
+
+34) To show the slowest 3 tests
+
+```
+pytest --durations=3
+```
+
+35) Some useful Pytest plugins:
+
+- pytest-randomly
+- pytest-cov
+- pytest-django
+- pytest-bdd
+
+
 
 
 
