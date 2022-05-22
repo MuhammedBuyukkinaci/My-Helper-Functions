@@ -15,6 +15,8 @@ This repository is containing functions that I use in Python a lot.
 
 6) property usage in Python classes. property is making a method as an attribute of a Class
 
+![property](./images/000.png)
+
 7) self is a conventional name in Python classes, not a magical keyword. It could be s or me or whatever we name. 
 
 8) To check if a variable has a numeric type of Float, integer, Decimal etc; use isinstance.
@@ -24,7 +26,25 @@ import numbers
 isinstance(variable_name,numbers.Number)
 ```
 
-![property](./images/000.png)
+9) Always try to make code DRY(don't repeat yourself)
+
+10) String interpolations should be used instead of string concatenation. String interpolation is less prone to errors.
+
+```
+
+a = 2
+b = 'Muhammed'
+
+# The former one is string concatenation
+my_string = 'I am ' + b ' and I have ' + str(b) + 'computers'
+
+# The latter is string interpolation
+my_string = 'I am {} and I have {} computers'.format(b,a)
+
+
+```
+
+
 
 # Python Logging
 
