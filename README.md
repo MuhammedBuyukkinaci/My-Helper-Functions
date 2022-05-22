@@ -551,7 +551,120 @@ pytest --durations=3
 - pytest-django
 - pytest-bdd
 
+# Unit Testing for Data Science
 
+[Video Link](https://www.youtube.com/watch?v=Da-FL_1i6ps)
+
+1) Different types of tests
+
+![property](./images/003.png)
+
+2) Unit testing is all about isolation.
+
+3) Writing test as early as thy can be valuable.
+
+4) Some useful options for pytest
+
+![property](./images/004.png)
+
+5) pandas's testing module is useful in testing. To check 2 dataframe are equal:
+
+```
+# Writes the below code in test function or test method
+pd.testing.assert_frame_equal(actual,expected)
+
+from pandas.util.testing import assert_frame_equal(df1,df2,
+    check_like=True, # order doesn't matter
+    check_dtype = False, # check for identical data types
+    check_less_precise = 4 # number of digits to compare
+)
+from pandas.util.testing import assert_index_equal
+from pandas.util.testing import assert_series_equal
+
+
+```
+
+6) Fixtures are a modular approach to setup & teardown methods. Fixtures are generally defined in conftest.py and imported in test_sth.py and passed as arguments to methods or functions.
+
+7) An example usage of fixtures in pytest
+
+![property](./images/005.png)
+
+8) To list all possible default fixtures, run `pytest --fixtures`.
+
+9) We can define scopes to fixtures by passing argument to them. session is a parameter passed to fixture and meaning that it is run once in a session of testing
+
+```conftest.py
+
+@pytest.fixture(scope='session')
+def spark(request):
+
+    spark = (SparkSession
+    .builder
+    .appName('Pytest-example')
+    .master('local[2]')
+    .getOrCreate()
+    )
+
+    request.addfinalizer(lambda : spark.stop())
+
+    return spark
+
+#spark fixtures passed to spark_df fixture
+@pytest.fixture()
+def spark_df(spark):
+    return spark.createDataFrame(
+        [('a','b'),
+        ('a','b')
+        ],
+        ['col_a','col_b']
+    )
+
+```
+
+10) We can use a fixture in another fixture in conftest.py like above.
+
+11) Mocking in pytest
+
+![property](./images/006.png)
+
+12) Where to use mocks 
+
+- Database reads and writes
+
+- API calls
+
+- External functions we don't want to test 
+
+13) Example usage of mocks
+
+![property](./images/007.png)
+
+14) Mock objects where they are used, not where they are defined
+
+```
+# The correct one:
+@mock.patch('pytest_examples.functions_to_test.pd.read_csv')
+# The incorrect one
+@mock.patch('pandas.read_csv')
+
+```
+
+15) Don't forget to pay attention to decorator order
+
+![property](./images/008.png)
+
+16) Not to forget to use assertions on your code. Aserrtions are our best
+
+```
+a = 2
+
+# assert expression, 'Exception you defined'
+assert 1 > a, 'the input bigger than 1'
+```
+
+17) For one-off analyses, writing tests isn't advised. Focusing on clear documentation sounds more logical.
+ 
 
 
 
