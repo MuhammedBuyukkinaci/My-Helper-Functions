@@ -44,6 +44,100 @@ my_string = 'I am {} and I have {} computers'.format(b,a)
 
 ```
 
+11) Idempotency is a programming term meaning that calling something(an HTTP word, python function etc.) once is the same as calling it multiple times. GET, PUT, DELELTE are idempotent HTTP words. POST isn't a idempotent HTTP word.
+
+```idempotent.py
+def func_not_idempotent(x):
+    return x + 20
+
+# Not idempotent
+#func_not_idempotent(func_not_idempotent(10)) != func_not_idempotent(10)
+
+def func_idempotent(x):
+    return abs(x)
+
+# Idempotent
+func_idempotent(-10) == func_idempotent(func_idempotent(-10)) == func_idempotent(func_idempotent(func_idempotent(-10)))
+```
+
+12) namedtuple is more readable. Its is also immutable. It is an alternative to Python dictionaries but less prone to typing errors.
+
+```namedtuple.py
+from collections import namedtuple
+
+Color = namedtuple('Color',['red','green','blue'])
+
+white = Color(255,255,255)
+black = Color(0,0,0)
+gray = Color(red = 128, green = 128, blue = 128)
+
+print(f"red index of white = {white.red} ")
+print(f"green index of black = {black.green} ")
+print(f"blue index of gray = {gray.blue} ")
+
+```
+
+13) `id` is showing us the location of an object on memory. Assigning a different value to an existing object is creating it from scracth and therefore it is slow.
+```python_id.py
+a = 'Ozan'
+a = 'Ozan'
+print(f"{a}; its location on memory = {id(a)}")
+a = 'Burak'
+print(f"{a}; its location on memory = {id(a)}")
+# The last print prompts error.
+a[0] = 'D'
+print(f"{a}; its location on memory = {id(a)}")
+#Ozan; its location on memory = 140241796670896
+#Burak; its location on memory = 140241796670832
+```
+
+14)  String objects are immutable. However, list is mutable. Preferring mutable objects(list) instead of immutable objects is more logical in concatenating lots of strings because mutable objects aren't creating new objects each time like immutable objects(String etc.) did.
+
+```
+a = 'Burak'
+print(f"{a}; its location on memory = {id(a)}")
+# The below print prompts error.
+a[0] = 'D'
+print(f"{a}; its location on memory = {id(a)}")
+```
+
+15) else statement in loops(for or while) should be considered as no-break. it is executed if for loop runs smoothly.
+
+```for_else.py
+a = [1,2,3,4,5]
+for i in a:
+    print(i)
+    if i == 3:
+        break
+else:
+    print("While else print executed at the end because no break happened")
+```
+
+```while_else.py
+i = 1
+while i <= 5:
+    print(i)
+    i += 1
+else:
+    print("While else print executed at the end because no break happened")
+```
+
+```practical_loop_else.py
+def index_finder(passed_list,searched_word):
+    for index, i in enumerate(passed_list):
+        if searched_word == i:
+            break
+    else:
+        return -1
+    return index
+
+print(index_finder(['a','b','c','d','e'],'b'))#prints 1
+print(index_finder(['a','b','c','d','e'],'f'))#prints -1
+```
+
+
+
+
 
 
 # Python Logging
