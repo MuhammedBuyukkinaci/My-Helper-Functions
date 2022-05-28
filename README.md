@@ -135,7 +135,64 @@ print(index_finder(['a','b','c','d','e'],'b'))#prints 1
 print(index_finder(['a','b','c','d','e'],'f'))#prints -1
 ```
 
+16) Python generator don't hold entire results in memory therefore it improves performance. Holding millions of records in a generator is more performant than holding millions of records in list.
 
+``` python_generator.py
+
+nums_list_comp = [pow(i,3) for i in [3,4,5]]
+print(nums_list_comp)
+#[27,64,125]
+
+nums_generators_like_list_comp = (pow(i,3) for i in [3,4,5])
+print(nums_generators_like_list_comp)
+#<generator object <genexpr> at 0x7fa53c98a650>
+print(next(nums_generators_like_list_comp))
+# 27
+print(next(nums_generators_like_list_comp))
+# 64
+print(next(nums_generators_like_list_comp))
+# 125
+
+def legacy_solution(nums):
+    return_list = []
+    for i in nums:
+        return_list.append(pow(i,3))
+    return return_list
+
+nums_legacy = legacy_solution([3,4,5])
+print(nums_legacy)
+#[27,64,125]
+
+def generator_solution(nums):
+    for i in nums:
+        yield (pow(i,3))
+
+nums_generators = generator_solution([3,4,5])
+print(nums_generators)
+#<generator object generator_solution at 0x7f9e1c3c2650>
+for i in nums_generators:
+    print(i)
+#27
+#64
+#125
+
+```
+
+17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter
+
+```prefer_lc.py
+nums = [1,2,3]
+#Take squares in list comprehensions
+print([n**2 for n in nums])#prints: [1, 4, 9]
+# Same operation using map and lambda
+mapped = map(lambda n: n*n, nums)
+print(mapped)#prints: <map object at 0x7f4b6bb5bbb0>
+print(*mapped)# prints 1,4,9
+
+filtered = filter(lambda n: n%2==1, nums)
+print(filtered)#prints: <map object at 0x7f4b6bb5bbb0>
+print(*filtered)# prints 1,3
+```
 
 
 
