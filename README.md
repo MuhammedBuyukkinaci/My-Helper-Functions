@@ -194,7 +194,213 @@ print(filtered)#prints: <map object at 0x7f4b6bb5bbb0>
 print(*filtered)# prints 1,3
 ```
 
+18) Memoization is a programming term meaning caching results of a computationally expensive operation recurring more than once instead of re-computation. The code below runs in 2 seconds thanks to memoization instead of 4 seconds.
 
+```memoization.py
+import time
+square_dict={}
+def take_squares(num):
+    if num in square_dict:
+        return square_dict[num]
+    print(f"Computing results for {num}")
+    time.sleep(1)
+    result = num * num
+    square_dict[num] = result
+    return result
+
+result = take_squares(4)
+print(result)
+result =take_squares(10)
+print(result)
+result =take_squares(4)
+print(result)
+result =take_squares(10)
+print(result)
+
+```
+
+19) Slicing in list is programmed in the format of `list_name[start:end:step]`. The default step is 1.
+
+```slicing.py
+my_list = [0,1,2,3,4,5,6,7,8,9]
+print( my_list[2:-1:1] )# prints [2, 4, 6, 8]
+#Reverse with respect to start, end and step
+print( my_list[-1:-8:-2] )#[9, 7, 5, 3]
+# Reverse all list
+print(mylist[::-1])
+# Reverse the string
+my_string = "a string is here"
+print(my_string[::-1]) #ereh si gnirts a
+
+```
+
+20) In Python, to list all builtin attributes or exceptions or errors, run `print(dir(locals()['__builtins__']))` .
+
+21) `try`, `except`, `else` and `finally` are keywords in exceptions. THere may be multiple except keyword in error handling. Put the specific exceptions in above excepts and put general ones in below excepts. else runs if try doesn't raise an exception. `finally` is run in every condition. To manually raise an exception, use `raise Exception`
+
+```exception01.py
+
+# Definin a custom exception
+class MyDefinedException(Exception):
+    pass
+
+a33 = 20
+try:
+    a = a33
+    file = open('.gitignore')
+    if a == a33:
+        raise MyDefinedException
+except NameError as e:
+    print("Name error occured")
+    print(e)
+except FileNotFoundError as e:
+    print("an error occurred")
+    print(e)
+except MyDefinedException as e:
+    print("My defined exception runs")
+except Exception as e:
+    print("another exception except above ones happened")
+    print(e)
+else:
+    print("no exception happened")
+finally:
+    print("finally prins run in every condition")
+
+#My defined exception runs
+#finally prins run in every condition
+```
+
+```exception02.py
+
+a33 = 20
+try:
+    a = a33
+    file = open('.gitignore')
+except NameError as e:
+    print("Name error occured")
+    print(e)
+except FileNotFoundError as e:
+    print("an error occurred")
+    print(e)
+except Exception as e:
+    print("another exception except above ones happened")
+    print(e)
+else:
+    print("no exception happened")
+finally:
+    print("finally prins run in every condition")
+
+#no exception happened
+#finally prins run in every condition
+
+```
+
+22) Being Pythonic means following conventions and coding styles of Python in order to write clean and readable code. 2 common concepts to become Pythonic:
+Duck Typing and Easier to ask forgiveness than permission(EAFP).
+
+23) **Duck Typing** is that the type or the class of an object is less important than the method it defines. Using Duck Typing, we do not check types at all. Duck typing is implemented in Dynamic languages like Python, Perl, JS. Duck typing emphasizes what the object really can do rather than what the object is.
+
+```
+class Duck:
+    def fly(self):
+        print("Duck is flying")
+    def quack(self):
+        print("Duck is quacking")
+class Bear:
+    def fly(self):
+        print("Bear is flying")
+    def quack(self):
+        print("Bear is quacking")
+def fly_and_quack(thing):
+    if isinstance(thing,Duck):
+        thing.fly()
+        thing.quack()
+
+def duck_typed_fly_and_quack(thing):
+    thing.fly()
+    thing.quack()
+
+duck = Duck()
+bear = Bear()
+
+print("No duck typing")
+fly_and_quack(duck)
+fly_and_quack(bear)
+# outputs below:
+#No duck typing
+#Duck is flying
+#Duck is quacking
+# outputs below:
+print("Duck typing")
+duck_typed_fly_and_quack(duck)
+duck_typed_fly_and_quack(bear)
+
+#Duck typing
+#Duck is flying
+#Duck is quacking
+#Bear is flying
+#Bear is quacking
+
+```
+
+
+24) **LBYL**(Look Before You Leap) and **EAFP**(Easier to ask forgiveness than permission) are 2 terms in Programming. Python is EAFP. LBYL is using lots of if-else statements. EAFP suggests using try/except blocks instead of multiple checks via if-else statements. If your code hass less exceptions, EAFP is faster than LBYL because we access the object once.
+
+```
+
+person1 = {'name':'Muhammed','age':28, 'job':'Data Scientist'}
+person2 = {'name':'Muhammed','age':28}
+
+def lbyl(person):
+    # LBYL
+    if ('name' in person) and ('age' in person) and ('job' in person):
+        print( "I am {}, I am {} years old, I am working as a {} ".format(person['name'],person['age'],person['job']) )
+    else:
+        print("there are some missing keysin LBYL")
+
+def eafp(person):
+    try:
+        print( "I am {}, I am {} years old, I am working as a {} ".format(person['name'],person['age'],person['job']) )
+    except KeyError as e:
+        print("there are some missing keys in EAFP")
+
+lbyl(person1)# I am Muhammed, I am 28 years old, I am working as a Data Scientist 
+eafp(person1)# I am Muhammed, I am 28 years old, I am working as a Data Scientist 
+
+lbyl(person2)# there are some missing keysin LBYL
+eafp(person2)# there are some missing keys in EAFP
+```
+
+25) **First class functions** is an important concept which is about passing function as arguments or assigning them to variables etc. If a function takes a function as argument and returns a function as the result, it is called hih-order function.
+
+```
+# 1) Assign a function to a variable
+def square(x):
+    return x * x
+f = square
+print(f(5))
+# 2) Pass functions as arguments
+def cube(x):
+    return x * x *x
+def mapper(func,arguments):
+    result_list = []
+    for i in arguments:
+        result_list.append(func(i))
+    return result_list
+results = mapper(cube,[1,2,3])
+print(results)# [1, 8, 27]
+# 3) Returns functions as results. This way is similar to decorators and used in logging.
+def html_tag(tag):
+    def wrap_text(msg):
+        print("<{0}>{1}</{0}>".format(tag,msg))
+    return wrap_text
+print_h1 = html_tag('h1')
+print_h1('Test')#<h1>Test</h1>
+print_h1('Another Test')#<h1>Another Test</h1>
+print_p = html_tag('p')
+print_p('Test')#<p>Test</p>
+
+```
 
 
 # Python Logging
