@@ -585,6 +585,36 @@ display_info('Muhammed',28)
 # == my_logger(my_timer(display_info()))
 ```
 
+30) Some commonly used os module functions
+
+```
+# To create a directory in a nested way or one directory
+os.makedirs('path_to_out_directory/path_to_inner_directroy')
+# To remove a directory
+os.removedirs('path_to_out_directory/path_to_inner_directroy')
+# Get some info about a file
+os.stat('demo.txt')
+#os.stat_result(st_mode=33204, st_ino=13502420, st_dev=66306, st_nlink=1, st_uid=1000, st_gid=1000, st_size=3090, st_atime=1653933450, st_mtime=1653412360, st_ctime=1653412360)
+# To see files and directories in each directory and sub directories, it returns a tuple of
+os.walk(PATH_TO_DISCOVER)
+#To get the value of an environment variable
+os.environ.get('HOME')
+# To get the basename of a file, not the directory
+os.path.basename('/home/muhammed/temp.txt') # temp.txt
+# To get the dirname of file, not the base name
+os.path.dirname('/home/muhammed/temp.txt') # /home/muhammed
+# To get dirname and basename in a tuple of dirname,basename
+os.path.split('/home/muhammed/temp.txt') # ('/home/muhammed', 'temp.txt')
+# To check a file exists or not, returning True or False
+os.path.exists('/home/muhammed/temp.txt') # ('/home/muhammed', 'temp.txt')
+# To check something whether it is directory or not
+os.path.isdir('/home/muhammed/temp.txt') # False or False
+# To check something whether it is file or not
+os.path.isfile('/home/muhammed/temp.txt') # True or False
+# To split filename and extension
+os.path.splitext('/home/muhammed/temp.txt')#('/home/muhammed/temp', '.txt')
+```
+
 
 
 # Python Logging
