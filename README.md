@@ -28,7 +28,7 @@ isinstance(variable_name,numbers.Number)
 
 9) Always try to make code DRY(don't repeat yourself)
 
-10) String interpolations should be used instead of string concatenation. String interpolation is less prone to errors.
+10) String interpolations should be used instead of string concatenation. String interpolation is less prone to errors. If we are repeating placeholders, we can assign indexes to them. WE can make the same operation like zfill in formatting strings via `:`.
 
 ```
 
@@ -40,6 +40,17 @@ my_string = 'I am ' + b ' and I have ' + str(b) + 'computers'
 
 # The latter is string interpolation
 my_string = 'I am {} and I have {} computers'.format(b,a)
+
+# Use multiple same placeholders via assigning placeholders
+my_string = "I am {0} and I am {1} years old. {1} years old is a critical age in human life.".format('Muhammed',28)
+
+# Dict usage in string interpolation
+mydict = {'name':'Muhammed','age':28}
+my_string = "I am {0[name]} and I am {0[age]} years old. {0[age]} years old is a critical age in human life.".format(mydict)
+
+# List usage in string interpolation
+mydict = ['Muhammed',28]
+my_string = "I am {0[0]} and I am {0[1]} years old. {0[1]} years old is a critical age in human life.".format(mydict)
 
 
 ```
@@ -300,7 +311,7 @@ Duck Typing and Easier to ask forgiveness than permission(EAFP).
 
 23) **Duck Typing** is that the type or the class of an object is less important than the method it defines. Using Duck Typing, we do not check types at all. Duck typing is implemented in Dynamic languages like Python, Perl, JS. Duck typing emphasizes what the object really can do rather than what the object is.
 
-```
+```duck_typing.py
 class Duck:
     def fly(self):
         print("Duck is flying")
@@ -346,7 +357,7 @@ duck_typed_fly_and_quack(bear)
 
 24) **LBYL**(Look Before You Leap) and **EAFP**(Easier to ask forgiveness than permission) are 2 terms in Programming. Python is EAFP. LBYL is using lots of if-else statements. EAFP suggests using try/except blocks instead of multiple checks via if-else statements. If your code hass less exceptions, EAFP is faster than LBYL because we access the object once.
 
-```
+```lbyl_vs_eafp.py
 
 person1 = {'name':'Muhammed','age':28, 'job':'Data Scientist'}
 person2 = {'name':'Muhammed','age':28}
@@ -371,9 +382,9 @@ lbyl(person2)# there are some missing keysin LBYL
 eafp(person2)# there are some missing keys in EAFP
 ```
 
-25) **First class functions** is an important concept which is about passing function as arguments or assigning them to variables etc. If a function takes a function as argument and returns a function as the result, it is called hih-order function.
+25) **First class functions** allows us to treat functions like any other object. It is an important concept which is about passing function as arguments or assigning them to variables or returning functions as a result in functions etc. If a function takes a function as argument or returns a function as the result or the function is assigned to another variable, it is called high-order function.
 
-```
+```first_class_functions.py
 # 1) Assign a function to a variable
 def square(x):
     return x * x
@@ -401,6 +412,179 @@ print_p = html_tag('p')
 print_p('Test')#<p>Test</p>
 
 ```
+
+26) A Closure is an inner function that remembers and has access to variables in the local scope in which it was created even if the outer function has finished executing. A closure closes over the free variables from their environment. Understanding closures helps to comprehend decorators.
+
+```closure.py
+# Example 1:
+def outer_function():
+    message = "Muhammed"
+    def inner_function():
+        return message
+    return inner_function
+
+my_variable = outer_function()
+print(my_variable)#<function outer_function.<locals>.inner_function at 0x7f66efe79fc0>
+print(my_variable())#Muhammed
+# Example 2:
+def outer_function(msg):
+    #message is a free variable.
+    message = msg
+    def inner_function():
+        print( message)
+    return inner_function
+
+print_hi = outer_function('Hi')
+print_hello = outer_function('Hello')
+print_hi()# Hi,
+print_hello()# Hello
+# Example 3:
+import logging
+logging.basicConfig(filename='logs/closure.log',level=logging.INFO)
+
+def log_outer_function(function):
+    def log_inner_function(*args):
+        logging.info("The function named {} is executed {}".format(function.__name__,args))
+        print(function(*args))
+    return log_inner_function
+
+def add(x,y):
+    return x + y
+
+def subtract(x,y):
+    return x - y
+
+add_logger = log_outer_function(add)
+subtract_logger = log_outer_function(subtract)
+add_logger(3,3)# 6
+add_logger(5,10) # 15
+subtract_logger(10,3) # 7
+subtract_logger(60,20) # 40
+
+#INFO:root:The function named add is executed (3, 3)
+#INFO:root:The function named add is executed (5, 10)
+#INFO:root:The function named subtract is executed (10, 3)
+#INFO:root:The function named subtract is executed (60, 20)
+```
+
+27) args is recognized as positional arguments and kwargs are recognized as keyword arguments.
+
+28) Decorator is similar to first class functions and closures. Decorator is a function takes a function as an argument and adds some kind of functionality and returns another function. All of these without altering source code of the original function that we passed in. We can pass positional arguments and keyword arguments of input functions to decorators via `*args, **kwargs`. Some people tend to use decorators as classes rather than functions. Decorators are commonly used in Python in the task of Logging. Decorators are also used for timing how long functions run. Decarators enable us to maintain our edit functionality in one location. We can stack decorators on top of each other.
+
+```decorator_simple.py
+def decorator_function(original_function):
+    def wrapper_function():
+        return original_function()
+    return wrapper_function
+def display():
+    print("display ran")
+decorated_display = decorator_function(display)
+decorated_display()
+```
+
+```decorator_args_kwargs.py
+def decorator_function(original_function):
+    def wrapper_function(*args,**kwargs):
+        print(f"wrapper function named {original_function.__name__} ran")
+        return original_function(*args,**kwargs)
+    return wrapper_function
+
+@decorator_function
+def display():
+    print("display ran")
+display()
+
+@decorator_function
+def display_info(name,age):
+    print("display info function run with arguments {} {}".format(name,age))
+display_info('Muhammed',28)
+```
+
+```decorator_as_class.py
+class Decorator_Class(object):
+    def __init__(self,original_function):
+        self.original_function = original_function
+    
+    def __call__(self, *args, **kwargs):
+        print(f"call method executed this before {self.original_function.__name__} ran")
+        return self.original_function(*args,**kwargs)
+@Decorator_Class
+def display_info(name,age):
+    print("display info function run with arguments {} {}".format(name,age))
+display_info('Muhammed',28)
+```
+
+```decorator_logging.py
+def my_logger(orig_function):
+    import logging
+    logging.basicConfig(filename = f'logs/{orig_function.__name__}.log',level=logging.INFO)
+    def wrapper(*args,**kwargs):
+        logging.info(f"run with args : {args} and kwargs {kwargs}")
+        return orig_function(*args,**kwargs)
+    return wrapper
+
+@my_logger
+def display_info(name,age):
+    print("display info function run with arguments {} {}".format(name,age))
+
+display_info('Muhammed',28)
+```
+
+```decorator_timer.py
+import time
+def my_timer(orig_function):
+    def wrapper(*args,**kwargs):
+        t1 = time.time()
+        result = orig_function(*args,**kwargs)
+        t2 = time.time()
+        print(f"{orig_function.__name__} ran in {t2 - t1} seconds")
+
+        return result
+    return wrapper
+
+@my_timer
+def display_info(name,age):
+    time.sleep(1.0)
+    print("display info function run with arguments {} {}".format(name,age))
+
+display_info('Muhammed',28)
+```
+
+29) If we stack 2 decorators for one function, the inner decorator(my_timer) returns a wrapper function and that wrapper function gets fed into the outer decorator(my_logger). This may result in unexpected names in logfiles or in prints. We can decorate decorators via functools.
+
+```decorating_multiple_decorators.py
+from functools import wraps
+import time
+import logging
+
+def my_logger(orig_function):
+    logging.basicConfig(filename = f'logs/{orig_function.__name__}.log',level=logging.INFO)
+    @wraps(orig_function)
+    def wrapper(*args,**kwargs):
+        logging.info(f"run with args : {args} and kwargs {kwargs}")
+        return orig_function(*args,**kwargs)
+    return wrapper
+
+def my_timer(orig_function):
+    @wraps(orig_function)
+    def wrapper(*args,**kwargs):
+        t1 = time.time()
+        result = orig_function(*args,**kwargs)
+        t2 = time.time()
+        print(f"{orig_function.__name__} ran in {t2 - t1} seconds")
+        return result
+    return wrapper
+    
+@my_logger
+@my_timer
+def display_info(name,age):
+    time.sleep(1.0)
+    print("display info function run with arguments {} {}".format(name,age))
+
+display_info('Muhammed',28)
+# == my_logger(my_timer(display_info()))
+```
+
 
 
 # Python Logging
