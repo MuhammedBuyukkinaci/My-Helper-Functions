@@ -163,7 +163,7 @@ print('test'.__len__())
 
 6) property usage in Python classes. property is making a method as an attribute of a Class. It is a decorator. peperty decorator allows us to define method but we can access it like an attribute.
 
-```
+```property_usage.py
 # Property Decorator
 class Personnel:
     def __init__(self,first,last,pay):
@@ -235,7 +235,7 @@ isinstance(variable_name,numbers.Number)
 
 10) String interpolations should be used instead of string concatenation. String interpolation is less prone to errors. If we are repeating placeholders, we can assign indexes to them. WE can make the same operation like zfill in formatting strings via `:`.
 
-```
+```string_interpolation.py
 
 a = 2
 b = 'Muhammed'
@@ -309,7 +309,7 @@ print(f"{a}; its location on memory = {id(a)}")
 
 14)  String objects are immutable. However, list is mutable. Preferring mutable objects(list) instead of immutable objects is more logical in concatenating lots of strings because mutable objects aren't creating new objects each time like immutable objects(String etc.) did.
 
-```
+```mutable_vs_immutable.py
 a = 'Burak'
 print(f"{a}; its location on memory = {id(a)}")
 # The below print prompts error.
@@ -792,7 +792,7 @@ display_info('Muhammed',28)
 
 30) Some commonly used os module functions
 
-```
+```os_module.py
 # To create a directory in a nested way or one directory
 os.makedirs('path_to_out_directory/path_to_inner_directroy')
 # To remove a directory
@@ -822,7 +822,7 @@ os.path.splitext('/home/muhammed/temp.txt')#('/home/muhammed/temp', '.txt')
 
 31) open command can allow us to make these 4 operations: reading(r), writing(w), appending(a), reading & writing(r+). The default is reading. When we open a file, it is required to close it explicitly. This way(no context managers) isn't recommended. If we open a file via **open** and **as**, we don't have to close it explicitly.
 
-```
+```open_command.py
 f = open('.gitignore','r')
 print(f.name)# .gitignore
 print(f.mode)# r
@@ -867,7 +867,7 @@ with open('.gitignore') as f:
 
 4) Python logging is similar to print statement in terms of functionality. An example code for logging is as follows:
 
-```
+```logging_similar.py
 import logging
 def add(x,y):
     return x + y
@@ -883,7 +883,7 @@ logging.debug("{} + {} = {}".format( a, b, add_result ) )
 
 5) To change logging level
 
-```
+```change_log_level.py
 import logging
 #logging.DEBUG is different than logging.debug. logging.DEBUG is an integer in the background.
 logging.basicConfig(level=logging.DEBUG)
@@ -895,14 +895,14 @@ logging.basicConfig(level=logging.DEBUG)
 
 8) Store your logs in a log file like I did below
 
-```
+```store_log.py
 import logging
 logging.basicConfig(filename='test.log',level=logging.DEBUG)
 ```
 
 9) We can format log lines by specifying in configuration.
 
-```
+```format_log_str.py
 import logging
 # Log in this format: time:loglevel:message
 logging.basicConfig(filename='test.log',level=logging.DEBUG,format='%(asctime)s:%(levelname)s:%(message)s')
@@ -912,7 +912,7 @@ logging.basicConfig(filename='test.log',level=logging.DEBUG,format='%(asctime)s:
 
 11) Name like root can be specified in format of logging.basicConfig like below:
 
-```
+```change_config.py
 import logging
 # Log in this format: time:loglevel:message
 logging.basicConfig(filename='test.log',level=logging.DEBUG,format='%(asctime)s:%(name)s:%(message)s')
@@ -965,9 +965,9 @@ logger.info("log message here")
 
 17) If we want to have a traceback in errors in order to have more infos, use `logger.exception("log message here")` instead of `logger.error("log message here")`
 
-18) If we want to see loggings on consele in the phase of runnning, use stream handler. One logger can have 2 handlers, one of them is file handler and the other one might be stream handler.
+18) If we want to see loggings on console in the phase of runnning, use stream handler. One logger can have 2 handlers, one of them is file handler and the other one might be stream handler.
 
-```
+```handlers.py
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -992,7 +992,7 @@ logger.info("log message here")
 
 19) One of them most used formats is "{asctime} {levelname:<8} {message}" with style = "{"
 
-```
+```common_format.py
 import logging
 logging.basicConfig(format = "{asctime} {levelname:<8} {message}",  style = '{' )
 ```
@@ -1023,7 +1023,7 @@ except Exception as e:
 
 24) If we want to trace back the error, use one of the lines below based on your desired log level.
 
-```
+```error_traceback.py
 logging.info("info level: ",exc_info=True)
 logging.warning("warning level: ",exc_info=True)
 logging.error("error level",exc_info=True)
@@ -1032,7 +1032,7 @@ logging.critical("warning level: ",exc_info=True)
 
 25) We can define a configuration file in conf format or yaml format and load it in Python code like below.
 
-```
+```load_config_to_loggging.py
 import logging
 import logging.config
 logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
@@ -1085,13 +1085,13 @@ logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
 
 6) To test the code, run the folloing on Terminal
 
-```
+```run.sh
 python -m unittest test_calc.py
 ```
 
 7) If we want to run in a way of `python test_calc.py` instead of `python -m unittest test_calc.py` , add the following to the bottom line of **test_calc.py**
 
-```
+```unittest_main.py
 if __name__ == '__main__':
     unittest.main()
 ```
@@ -1364,7 +1364,7 @@ pytest --durations=3
 
 5) pandas's testing module is useful in testing. To check 2 dataframe are equal:
 
-```
+```pandas_unittesting.py
 # Writes the below code in test function or test method
 pd.testing.assert_frame_equal(actual,expected)
 
