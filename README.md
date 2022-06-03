@@ -159,7 +159,30 @@ print('test'.__len__())
 
 ![property](./images/010.png)
 
-5) \__name__ == '\__main__'
+5)  What does `if __name__ == '__main__'` mean? Whenever Python runs a file, it first goes through before even runs any code, it sets a few special variables. \__name__ is one of these special variables. `if __name__ == '__main__'` checks whether a file in being run directly or imported from a different module. It returns True if directly run from script and returns False if it called from another script. The reason why we use our codes in main function in first_module.py is to make it importable in another script.
+
+
+```first_module.py
+#first_module.py
+
+print("This will always be run")
+
+def main():
+    print("First module's name: {}".format(__name__))
+
+if __name__ == '__main__':
+    print("Runs directly")
+    main()
+else:
+    print("Run from import")
+
+```
+
+```second_module.py
+import first_module
+print("Second module's name: {}".format(__name__))
+```
+
 
 6) property usage in Python classes. property is making a method as an attribute of a Class. It is a decorator. peperty decorator allows us to define method but we can access it like an attribute.
 
