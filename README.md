@@ -3,17 +3,222 @@ This repository is containing functions that I use in Python a lot.
 
 # Important Python Concepts in OOP
 
-1) Inheritance: Using methods and attributes of a parent Class in Child Class
+1) Classes allow us to group data and functions and make them easy to use. We don't have to use `self` in regular methods(like constructor) but using `self` is a convention. In class methods, `cls` is a convention. Class variables are variables that were shared by all instances of Class and they are the same across all instances. If we want class variables to be modified through instances, use them via self. However, if you don't want class variables to be modified through instances, use them via Employee.class_variable or define a **classmethod**(set_raise_amt) that modifies class variable. **from_string** is an alternative method defined via **classmethod**. staticmethod neither takes an cls argument like classmethod nor self argument like regular method. It is in class because of some kind of relationship with Class. In reality, staticmethod shouldn't acess to class or instance eanywhere in itself.
 
-2) Encapsulation: Accessing the attribute of a Class only in itself(private) by defining the attributes starting with double underscore __. Single underscore _ used for defining protected attributes in a class. Protected means accesible with the Class and its subclasses. No underscore for public attributes.
+```classes_intro.py
+import datetime
 
-3) Polymorphism: Being available to send different inputs to a method or a function like Python's built-in len function.
+class Employee:
+    #raise_amount is a class variable
+    raise_amt = 1.04
+    num_of_emps = 0
 
-4) Method Overriding: Rewriting a method inherited from a parent class in the Child class.
+    def __init__(self,first,last,pay):
+        #first,last,pay are instance variables.
+        self.first = first
+        self.last = last
+        self.pay = pay
+        self.email = self.first + '.' + self.last + '@mycompany.com'
+        Employee.num_of_emps += 1
 
-5) Method Overloading: Calling same method with different number of parameters like we did in C#. Two methods can't have the same name in Python. Not possible in Python.
+    def fullname(self):
+        return f'{self.first} {self.last}'
 
-6) property usage in Python classes. property is making a method as an attribute of a Class
+    def apply_raise(self):
+        self.pay = int(self.pay * self.raise_amt)
+
+    def __repr__(self):
+        return "Employee( {} {} {} )".format(self.first,self.last,self.pay)
+
+    def __str__(self):
+        return '{} - {}'.format(self.fullname(),self.email)
+
+    def __add__(self,other):
+        return self.pay + other.pay
+
+    def __len__(self):
+        return len(self.fullname())
+
+    @classmethod
+    def set_raise_amt(cls,amount):
+        cls.raise_amt = amount
+
+    # An alternative constructor via classmethod
+    @classmethod
+    def from_string(cls,emp_str):
+        first, last, pay = emp_str.split('-')
+        return cls(first,last,pay)
+
+    @staticmethod
+    def is_workday(day):
+        if (day.weekday() == 5) | (day.weekday() == 6):
+            return False
+        return True
+
+# Setting instances
+emp_1 = Employee('Muhammed','Buyukkinaci',100)
+emp_2 = Employee('lorem','ipsum',50)
+print(emp_1 + emp_2)# 150 = 100 + 50; sums pays of 2 objects thanks to dunder add method
+print(repr(emp_1))#Employee( Muhammed Buyukkinaci 100 )
+print(str(emp_1))#Muhammed Buyukkinaci - Muhammed.Buyukkinaci@mycompany.com
+print(len(emp_1))#20
+print(emp_1.email)# Muhammed.Buyukkinaci@mycompany.com
+print(emp_1.fullname())#Muhammed Buyukkinaci
+# Raising pay
+emp_1.apply_raise()
+print(emp_1.pay)#104
+# Changing raise_amount class variable and applying this change
+Employee.raise_amt = 1.5
+emp_1.apply_raise()
+print(emp_1.pay)#156
+print(emp_2.pay)#50
+emp_2.apply_raise()
+print(emp_2.pay)#75
+# Setting raise_amt class variable to 1.05
+Employee.set_raise_amt(1.05)
+# Applying this change to existing instance
+emp_2.apply_raise()
+print(emp_2.pay)#75*1.05 = 78
+# An alternative constructor to default constructor
+emp_3 = Employee.from_string('Ali-Yilmaz-200')
+print(emp_3.first)
+# staticmethod
+my_date = datetime.date(2016,1,1)
+print(Employee.is_workday(my_date))# True
+
+class Developer(Employee):
+    raise_amt = 1.1
+    def __init__(self,first,last,pay,prog_lang):
+        super().__init__(first,last,pay)
+        self.prog_lang = prog_lang
+
+class Manager(Employee):
+    def __init__(self,first,last,pay,employees=None):
+        super().__init__(first,last,pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+    
+    def add_emp(self,emp):
+        if emp not in self.employees:
+            self.employees.append(emp)
+    
+    def add_emp(self,emp):
+        if emp in self.employees:
+            self.employees.remove(emp)
+    
+    def print_emps(self):
+        for emp in self.employees:
+            print("--->",emp.fullname())
+
+
+dev_1 = Developer('Ahmet','Yilmaz',120,'Python')
+dev_1.apply_raise()
+print(dev_1.pay)# 120*1.1 = 132
+print(dev_1.prog_lang)#Python
+
+man_1 = Manager('Hasan','Yilmaz',150,[dev_1])
+print(man_1.email)#Hasan.Yilmaz@mycompany.com
+
+man_1.print_emps()#---> Ahmet Yilmaz
+
+print(isinstance(man_1,Manager))# True
+print(isinstance(man_1,Employee))# True
+print(isinstance(man_1,Developer))# False
+
+print(issubclass(Developer,Employee))# True
+print(issubclass(Manager,Employee))# True
+print(issubclass(Developer,Manager))# False
+
+```
+
+2) Some terms about OOP:
+
+- Inheritance: Using methods and attributes of a parent Class in Child Class
+
+- Encapsulation: Accessing the attribute of a Class only in itself(private) by defining the attributes starting with double underscore __. Single underscore _ used for defining protected attributes in a class. Protected means accesible with the Class and its subclasses. No underscore for public attributes. If we want to see method resolution order or a sub class, run `print(help(Developer)) Every class in Python inherits from builtins.object class. Change in child class doesn't affect parent class.
+
+- Polymorphism: Being available to send different inputs to a method or a function like Python's built-in len function.
+
+- Method Overriding: Rewriting a method inherited from a parent class in the Child class.
+
+- Method Overloading: Calling same method with different number of parameters like we did in C#. Two methods can't have the same name in Python. Not possible in Python.
+
+3) Double underscores is called as dunder. \__init__ is a special method. \__repr__ and \__str__. These 2 special methods allow us to change how our objects are printed and displayed. len is a special method too, which runs a dunder method named \__len__ .
+
+```
+print(1+2)#
+print(int.__add__(1,2))#3
+print(str.__add__('a','b')) # 'ab'
+print(len('test'))#4
+print('test'.__len__())
+```
+
+4) The goal of repr is to be unambiguous. The goal of str is to be readable. repr is mostly used in debugging.
+
+![property](./images/010.png)
+
+5) \__name__ == '\__main__'
+
+6) property usage in Python classes. property is making a method as an attribute of a Class. It is a decorator. peperty decorator allows us to define method but we can access it like an attribute.
+
+```
+# Property Decorator
+class Personnel:
+    def __init__(self,first,last,pay):
+        #first,last,pay are instance variables.
+        self.first = first
+        self.last = last
+        self.email = self.first + '.' + self.last + '@mycompany.com'
+    def fullname(self):
+        return f'{self.first} {self.last}'
+
+per_1 = Employee('John','Smith',100)
+per_1.first = 'Jim'
+print(per_1.first)#Jim
+print(per_1.email)#John.Smith@mycompany.com
+print(per_1.fullname())#Jim Smith
+
+class Worker:
+    def __init__(self,first,last,pay):
+        #first,last,pay are instance variables.
+        self.first = first
+        self.last = last
+
+    @property
+    def email(self):
+        return self.first + '.' + self.last + '@mycompany.com'
+
+    @property
+    def fullname(self):
+        return f'{self.first} {self.last}'
+
+    @fullname.setter
+    def fullname(self,name):
+        first,last = name.split(' ')
+        self.first = first
+        self.last = last
+
+    @fullname.deleter
+    def fullname(self):
+        print("delete name !")
+        self.first = None
+        self.last = None
+
+wor_1 = Worker('John','Smith',100)
+wor_1.first = 'Jim'
+print(wor_1.first)#Jim
+print(wor_1.email)#Jim.Smith@mycompany.com
+print(wor_1.fullname)#Jim Smith
+
+wor_1.fullname = "Muhammed Büyükkınacı"
+print(wor_1.first)#Muhammed
+print(wor_1.email)#Muhammed.Büyükkınacı@mycompany.com
+print(wor_1.fullname)#Muhammed Büyükkınacı
+
+del wor_1.fullname# delete name !
+```
 
 ![property](./images/000.png)
 
@@ -615,6 +820,25 @@ os.path.isfile('/home/muhammed/temp.txt') # True or False
 os.path.splitext('/home/muhammed/temp.txt')#('/home/muhammed/temp', '.txt')
 ```
 
+31) open command can allow us to make these 4 operations: reading(r), writing(w), appending(a), reading & writing(r+). The default is reading. When we open a file, it is required to close it explicitly. This way(no context managers) isn't recommended. If we open a file via **open** and **as**, we don't have to close it explicitly.
+
+```
+f = open('.gitignore','r')
+print(f.name)# .gitignore
+print(f.mode)# r
+f.close()
+
+with open('.gitignore') as f:
+    f_contents = f.read()
+    print(f_contents)
+
+with open('.gitignore') as f:
+    f_contents = f.read()
+    f_contents = f.readline()# to read 1 line
+    f_contents = f.readlines()# to read files in a list
+```
+
+32) We shouldn't give mutable arguments to functions by default. That means that giving a list or dictionary as an argument by default might be dangerous. This is why we pass None as default argument.
 
 
 # Python Logging
