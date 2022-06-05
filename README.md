@@ -1045,7 +1045,11 @@ print(hand)#['BMW', 'VW', 'Opel', 'Seat', 'Porsche']
 
 39) Fluent Python is a book by Luciano Ramalho, which is an advanced level Python book.
 
-40) RegEx allow us to search specific text.
+40) RegEx allow us to search specific text and replace it.
+
+![regex1](./images/011.png)
+
+![regex2](./images/012.png)
 
 
 
