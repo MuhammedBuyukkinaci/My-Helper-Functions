@@ -813,7 +813,35 @@ display_info('Muhammed',28)
 # == my_logger(my_timer(display_info()))
 ```
 
-30) Some commonly used os module functions
+30) We can define decorators with arguments via decorating a decorator.
+
+```decorator_with_arguments.py
+
+def prefix_decorator(prefix):
+    def decorator_function(original_function):
+        def wrapper_function(*args,**kwargs):
+            print(prefix," Executed before", original_function.__name__)
+            result = original_function(*args,**kwargs)
+            print(prefix," Executed after", original_function.__name__)
+            return result
+        return wrapper_function
+    return decorator_function
+
+@prefix_decorator('LOG:')
+def display_info(name,age):
+    print("display info ran with arguments ( {}, {} ) ".format(name,age))
+
+display_info('Muhammed',20)
+display_info('Muhammed',30)
+#LOG:  Executed before display_info
+#display info ran with arguments ( Muhammed, 20 ) 
+#LOG:  Executed after display_info
+#LOG:  Executed before display_info
+#display info ran with arguments ( Muhammed, 30 ) 
+#LOG:  Executed after display_info
+```
+
+31) Some commonly used os module functions
 
 ```os_module.py
 # To create a directory in a nested way or one directory
@@ -843,7 +871,7 @@ os.path.isfile('/home/muhammed/temp.txt') # True or False
 os.path.splitext('/home/muhammed/temp.txt')#('/home/muhammed/temp', '.txt')
 ```
 
-31) open command can allow us to make these 4 operations: reading(r), writing(w), appending(a), reading & writing(r+). The default is reading. When we open a file, it is required to close it explicitly. This way(no context managers) isn't recommended. If we open a file via **open** and **as**, we don't have to close it explicitly.
+32) open command can allow us to make these 4 operations: reading(r), writing(w), appending(a), reading & writing(r+). The default is reading. When we open a file, it is required to close it explicitly. This way(no context managers) isn't recommended. If we open a file via **open** and **as**, we don't have to close it explicitly.
 
 ```open_command.py
 f = open('.gitignore','r')
@@ -861,7 +889,127 @@ with open('.gitignore') as f:
     f_contents = f.readlines()# to read files in a list
 ```
 
-32) We shouldn't give mutable arguments to functions by default. That means that giving a list or dictionary as an argument by default might be dangerous. This is why we pass None as default argument.
+33) We shouldn't give mutable arguments to functions by default. That means that giving a list or dictionary as an argument by default might be dangerous. This is why we pass None as default argument.
+
+34) Python, there are 5 data types such as dates, times, datetimes, timedeltas and timezones. Naive dates and times don't have enough information to determine things like timezone. Timedeltas are simply differences between 2 dates or times. If we subtract one date from another date or one time from another time, the result is timedelta. We can access date and time from a datetime object. Pytz is a library to deal with timezones, recommended by Python official documentation. It is recommended to work with UTC in timezones.
+
+```tims_diffs.py
+import datetime
+import pytz
+## Date
+# years, months and days
+d = datetime.date(2016,5,25)
+# To create a date object of today
+tday = datetime.date.today()#2022-06-04, saturday
+print(tday.year)# 2022
+print(tday.weekday())# 5 
+print(tday.isoweekday()) # 6
+## Timedelta
+tdelta = datetime.timedelta(days =7)
+print(tday + tdelta)#2022-06-11
+## Difference between 2 dates
+bday = datetime.date(2016,9,19)
+till_bday = bday - tday
+print(till_bday)#-2084 days, 0:00:00
+## Time; 
+# hours minutes, seconds, microseconds
+t = datetime.time(21,30,33,199999)
+print(t.hour) # 21
+## Datetime
+# Datetime is Merge of date and time objects
+dt = datetime.datetime(2016,1,3,12,30,45,199199)
+print(dt.date())#2016-01-03
+print(dt.time())#12:30:45.199199
+# Subtracting timedelta object from datetime object
+tdelta = datetime.timedelta(days = 7)
+print(dt + tdelta)#2016-01-10 12:30:45.199199
+# Timezone awared
+dt_today = datetime.datetime.today()# timezone is none by default
+dt_now = datetime.datetime.now()# we can pass timezone as parameter
+dt_utcnow = datetime.datetime.utcnow()# timezone aware datetime
+print(dt_today)
+print(dt_now)
+print(dt_utcnow)
+# PYTZ
+tz_aware = datetime.datetime(2016,7,27,12,39,45,tzinfo=pytz.UTC)
+print(tz_aware)
+# Current UTC time
+dt_machinenow = datetime.datetime.now()
+print(dt_machinenow)#2022-06-05 11:48:52.022640
+dt_utcnow = datetime.datetime.now(tz=pytz.UTC)# Turkey is UTC + 3. UTC is 3 hours behind.
+print(dt_utcnow)#2022-06-05 08:48:52.022652+00:00
+# Possible Timezones,
+for tz in pytz.all_timezones[:2]:
+    print(tz)
+# Convert this to different Timezone, US/Eastern
+dt_different = dt_utcnow.astimezone(pytz.timezone('US/Eastern'))
+print(dt_different)#2022-06-05 04:48:52.022652-04:00
+# Convert dateitme object to string
+print(dt_utcnow.strftime('%B %d, %Y'))#June 05, 2022
+# Convert string to datetime
+time_string = "June 05, 2022"
+converted_to_dt = datetime.datetime.strptime(time_string,'%B %d, %Y')
+print(converted_to_dt)#2022-06-05 00:00:00
+```
+
+35) Variable Scope is composed of 4 components: LEGB (Local - Enclosing - Global - Built-in ). **Local** variables are variables in which defined in a function. **Enclosing** variables are variables in local scope of enclosing functions. **Global** are variables defined at the top level of a module, explicitly declared global. **Builtins** are pre-assigned variables. Python checks a variable in LEGB order. Using `global` statement isn't mostly recommended. `nonlocal` is a statement similar to `global`, but used in inner function to do what `global` statement does.
+
+```scope.py
+# Setting a local variable as global. global keyword makes a local variable change global
+x = 'global x'
+def test():
+    global x
+    x = 'local x'
+    print(x)
+print(x)#global x
+test()#local x
+print(x)#local x
+# Builtin names pre-assigned ones.
+import builtins
+print(dir(builtins))
+# Don't override builtin functions
+# def min():
+#     pass
+m = min([4,2,1])
+print(m)
+# Enclosing has to do with nested functions. It is similar to local & global scopes
+
+def outer():
+    # Local to our outer function
+    x = 'outer x'
+    def inner():
+        # Local to inner function
+        x = 'inner x'
+        print(x)
+    inner()
+    print(x)
+
+outer()# The output is below:
+# inner x
+# outer x
+
+def outer():
+    x = 'outer x'
+    def inner():
+        print(x)
+    inner()
+    print(x)
+
+outer()# The output is below:
+#outer x
+#outer x
+
+x = 'global x'
+def outer():
+    def inner():
+        print(x)
+    inner()
+    print(x)
+
+outer()# The output is below:
+#global x
+#global x
+```
 
 
 # Python Logging
