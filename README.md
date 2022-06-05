@@ -1011,6 +1011,43 @@ outer()# The output is below:
 #global x
 ```
 
+36) Python **random** module shouldn't be used for security purposes and cryptography and Python suggests to use **secrets** module for these aims.
+
+```random_module.py
+import random
+# Get a random number between 0 and 1; not used frequently
+value = random.random()
+print(value)# between [0,1)
+# Uniform distribution; not used frequently
+value = random.uniform(1,10)
+print(value)# between [1,10)
+# Random integers; used frequently
+value = random.randint(1,6)
+print(value)# between [1,6]
+# To pick one random value from a list
+cars = ['BMW','Mercedes','Audi','Porsche','Opel','VW','Skoda','Seat']
+value = random.choice(cars)
+print(value)#'Porsche'
+# To pick 2 random values from a list; multiple elements may occur
+results = random.choices(cars,k = 5)
+print(results)#['Mercedes', 'Mercedes', 'BMW', 'Mercedes', 'Audi']
+# To assign weights to elements of a list
+results = random.choices(cars,k = 5,weights=[10,20,30,40,5,5,5,5])
+print(results)#['Porsche', 'BMW', 'Mercedes', 'Porsche', 'Porsche']
+# Not recurring samples
+hand = random.sample(cars,k = 5)
+print(hand)#['BMW', 'VW', 'Opel', 'Seat', 'Porsche']
+```
+
+37) In Python 2, xrange is working like a generator and range is loading all results into memory and returning all results once. In dictionaries, iteritems works like a generator and items works like lists.
+
+38) [reveal.js](https://revealjs.com/) is a JS library which provides slides on browser.
+
+39) Fluent Python is a book by Luciano Ramalho, which is an advanced level Python book.
+
+40) RegEx allow us to search specific text.
+
+
 
 # Python Logging
 
