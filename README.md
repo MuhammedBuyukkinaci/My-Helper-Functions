@@ -1045,11 +1045,105 @@ print(hand)#['BMW', 'VW', 'Opel', 'Seat', 'Porsche']
 
 39) Fluent Python is a book by Luciano Ramalho, which is an advanced level Python book.
 
-40) RegEx allow us to search specific text and replace it.
+40) RegEx allow us to search specific text and replace it instead of explicit search like we did in word or vscode.
 
 ![regex1](./images/011.png)
 
 ![regex2](./images/012.png)
+
+41) Regex in Python. `.` is a special character in RegEx. If we want to search `.` in text, we should escape it via backward slash(\). Meta characters should be escaped via `\` if you want to search them. Capital letters basicly negate whatever the lowercase version is (\d means digit and \D means not a digit). \b means word boundary and \B means not a word boundary. ^ means beginning of a string and $ means end of a string `[]` is character set that takes relevant characters inside and corresponding to one character in search pattern. `-` in [] means range (boundaries are inclusive)**[1-5]**. `^` negates the set and matches everything that isn't in that character set [^a-zA-Z]. `|` operator is meaning or and () are used to group **(Mr|Mrs|Ms)**. For some common usages like e-mail addresses, there are some patterns available online. Reading regex's of other people is harder than writing. To make the regex case insensitive,
+add **re.IGNORECASE** to **re.compile** method
+
+```regex.py
+import re
+
+text_to_search = '''
+abcdefghijklmnopqurtuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+1234567890
+Ha HaHa
+MetaCharacters (Need to be escaped):
+. ^ $ * + ? { } [ ] \ | ( )
+coreyms.com
+321-555-4321
+123.555.1234
+123*555*1234
+800-555-1234
+900-555-1234
+Mr. Schafer
+Mr Smith
+Ms Davis
+Mrs. Robinson
+Mr. T
+'''
+
+pattern = re.compile(r'abc')
+matches = pattern.finditer(text_to_search)
+for match in matches:
+    print(match)
+#<re.Match object; span=(53, 56), match='abc'>
+#<re.Match object; span=(58, 61), match='abc'>
+
+```
+
+42) Regex expression examples are below:
+
+```
+# Data 1: 
+# 321-555-4321
+# 123.555.1234
+# Regex of Data 1:
+# re.compile(r'\d\d\d[-.]\d\d\d[-.]\d\d\d\d')
+
+# Data 2:
+# 800-555-1234
+# 900-555-1234
+# re.compile(r'[89]00[-.]\d\d\d[-.]\d\d\d\d')
+
+# Data 3(cat,mat,pat included and bat excluded):
+# cat
+# mat
+# pat
+# bat
+re.compile(r'[^b]at')
+
+# Data 4, {3} is excluded: 
+# 321-555-4321
+# 123.555.1234
+re.compile(r'\d{3}.\d{3}.\d{3}')
+
+# Data 5
+# Mr. Schafer
+# Mr Smith
+# Ms Davis
+# Mrs. Robinson
+# Mr. T
+re.compile(r'(Mr|Ms|Mrs)\.\s[A-Z]\w*')
+
+# Data 6
+# CoreyMSchafer@gmail.com
+# corey.schafer@university.edu
+# corey-321-schafer@my-work.net
+re.compile(r'[a-zA-Z0-9.-]+@[a-zA-Z-]+\.(com|edu|net)')
+
+# Data 7
+# https://www.google.com
+# http://coreyms.com
+# https://youtube.com
+# https://www.nasa.gov
+#grouping into domain name, extension etc.
+pattern = re.compile(r'https?://(www\.)?(\w+)(\.\w+)')
+# Substituting
+subbed_urls = pattern.sub(r'\2\3',urls)
+
+## pattern.finditer alternatives
+# sub
+# pattern.findall(text_to_search)# return list of all matches
+# pattern.match() # not returning an iterable, returns the first match
+# pattern.search() #
+
+```
+
 
 
 
