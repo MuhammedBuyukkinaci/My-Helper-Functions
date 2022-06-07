@@ -1257,7 +1257,85 @@ for article in soup.find_all('article'):
 csv_file.close()
 ```
 
-44) 
+44) JSON means Javascript object notation. json is pre-installed library in Python. We should treat json files like getting values of Python dictionaries via keys.
+
+![json_conversion](./images/013.png)
+
+```json_usage.py
+
+import json
+## Convert json to Python object
+json_string = """
+{
+    "people":[
+        {
+            "name": "Muhammed",
+            "age": 28
+        },
+        {
+            "name": "Hasan",
+            "age": 29
+        }
+    ]
+}
+"""
+data = json.loads(json_string)
+print(type(data))#<class 'dict'>
+print(type(data['people']))#<class 'list'>
+
+for person in data['people']:
+    print(person)
+
+#{'name': 'Muhammed', 'age': 28}
+#{'name': 'Hasan', 'age': 29}
+
+# Convert Python object to Json
+new_string = json.dumps(data,indent=2,sort_keys=True)
+print(new_string)
+
+#{
+#  "people": [
+#    {
+#      "age": 28,
+#      "name": "Muhammed"
+#    },
+#    {
+#      "age": 29,
+#      "name": "Hasan"
+#    }
+#  ]
+#}
+
+# Load a .json file
+with open('states.json') as f:
+    data_loaded = json.load(f)
+
+for row in data_loaded['people']:
+    print(row)
+
+#{'name': 'Faruk', 'age': 38}
+#{'name': 'Tarık', 'age': 48}
+
+# Dump an object into json file
+
+with open('dumped_states.json','w') as f:
+    json.dump(data_loaded,f,indent=2)
+
+
+
+# A real world example from Yahoo Finance API
+
+import json
+from urllib.request import urlopen
+
+with urlopen("https://finance.yahoo.com/webservice/v1/symbols/allcurrencies/quote?format=json") as response:
+    source = response.read()
+
+data = json.loads(source)
+
+print(len(data['list']['resources']))
+
+```
 
 
 
