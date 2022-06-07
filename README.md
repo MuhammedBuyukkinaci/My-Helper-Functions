@@ -1088,7 +1088,7 @@ for match in matches:
 
 42) Regex expression examples are below:
 
-```
+```regex.py
 # Data 1: 
 # 321-555-4321
 # 123.555.1234
@@ -1143,6 +1143,122 @@ subbed_urls = pattern.sub(r'\2\3',urls)
 # pattern.search() #
 
 ```
+
+43) Web scraping with Beautiful Soup. Install it via `pip install beautifulsoup4` . Beautiful soup recommends lxml parser via `pip install lxml`. There is another parser named **html5lib**. Finally, install requests library via `pip install requests`. We should call `prettify` method of BeautifulSoup object. We can access the information in BeautifulSoup object as the attributes. **find** method returns the first match in html object. **find_all** method returns all matches as a list. If we want to get attribute(src) of a tag(iframe), we can access it like a dictionary  `article.find('iframe',class_ = 'youtube-player')['src']`.
+
+```web_scrape.py
+from bs4 import BeautifulSoup
+import requests
+import csv
+
+### Working with a local html file
+
+## Loading local html file via lxml parser
+with open('simple.html','r') as html_file:
+    soup = BeautifulSoup(html_file,'lxml')
+
+## Not indented object
+print(soup)
+## Seeming human readable
+print(soup.prettify())
+
+## title returns first title object in page
+match = soup.title
+print(match)
+
+#<title>Test - A Sample Website</title>
+text = soup.title.text
+print(text)
+#Test - A Sample Website
+
+## Filter divs whose class = footer
+match = soup.find('div',class_ = 'footer')
+print(match)
+#<div class="footer">
+#<p>Footer Information1</p>
+#</div>
+
+
+article = soup.find('div',class_ = 'article')
+headline = article.h2.a.text
+print(headline)
+#Article 1 Headline
+summary = article.p.text
+print(summary)
+#This is a summary of article 1
+
+
+## Loop through all divs having article class
+for article in soup.find_all('div',class_ = 'article'):
+    headline = article.h2.a.text
+    print(headline)
+    summary = article.p.text
+    print(summary)
+
+#Article 1 Headline
+#This is a summary of article 1
+#Article 2 Headline
+#This is a summary of article 2
+
+### Working with urls
+source = requests.get('https://coreyms.com').text
+soup = BeautifulSoup(source,'lxml')
+
+article = soup.find('article')
+headline = article.h2.a.text
+print(headline)
+#Python Tutorial: Zip Files – Creating and Extracting Zip Archives
+
+## first div whoxse class = entry-content
+summary = article.find('div',class_ = 'entry-content').p.text
+print(summary)
+#In this video, we will be learning how to create and extract zip archives.
+#We will start by using the zipfile module, and then we will see how to do 
+#this using the shutil module. We will learn how to do this with single 
+#files and directories, as well as learning how to use gzip as well. 
+#Let’s get started…
+
+
+vid_src = article.find('iframe',class_ = 'youtube-player')['src']
+print(vid_src)
+#https://www.youtube.com/embed/z0gguhEmWiY?version=3&rel=1&showsearch=0&showinfo=1&iv_load_policy=1&fs=1&hl=en-US&autohide=2&wmode=transparent
+
+vid_id = vid_src.split('/')[4]
+vid_id = vid_id.split('?')[0]
+print(vid_id)
+#z0gguhEmWiY
+yt_link = f'https://youtube.com/watch?v={vid_id}'
+print(yt_link)
+#https://youtube.com/watch?v=z0gguhEmWiY
+
+
+## List links of all videos
+source = requests.get('https://coreyms.com').text
+soup = BeautifulSoup(source,'lxml')
+# Create a csv file to pass data in
+csv_file = open('cms_scrape.csv','w')
+csv_writer = csv.writer(csv_file)
+csv_writer.writerow(['headline','summary','video_link'])
+
+for article in soup.find_all('article'):
+    headline = article.h2.a.text
+    summary = article.find('div',class_ = 'entry-content').p.text
+    try:
+        vid_src = article.find('iframe',class_ = 'youtube-player')['src']
+        vid_id = vid_src.split('/')[4]
+        vid_id = vid_id.split('?')[0]
+        yt_link = f'https://youtube.com/watch?v={vid_id}'
+    except Exception as e:
+        yt_link = None
+    print(yt_link)
+    # Appending row
+    csv_writer.writerow([headline,summary,yt_link])
+# Closing because we didn't open the file with context managers.
+csv_file.close()
+```
+
+44) 
+
 
 
 
