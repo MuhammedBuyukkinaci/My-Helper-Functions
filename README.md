@@ -1337,6 +1337,42 @@ print(len(data['list']['resources']))
 
 ```
 
+45) Pillow is a library to manipulate images. Pillow is a fork of the Python Imaging Library (PIL). resize method resizes image with respect to desired sizes.. thumbnail method resizes image without changing aspect ratio and not enlarging image(only reducing size by keeping aspect ratio).
+
+```pillow_intro.py
+from PIL import Image, ImageFilter
+import os
+
+size_300 = (100,100)
+
+image1 = Image.open("mbk.jpg")
+image1.show()
+# Saving image
+image1.save('mbk.png')
+
+# Saving image as png
+for f in os.listdir('.'):
+    if f.endswith('.jpg'):
+        i = Image.open(f)
+        fn,fext = os.path.splitext(f)
+        i.save(f"pngs/{fn}.png")
+
+# Resize images
+for f in os.listdir('.'):
+    if f.endswith('.jpg'):
+        i = Image.open(f)
+        fn,fext = os.path.splitext(f)
+        i.thumbnail(size_300)
+        i.save(f"300/{fn}_300{fext}")
+
+# Rotate image
+image1.rotate(90).save('mbk_rotated.jpg')
+# Convert to black and white
+image1.convert(mode='L').save('mbk_black_white.jpg')
+# Blur image, 15 is radius of blurring effect
+image1.filter(ImageFilter.GaussianBlur(15)).save('mbk_blurred.jpg')
+```
+
 
 
 
