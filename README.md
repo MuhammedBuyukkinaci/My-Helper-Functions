@@ -1373,7 +1373,97 @@ image1.convert(mode='L').save('mbk_black_white.jpg')
 image1.filter(ImageFilter.GaussianBlur(15)).save('mbk_blurred.jpg')
 ```
 
+46) **Context Managers** allow us to properly manage resources so that we can specify exacyly what we want to set up and tear down when working with certain objects. We no longer have to close down opened files within context managers. If an error is thrown, it is still get closed properly. This is why context managers are super useful. Context managers can be used to read a file, connect to a database. There are a couple of ways to write our custom context managers. We can use them via creating classes or creating functions via decorators. Using context managers via functions is mostly preferred way. It is used in opening and closing DB connections; acquiring and releasing locks etc.
 
+```context_managers.py
+# Naive way to open a file
+with open('sample.txt') as f:
+    f.write('Lorem ipsum etc')
+
+# Context managers via Classes
+class Open_File():
+    def __init__(self,filename,mode):
+        self.filename = filename
+        self.mode = mode
+        pass
+    
+    # For set up purpose
+    def __enter__(self):
+        self.file = open(self.filename,self.mode)
+        return self.file
+
+    # For tear down purpose
+    def __exit__(self,exc_type,exc_val,traceback):
+        self.file.close()
+
+# f is the return value of __enter__ method
+# __exit__ is executed when context manager ended, that why f.close return True
+with Open_File('sample.txt','w') as f:
+    f.write('Testing')
+
+print(f.closed)# True
+# Context managers via functions
+from contextlib import contextmanager
+
+
+@contextmanager
+def open_file(file,mode):
+    try:
+        f = open(file,mode)
+        yield f
+    finally:
+        # Tear down equivalent
+        f.close()
+
+with open_file('sample.txt','w') as f:
+    f.write('Lorem ipsum')
+
+print(f.closed)
+
+# Practical Usage of Context Manafers
+#Legacy code
+import os
+cwd = os.getcwd()
+# Setup
+os.chdir('images/')
+print(os.listdir())
+#['012.png', '008.png', '013.png', '000.png', '009.png', '002.png', '011.png', 
+# '003.png', '010.png', '004.png', '006.png', '005.png', '007.png', '001.png']
+# Tear down
+os.chdir(cwd)
+
+cwd = os.getcwd()
+# Setup
+os.chdir('logs/')
+print(os.listdir())
+#['display_info.log', 'app.log', 'basic.log', 'app2.log', 'closure.log']
+# Tear down
+os.chdir(cwd)
+
+# Context Manager Solution
+import os
+@contextmanager
+def change_dir(destination):
+    try:
+        cwd = os.getcwd()
+        os.chdir(destination)
+        # we aren't working with variables, therefore yield returns Nothing
+        yield
+    finally:
+        os.chdir(cwd)
+
+# Not having as f because yield returns nothing.
+with change_dir('images/'):
+    print(os.listdir())
+
+#['012.png', '008.png', '013.png', '000.png', '009.png', '002.png', '011.png', 
+# '003.png', '010.png', '004.png', '006.png', '005.png', '007.png', '001.png']
+
+with change_dir('logs/'):
+    print(os.listdir())
+
+#['display_info.log', 'app.log', 'basic.log', 'app2.log', 'closure.log']
+```
 
 
 
