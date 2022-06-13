@@ -1465,6 +1465,64 @@ with change_dir('logs/'):
 #['display_info.log', 'app.log', 'basic.log', 'app2.log', 'closure.log']
 ```
 
+47) set approach is faster than any approach making the same job. It is singularizing an iterable. set is faster than list in checking a value in an iterable. If we are searching a value in a list, its complexity is O(n). However, in a set, it is O(1).
+
+```set_methods.py
+s1 = set([1,2,3,4,5])
+s2 = {1,2,3,4,5}
+print(s1 == s2)#True
+
+# Create an empty set
+s3 = set()
+
+## Add a new value to set
+s1.add(6)
+print(s1)##{1, 2, 3, 4, 5, 6}
+
+## Add multiple values to s1
+s1.update([6,7,8,1,2])
+print(s1)##{1, 2, 3, 4, 5, 6, 7, 8}
+
+## Remove a value with remove. The value must exist.
+s1.remove(1)
+print(s1)##{2, 3, 4, 5, 6, 7, 8}
+
+## Remove a value with discard. Not necessary to exist.
+s1.discard(9)
+print(s1)##{2, 3, 4, 5, 6, 7, 8}
+
+## Common vales between sets
+s1 = {1,2,3}
+s2 = {2,3,4}
+s3 = {3,4,5}
+s4 = s1.intersection(s2)
+print(s4)#{2, 3}
+s4 = s1.intersection(s2,s3)
+print(s4)#{3}
+
+# Different values between sets
+s4 = s1.difference(s2)# unique values to s1
+print(s4)#{1}
+
+s4 = s2.difference(s1,s3)
+print(s4)# set()
+
+## Symmetric Difference, merge of unique values
+s4 = s1.symmetric_difference(s2)
+print(s4)#{1, 4}
+```
+
+48) f-string is a new property of Python 3.6 +. It should be used instead of concatenation. f-string is easier than formatting. If you are using single quotes inside your f-string, use double quates to create f-strings. We can zero pad in f-strings. We can specify floating points. We can also specify dates on strings via f-strings.
+
+```f_string.py
+s = 1
+mystring = f"{s} is zero padded as {s:04}"
+print(mystring)#1 is zero padded as 0001
+
+pi = 3.14159265
+mystring = f"{pi} is formatted as {pi:.4f}"
+print(mystring)#3.14159265 is zero padded as 3.1416
+```
 
 
 # Python Logging
