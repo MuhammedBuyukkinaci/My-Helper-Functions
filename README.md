@@ -1524,6 +1524,41 @@ mystring = f"{pi} is formatted as {pi:.4f}"
 print(mystring)#3.14159265 is zero padded as 3.1416
 ```
 
+49) If you are using aliases a lot, it isn't reasonable to use which command on Terminal. The reason why python3 works on terminal is that /usr/bin directory is in our path. By path, we mean $PATH environment variable. If a program is in /**usr/local/sbin** and **/snap/bin**, the program in the former runs. If you  are using Anaconda Python and it isn't in your path, you should call it explicity like anaconda/sbin/python3.6 etc. We can add specific versions of Python to .bash_profile on Mac or .bashrc on Linux. To get elaboration for a package, run `pip show pytest`.
+
+```.bash_profile
+PATH="/Library/Frameworks/bin:${PATH}"
+export PATH
+# Permanent change
+alias python=python3
+alias pip=pip3
+```
+
+```runall.sh
+## To show where python progmram is
+which python3
+#/usr/bin/python3
+type python3
+#python3 is /usr/bin/python3
+echo $PATH
+#/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+
+## To run a program in path explicitly
+/usr/bin/python3
+## Call python3 via python thnaks to the command below
+alias python=python3
+type python
+#python is aliased to `python3`
+```
+
+```sys_module.py
+import sys
+print(sys.executable)
+#'/usr/bin/python3' 
+print(sys.version)
+#'3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0]'
+```
+
 
 # Python Logging
 
