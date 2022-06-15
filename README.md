@@ -145,6 +145,8 @@ print(issubclass(Developer,Manager))# False
 
 - Method Overloading: Calling same method with different number of parameters like we did in C#. Two methods can't have the same name in Python. Not possible in Python.
 
+- A method in a class may return only `self`, which means itself.
+
 3) Double underscores is called as dunder. \__init__ is a special method. \__repr__ and \__str__. These 2 special methods allow us to change how our objects are printed and displayed. len is a special method too, which runs a dunder method named \__len__ .
 
 ```
@@ -374,7 +376,7 @@ print(index_finder(['a','b','c','d','e'],'b'))#prints 1
 print(index_finder(['a','b','c','d','e'],'f'))#prints -1
 ```
 
-16) Python generator don't hold entire results in memory therefore it improves performance. Holding millions of records in a generator is more performant than holding millions of records in list.
+16) Python generator don't hold entire results in memory therefore it improves performance. Holding millions of records in a generator is more performant than holding millions of records in list. Generator functions are more readable than generator classes. Generators come inhandy when writing memory efficient programs. A brute force way to check a group of possible characters may be done using generators.
 
 ``` python_generator.py
 
@@ -1559,6 +1561,117 @@ print(sys.version)
 #'3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0]'
 ```
 
+50) Iterators and iterables are 2 different terms. List is an iterable and not an iterator. Iterable is something that can be looped over. We can loop over tuples, dictionaries,generators,strings, files and all kinds of different objects. If something is isterable, it has a method named \__iter__ . Iterator is an object with a state so that it remember where it is during iteration. Iterators can get the next value via \__next__ method. next method runs \__next__ method and iter function runs \__iter__ in the background. Iterators are also iterables but the opposite isn't true. \__iter__ method of an iterators returns self. Iterators only go forward. Generators are extremely useful in creating easy-to-read iterators. Generatros are iterators as well but \__iter__ and \__next__ methods are created automatically.
+
+```iterator_vs_iterable.py
+
+# Generators as iterators
+def my_range(start,end):
+    current = start
+    while current < end:
+        yield current
+        current += 1
+
+nums = my_range(1,6)
+print(next(nums))#1
+print(next(nums))#2
+print(next(nums))#3
+print(next(nums))#4
+
+nums = my_range(1,6)
+for num in nums:
+    print(num)
+
+#1
+#2
+#3
+#4
+#5
+
+nums = [1,2,3]
+for num in nums:
+    print(num)
+
+# The two lines below are equal
+i_nums = nums.__iter__()
+i_nums = iter(nums)
+print(next(i_nums))#1
+print(next(i_nums))#2
+print(next(i_nums))#3
+#print(next(i_nums))#prompts error : StopIteration
+
+# A piece of code that may freeze my computer
+def my_range(start):
+    current = start
+    while True:
+        yield current
+        current += 1
+
+nums = my_range(1)
+
+for num in nums:
+    print(num)
+```
+
+```iterators.py
+# Class solution
+class Sentence:
+    def __init__(self,sentence):
+        self.sentence = sentence
+        self.index = 0
+        self.words = self.sentence.split(' ')
+
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.index >= len(self.words):
+            raise StopIteration
+        index = self.index
+        self.index += 1
+        return self.words[index]
+
+my_sentence = Sentence('This is an example')
+
+print(my_sentence)
+
+for word in my_sentence:
+    print(word)
+#This
+#is
+#an
+#example
+
+# my_sentence = Sentence('This is an example')
+
+print(next(my_sentence))#This
+print(next(my_sentence))#is
+print(next(my_sentence))#an
+print(next(my_sentence))#example
+# print(next(my_sentence))# Raises an error.
+
+# Generator solution via functions
+def sentence(sentence):
+    for word in sentence.split():
+        yield word
+
+my_sentence = sentence('This is an example')
+
+for word in my_sentence:
+    print(word)
+
+# This
+# is
+# an
+# example
+my_sentence = sentence('This is an example')
+
+print(next(my_sentence))#This
+print(next(my_sentence))#is
+print(next(my_sentence))#an
+print(next(my_sentence))#example
+print(next(my_sentence))# Raises an error.
+```
 
 # Python Logging
 
