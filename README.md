@@ -1673,6 +1673,192 @@ print(next(my_sentence))#example
 print(next(my_sentence))# Raises an error.
 ```
 
+51) The iterators module is a collection of functions that allows us to work with iterators efficiently. zip function takes 2 iterators and return an iterator. Files are also iterators. itertools.groupby expects its input iterator as sorted to group efficiently.
+
+```itertools_module.py
+import itertools
+from timeit import repeat
+counter = itertools.count(start =5, step=-2)
+
+print(next(counter))#5
+print(next(counter))#3
+print(next(counter))#1
+print(next(counter))#-1
+
+counter = itertools.count()
+data = [100,200,300,400]
+## counter has no boundary, it may go to infinity.
+daily_data = list(zip(counter,data))
+print(daily_data)#[(0, 100), (1, 200), (2, 300), (3, 400)]
+## Shortest iterators chosen to create the list
+daily_data = list(zip(range(7),data))
+print(daily_data)#[(0, 100), (1, 200), (2, 300), (3, 400)]
+
+## Zip longest
+daily_data = list(itertools.zip_longest(range(7),data))
+print(daily_data)#[(0, 100), (1, 200), (2, 300), (3, 400), (4, None), (5, None), (6, None)]
+## Cycle
+counter = itertools.cycle((1,2,3))
+print(next(counter))#1
+print(next(counter))#2
+print(next(counter))#3
+print(next(counter))#1
+print(next(counter))#2
+print(next(counter))#3
+## Repeat
+counter = itertools.repeat(2)
+#counter = itertools.repeat(2,times=3)# prompts error at 4th.
+print(next(counter))#2
+print(next(counter))#2
+
+# Repeat usage with map and range
+squares = map(pow, range(10), itertools.repeat(2))
+print(list(squares))#[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# starmap
+squares = itertools.starmap(pow,[(0,2),(1,2),(2,2),(3,4)])
+print(list(squares))#[0, 1, 4, 81]
+
+# combinations, no repeating
+letters = ['a','b','c']
+result = itertools.combinations(letters,2)
+for item in result:
+    print(item)
+#('a', 'b')
+#('a', 'c')
+#('b', 'c')
+
+#permutations, no repeating
+result = itertools.permutations(letters,2)
+for item in result:
+    print(item)
+#('a', 'b')
+#('a', 'c')
+#('b', 'a')
+#('b', 'c')
+#('c', 'a')
+#('c', 'b')
+
+#product, cartesian product , which repeats
+numbers = [1,3]
+result = itertools.product(numbers,repeat=3)
+for item in result:
+    print(item)
+#(1, 1, 1)
+#(1, 1, 3)
+#(1, 3, 1)
+#(1, 3, 3)
+#(3, 1, 1)
+#(3, 1, 3)
+#(3, 3, 1)
+#(3, 3, 3)
+
+#chain
+names = ['john','jack']
+combined = itertools.chain(numbers,letters,names)
+for item in combined:
+    print(item)
+#1
+#3
+#a
+#b
+#c
+#john
+#jack
+
+#islice, used for efficient subsetting large files without loading entire content into memory.
+result = itertools.islice(range(10),1,5,2)
+for item in result:
+    print(item)
+
+#1
+#3
+
+#compress, used in data science
+students = ['jack','john','joseph','jacob']
+selectors = [True,False,False,True]
+result = itertools.compress(students,selectors)
+for item in result:
+    print(item)
+#jack
+#jacob
+
+#itertools.filterfalse works in opposite way
+#itertools.dropwhile
+#itertools.takewhile
+
+## accumulate is cumsum by default
+numbers = [1,2,3,4]
+result = itertools.accumulate(numbers)
+for item in result:
+    print(item)
+#1
+#3
+#6
+#10
+
+## accumulate with multiplication
+import operator
+numbers = [1,2,3,4]
+result = itertools.accumulate(numbers,operator.mul)
+for item in result:
+    print(item)
+#1
+#2
+#6
+#24
+
+##groupby
+import json
+with open('people.json') as f:
+    people = json.load(f)
+
+people = people['people']
+
+def get_state(person):
+    return person['state']
+
+person_group = itertools.groupby(people,get_state)
+
+for key,group in person_group:
+    print(key)
+    for person in group:
+        print(person)
+    
+#NY
+#{'name': 'John Doe', 'city': 'Gotham', 'state': 'NY'}
+#{'name': 'Jane Doe', 'city': 'Kings Landing', 'state': 'NY'}
+#CO
+#{'name': 'Corey Schafer', 'city': 'Boulder', 'state': 'CO'}
+#{'name': 'Al Einstein', 'city': 'Denver', 'state': 'CO'}
+#WV
+#{'name': 'John Henry', 'city': 'Hinton', 'state': 'WV'}
+#{'name': 'Randy Moss', 'city': 'Rand', 'state': 'WV'}
+#NC
+#{'name': 'Nicole K', 'city': 'Asheville', 'state': 'NC'}
+#{'name': 'Jim Doe', 'city': 'Charlotte', 'state': 'NC'}
+#{'name': 'Jane Taylor', 'city': 'Faketown', 'state': 'NC'}
+
+person_group = itertools.groupby(people,get_state)
+
+for key,group in person_group:
+    print(key,len(list(group)))
+print("="*50)
+#NY 2
+#CO 2  
+#WV 2
+#NC 3
+
+## tee: Replicate an iterator
+
+person_group = itertools.groupby(people,get_state)
+
+copy1,copy2 = itertools.tee(person_group)
+
+for key, group in person_group:
+    print(key,len(list(group)))
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
