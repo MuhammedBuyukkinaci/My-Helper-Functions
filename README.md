@@ -1375,7 +1375,7 @@ image1.convert(mode='L').save('mbk_black_white.jpg')
 image1.filter(ImageFilter.GaussianBlur(15)).save('mbk_blurred.jpg')
 ```
 
-46) **Context Managers** allow us to properly manage resources so that we can specify exacyly what we want to set up and tear down when working with certain objects. We no longer have to close down opened files within context managers. If an error is thrown, it is still get closed properly. This is why context managers are super useful. Context managers can be used to read a file, connect to a database. There are a couple of ways to write our custom context managers. We can use them via creating classes or creating functions via decorators. Using context managers via functions is mostly preferred way. It is used in opening and closing DB connections; acquiring and releasing locks etc.
+46) **Context Managers** allow us to properly manage resources so that we can specify exacyly what we want to set up and tear down when working with certain objects. We no longer have to close down opened files within context managers. If an error is thrown, it is still get closed properly. This is why context managers are super useful. Context managers can be used to read a file, connect to a database. There are a couple of ways to write our custom context managers. We can use them via creating classes or creating functions via decorators. Using context managers via functions is mostly preferred way. It is used in opening and closing DB connections; acquiring and releasing locks while using threads manually.
 
 ```context_managers.py
 # Naive way to open a file
@@ -1968,6 +1968,80 @@ except Exception as e:
 
 ```
 
+54) **zip** function can take 2 or more iterables(lists etc.) as input. If one list has 5 elements and the other has 6 elements, zip will stop after shortest list exhausted.
+
+```zip_usage.py
+letters = ['a','b','c']
+numbers = [1,2,3]
+checks = [True,True,True]
+# print 3 lines
+for letter,number,check in zip(letters,numbers,checks):
+    print(f"letter {letter} corresponds to number {number}; it is {check} ")
+letters.remove('c')
+#print 2 lines
+for letter,number,check in zip(letters,numbers,checks):
+    print(f"letter {letter} corresponds to number {number}; it is {check} ")
+```
+
+55) Any time we want to ignore a variable in Python, the convention is to use _ as variable name. The convention to use _ as a variable name is basicly just telling Python or code reviews that we aren't using that variable in the next lines no more.
+
+```underscore.py
+a , _ = (1,2)
+print(a)
+```
+
+56) Unpacking not equal values and variables can be carried out via putting an asteriks to the beginning of latest variable.
+
+```unpacking.py
+a,b,*c = (1,2,3,4,5)
+print(a)#1
+print(b)#2
+print(c)#[3, 4, 5]
+```
+
+57) We can dynamically add attribute to an existing object via setattr and get the vlue of an attribute of an object via getattr
+```
+class Person:
+    pass
+# 1) Explicit setting
+person1 = Person()
+person1.name = 'Jack'
+person1.surname = 'Jones'
+# 2) Setting attribute to a variable's value
+person2 = Person()
+name, surname = 'Jack', 'Jones'
+person2.name = name
+person2.surname = surname
+print(person2.name)
+# 3) setattr: Setting attribute name to variable and the value of that attribute to another variable
+person3 = Person()
+name_key = 'name'
+name_value = 'John'
+setattr(person3,name_key,name_value)
+print(person3.name)# John
+# 4) getattr
+name_of_person3 = getattr(person3,name_key)
+print(name_of_person3) # John
+```
+
+58) 10 python tips to write effective code:
+
+```10_tips.py
+# Usage of Ternary conditions than explicit if's
+condition = False
+x = 1 if condition else 0
+print(x)
+# Usage of underscore in numbers
+num1 = 10_0000
+print(num1)
+# Usage of context managers instead of explicitly open and close
+# enumerate usage with start parameter
+# zip: Loop over 2 lists once
+# unpacking not-equal list and underscore usage
+# getattr and setattr
+# getpass: instead of input function while accepting password to hide it.
+# python -m: python -m temp == python temp.py
+```
 
 # Python Logging
 
