@@ -1861,7 +1861,7 @@ for key, group in person_group:
 
 52) **requests** library is great for getting information from a website, not to parse it. Beautiful soup is used  to parse html. There is another library called request-html to parse html. In HTTP status codes, 200's are successes and 300's are redirects, 400's are client errors, 500 errors are server errors. [httpbin.org](https://httpbin.org) is web site to test different queries. It is a good idea to set a timeout.
 
-```
+```requests_examples.py
 import requests
 
 ## Graping an html
@@ -1922,6 +1922,50 @@ r = requests.get('https://httpbin.org/delay/1',timeout=4)
 print(r)#<Response [200]>
 r = requests.get('https://httpbin.org/delay/6',timeout=4)
 print(r)#requests.exceptions.ReadTimeout
+```
+
+53) Monitoring a website through some python code is a practical usage of Python. [python-digitalocean](https://github.com/koalalorenzo/python-digitalocean) is a library to connect DigitalOcean via Python. We can create a new droplet and shut down an existing droplet etc.
+
+```monitoring.py
+import requests
+import smtplib
+import os
+import digitalocean
+
+EMAIL_ADDRESS = os.environ.get('EMAIL_USER')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+DO_TOKEN = os.environ.get('DO_TOKEN')
+
+manager = digitalocean.Manager(token=DO_TOKEN)
+
+def notify_user():
+    with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+        smtp.ehlo()# idenfies ourselves with the mail server we use
+        smtp.starttls()
+        smtp.ehlo()
+
+        smtp.login(EMAIL_ADDRESS, EMAIL_ADDRESS)
+
+        subject = 'YOUR SITE IS DOWN !'
+        body = 'Make Sure he server restarted and it is back up'
+        msg = f' Subject: {subject} \n\n {body}'
+        #EMAIL_ADDRESS is sender
+        smtp.sendmail(EMAIL_ADDRESS,'receiver@gmail.com', msg)
+
+    
+def reboot_user():
+    droplet = manager.get_droplet(droplet_id="YOUR_DROPLET_ID_HERE")
+    droplet.reboot()
+
+try:
+    r = requests.get('https://muhammedbuyukkinaci.com',timeout=5)
+    if r.status_code != 200:
+        notify_user()
+        reboot_user()
+except Exception as e:
+    notify_user()
+    reboot_user()
+
 ```
 
 
