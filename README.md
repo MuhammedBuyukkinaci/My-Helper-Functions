@@ -1859,6 +1859,72 @@ for key, group in person_group:
     print(key,len(list(group)))
 ```
 
+52) **requests** library is great for getting information from a website, not to parse it. Beautiful soup is used  to parse html. There is another library called request-html to parse html. In HTTP status codes, 200's are successes and 300's are redirects, 400's are client errors, 500 errors are server errors. [httpbin.org](https://httpbin.org) is web site to test different queries. It is a good idea to set a timeout.
+
+```
+import requests
+
+## Graping an html
+r = requests.get('https://xkcd.com/353/')
+print(r)#<Response [200]>
+#print(r.text)# some html content
+
+## Download an image and save it 
+
+r = requests.get('https://imgs.xkcd.com/comics/python.png')
+#print(r.content)# prints bytes like m\xa7\xf0]D
+
+# wb means write byte
+with open('comic.png','wb') as f:
+    f.write(r.content)
+
+print(r.status_code)# 200
+
+print(r.ok)# returns True if status_code is less than 400.
+
+## Headers
+r = requests.get('https://imgs.xkcd.com/comics/python.png')
+print(r.headers)# {'Connection': 'keep-alive', 'Content-Length': 
+#'90835', 'Server': 'nginx', 'Content-Type': 'image/png',
+#  'Last-Modified': 'Mon, 01 Feb 2010 13:07:49 GMT', 'ETag': 
+# '"4b66d225-162d3"', 'Expires': 'Sun, 19 Jun 2022 09:17:04 GMT', 
+# 'Cache-Control': 'max-age=300', 'Accept-Ranges': 'bytes', 
+# 'Date': 'Sun, 19 Jun 2022 10:31:20 GMT', 'Via': '1.1 varnish',
+#  'Age': '0', 'X-Served-By': 'cache-fra19162-FRA', 'X-Cache':
+#  'HIT', 'X-Cache-Hits': '1', 'X-Timer': 
+# 'S1655634680.366457,VS0,VE1'}
+
+## Httpbin
+payload = {'page': 2, 'count':25}
+# get
+r =requests.get('https://httpbin.org/get',params = payload)
+#print(r.text)# returns a dictionary whose keys are args, headers, origin, url
+print(r.url)#https://httpbin.org/get?page=2&count=2
+# post
+payload = {'username': 'muhammed', 'password':'abcde'}
+r = requests.post('https://httpbin.org/post',data = payload)
+#print(r.text)# returns a dictionary whose keys are form, headers etc
+print(r.url)#https://httpbin.org/post
+r_dict = r.json()
+print(r_dict['form'])#{'password': 'abcde', 'username': 'muhammed'}
+
+## Basic auth
+import requests
+##correct auth
+r = requests.get('https://httpbin.org/basic-auth/corey/testing', auth = ('corey','testing'))
+print(r.text)#{"authenticated": true, "user": "corey"}
+## incorrect auth
+r = requests.get('https://httpbin.org/basic-auth/corey/testing', auth = ('coreyms','testing'))
+print(r.text)#no response
+print(r)#<Response [401]>, 401 means unauthorized response.
+## timeout, delay 1 second and timeout is 4. It is successful.
+r = requests.get('https://httpbin.org/delay/1',timeout=4)
+print(r)#<Response [200]>
+r = requests.get('https://httpbin.org/delay/6',timeout=4)
+print(r)#requests.exceptions.ReadTimeout
+```
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
