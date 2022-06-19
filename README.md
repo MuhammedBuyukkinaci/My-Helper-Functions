@@ -2043,6 +2043,18 @@ print(num1)
 # python -m: python -m temp == python temp.py
 ```
 
+59) *sys.path* is the list of directories where python looks modules when we run an import. It firstly lists current directory, then default directories of default modules like itertools or datetimes and lastly looks for third party libraries.
+
+```sys_path.py
+import sys
+# Adding a folder whose content can be importable from current directory
+sys.path.append('./pytest')
+from demo import subtract
+
+print(subtract(10,2))#8
+print(sys.path)
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
