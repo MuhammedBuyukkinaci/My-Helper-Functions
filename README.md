@@ -1859,7 +1859,7 @@ for key, group in person_group:
     print(key,len(list(group)))
 ```
 
-52) **requests** library is great for getting information from a website, not to parse it. Beautiful soup is used  to parse html. There is another library called request-html to parse html. In HTTP status codes, 200's are successes and 300's are redirects, 400's are client errors, 500 errors are server errors. [httpbin.org](https://httpbin.org) is web site to test different queries. It is a good idea to set a timeout.
+52) **requests** library is great for getting information from a website, not to parse it. Beautiful soup is used  to parse html. There is another library called request-html to parse html. In HTTP status codes, 200's are successes and 300's are redirects, 400's are client errors, 500 errors are server errors. [httpbin.org](https://httpbin.org) is web site to test different queries. It is a good idea to set a timeout. **elapsed** measures the time between sending the request and finishing parsing the response headers, not until the full response has been transferred
 
 ```requests_examples.py
 import requests
@@ -1872,6 +1872,7 @@ print(r)#<Response [200]>
 ## Download an image and save it 
 
 r = requests.get('https://imgs.xkcd.com/comics/python.png')
+print(r.elapsed.total_seconds())#1.032189
 #print(r.content)# prints bytes like m\xa7\xf0]D
 
 # wb means write byte
