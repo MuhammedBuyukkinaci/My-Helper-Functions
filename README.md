@@ -2056,6 +2056,14 @@ print(subtract(10,2))#8
 print(sys.path)
 ```
 
+60) 5 common mistakes for Python
+
+- Indentation Error: Using tab and 4 spaces together might lead to an indentation error.
+- Naming Conflicts: Don't use built-in modues names in your scripts(math.py datetime.py)
+- Mutable Default Arguments: Don't pass lists or any other mutable data dtypes to a function as default parameter. Set it to None by default and change it in other lines.
+- Exhausting Iterators: We can't access to elements of an iterator if all of elements are looped over once. It isn't like list.
+- Importng with *: Import only needed functions from a module. Don't import whole module like `import os`
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
