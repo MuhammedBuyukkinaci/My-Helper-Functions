@@ -340,6 +340,37 @@ print(f"{a}; its location on memory = {id(a)}")
 # The below print prompts error.
 a[0] = 'D'
 print(f"{a}; its location on memory = {id(a)}")
+
+# integer, immutable, different
+a = 3
+print(id(a))
+a = 4
+print(id(a))
+# List, mutable, same
+b = [1,2,3]
+print(id(b))
+b.append(4)
+print(id(b))
+#Tuple, immutable, different
+c = (1,2,3)
+print(id(c))
+c = (1,2)
+print(id(c))
+#dict, mutable, same
+d = {'a':1,'b':2}
+print(id(d))
+d['c'] = 3
+print(id(d))
+# string, immutable, different
+e ='abcde'
+print(id(e))
+e = 'abcdef'
+print(id(e))
+# set, mutable, same
+f = {1,2,3}
+print(id(f))
+f.add(4)
+print(id(f))
 ```
 
 15) else statement in loops(for or while) should be considered as no-break. it is executed if for loop runs smoothly.
