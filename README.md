@@ -2064,6 +2064,26 @@ print(sys.path)
 - Exhausting Iterators: We can't access to elements of an iterator if all of elements are looped over once. It isn't like list.
 - Importng with *: Import only needed functions from a module. Don't import whole module like `import os`
 
+61)
+
+62) Some Vscode Advices:
+
+- Create .vscode folder and put custom changes on .vscode/settings.json
+- Ctrl + Shift + P to open up command palette
+- Set up color theme(Solorized Dark) and icon theme(AYU)
+- most popular python extension
+- Use json setting rather than UI
+- Type default settings on command palette
+- black is a popular formatter in vscode. Ubuntu shortcut is Ctrl + Shift + I
+- Sort imports on command palette for Python.
+- Run linting via searching on command palette(pylance or pylint)
+- Code runner to run via a green triangle appearing on right upper
+- use terminal instead of right upper green logo if your code has **input**
+- debugging: choose a configuration option like python file or flask or django etc. debugging enables us to be able to jump into the code at a specific location and see the current values. it is better than dropping down and print statements. Put a red brakpoint to debug your code and use debug console.
+- install code command on path using command palette
+- testing: search configure tests on command palette and choose pytest or unittest library. We can run a single test of a Class rather than whole tests.
+- zenmode: it is distraction-free mode, it hides menus etc. Search toggle zen mode on Command Palette.
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
