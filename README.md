@@ -2122,6 +2122,32 @@ print(p2.stdout)
 #129:venv.bak/
 ```
 
+63) Difference between **is** and **==** is that == check for equality and is check for identity, which means that the values are identical in terms of being the same object in memory.
+
+```
+# l1 is equal to l2 despite both different locations on Ram
+l1 = [1,2,3,4,5]
+l2 = [1,2,3,4,5]
+print(f"{True if l1 == l2 else False}")#True
+# Refers to different location on Ram, therefore False
+l1 = [1,2,3,4,5]
+l2 = [1,2,3,4,5]
+print(f"{True if l1 is l2 else False}")#False
+# Referring to same location on RAM
+l1 = [1,2,3,4,5]
+l2 = l1
+print(f"{True if l1 is l2 else False}")#True
+# Pointing to same location on Ram
+print(id(l1))#140095364259648
+print(id(l2))#140095364259648
+# 2 objects pointing to same location in Ram are affected by a changed made to another.
+l1 = [1,2,3,4,5]
+l2 = l1
+l1[0] = 6
+print(l1)#[6, 2, 3, 4, 5]
+print(l2)#[6, 2, 3, 4, 5]
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
