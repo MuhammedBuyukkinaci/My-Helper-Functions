@@ -2064,9 +2064,7 @@ print(sys.path)
 - Exhausting Iterators: We can't access to elements of an iterator if all of elements are looped over once. It isn't like list.
 - Importng with *: Import only needed functions from a module. Don't import whole module like `import os`
 
-61)
-
-62) Some Vscode Advices:
+61) Some Vscode Advices:
 
 - Create .vscode folder and put custom changes on .vscode/settings.json
 - Ctrl + Shift + P to open up command palette
@@ -2083,6 +2081,46 @@ print(sys.path)
 - install code command on path using command palette
 - testing: search configure tests on command palette and choose pytest or unittest library. We can run a single test of a Class rather than whole tests.
 - zenmode: it is distraction-free mode, it hides menus etc. Search toggle zen mode on Command Palette.
+
+62) subprocess module is enabling us to run external commands. Useful in scripts for web servers.
+
+```subprocess_example.py
+import subprocess
+
+# listing contents of current directory
+#shell=True gives us the opportunity to run ls -altr instead of ls
+subprocess.run("ls -altr",shell=True)
+print("="*50)
+#second way to do above
+subprocess.run(['ls','-altr'])
+print("="*50)
+p1 = subprocess.run(['ls','-altr'])
+print(p1.args)#['ls', '-altr']
+print(p1.returncode)#0, 0 means success. 1 is error
+print(p1.stdout)#None,
+print("="*50)
+p1 = subprocess.run(['ls','-altr'],capture_output=True,text=True)
+print(p1.stdout)
+print("="*50)
+# Checking for a non-existing directory, no error is prompted
+p1 = subprocess.run(['ls','-al','dne'],capture_output=True,text=True)
+print(p1.stderr)#ls: cannot access 'dne': No such file or directory
+# Error prompted
+#p1 = subprocess.run(['ls','-al','dne'],capture_output=True,text=True,check=True)
+#print(p1.stderr)#Traceback (most recent call last):
+
+# Redirecting errors to /dev/null,which means ignorance of errors.
+p1 = subprocess.run(['ls','-al','dne'],stderr=subprocess.DEVNULL)
+print(p1.stderr)#None
+print("="*50)
+# Passing the output of a command to another as input
+p1 = subprocess.run(['cat','.gitignore'],capture_output=True,text=True)
+p2 = subprocess.run(['grep','-n','venv'],capture_output=True,text=True,input=p1.stdout)
+print(p2.stdout)
+#124:.venv
+#126:venv/
+#129:venv.bak/
+```
 
 # Python Logging
 
