@@ -2179,6 +2179,220 @@ print(l1)#[6, 2, 3, 4, 5]
 print(l2)#[6, 2, 3, 4, 5]
 ```
 
+64) Threading is going to be used to speed up our program. The speed up comes from running different tasks concurrently. Speed-ups aren't really guaranteed, it really depends on what we are doing. Running everything in order is called running syncronously. It actually isn't doing much on CPU and it is just waiting like this. If a task is IO-bound task(Reading write file system,network operations, downloading stuff online) it sounds logical to use threading. If a task is CPU bound, use multiprocessing. In Python 3.2, they added ThreadPoolExecutor, which is easier to work with. It is advised to use **concurrent.futures.ThreadPoolExecutor()** with **map** function.
+
+![syncronous_code](./images/014.png)
+
+![aimed_code](./images/015.png)
+
+```threading_concepts.py
+import time
+import threading
+# Ordered code
+
+
+start = time.perf_counter()
+
+def do_something():
+    print("sleeeping 1 second")
+    time.sleep(1)
+    print("done sleeping")
+
+do_something()
+do_something()
+finish = time.perf_counter()
+print(f"finished in {round(finish-start,2)} seconds")
+print("="*50)
+# Using threading
+
+## Just passing the function, not executing because not passing with paranthesis ()
+# start = time.perf_counter()
+# t1 = threading.Thread(target=do_something)
+# t2 = threading.Thread(target=do_something)
+# # Run threads
+# t1.start()
+# t2.start()
+# # Complete before calculating the next code
+# t1.join()
+# t2.join()
+
+# finish = time.perf_counter()
+# print(f"finished in {round(finish-start,2)} seconds")
+# print("="*50)
+## Create and start these threads in loops,1.01 second instead of 10 seconds
+# start = time.perf_counter()
+# threads = []
+# for _ in range(10):
+#     t = threading.Thread(target=do_something)
+#     t.start()
+#     threads.append(t)
+
+# for thread in threads:
+#     thread.join()
+
+# finish = time.perf_counter()
+# print(f"finished in {round(finish-start,2)} seconds")
+# print("="*50)
+## Pass arguments to functions, 1.51 seconds instead of 15 seconds
+# def do_something(seconds):
+#     print(f"sleeeping {seconds} second(s)")
+#     time.sleep(seconds)
+#     print("done sleeping")
+
+# start = time.perf_counter()
+# threads = []
+# for _ in range(10):
+#     t = threading.Thread(target=do_something,args=[1.5])
+#     t.start()
+#     threads.append(t)
+
+# for thread in threads:
+#     thread.join()
+
+# finish = time.perf_counter()
+# print(f"finished in {round(finish-start,2)} seconds")
+# print("="*50)
+
+## Thread Pool Executor
+import concurrent.futures
+
+start = time.perf_counter()
+def do_something(seconds):
+    print(f"sleeeping {seconds} second(s)")
+    time.sleep(seconds)
+    return f"done sleeping ... {seconds}"
+
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    # submit method to run once at a time
+    f1 = executor.submit(do_something,1)
+    f2 = executor.submit(do_something,1)
+    print(f1.result())
+    print(f2.result())
+
+finish = time.perf_counter()
+print(f"finished in {round(finish-start,2)} seconds")
+print("="*50)
+
+## Loop over ThreadPoolExecutor, results aren't in order.
+
+start = time.perf_counter()
+
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    secs = [5,4,3,2,1]
+    results = [executor.submit(do_something,sec) for sec in secs]
+
+    for f in concurrent.futures.as_completed(results):
+        print(f.result())
+
+finish = time.perf_counter()
+print(f"finished in {round(finish-start,2)} seconds")
+print("="*50)
+#sleeeping 5 second(s)
+#sleeeping 4 second(s)
+#sleeeping 3 second(s)
+#sleeeping 2 second(s)
+#sleeeping 1 second(s)
+#done sleeping ... 1
+#done sleeping ... 2
+#done sleeping ... 3
+#done sleeping ... 4
+#done sleeping ... 5
+#finished in 5.01 seconds
+
+## map method, results are in order
+start = time.perf_counter()
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    secs = [5,4,3,2,1]
+    results = executor.map(do_something,secs)
+    for result in results:
+        print(result)
+finish = time.perf_counter()
+print(f"finished in {round(finish-start,2)} seconds")
+print("="*50)
+#sleeeping 5 second(s)
+#sleeeping 4 second(s)
+#sleeeping 3 second(s)
+#sleeeping 2 second(s)
+#sleeeping 1 second(s)
+#done sleeping ... 5
+#done sleeping ... 4
+#done sleeping ... 3
+#done sleeping ... 2
+#done sleeping ... 1
+
+# it still waits until it is done.
+start = time.perf_counter()
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    secs = [5,4,3,2,1]
+    results = executor.map(do_something,secs)
+
+finish = time.perf_counter()
+print(f"finished in {round(finish-start,2)} seconds")
+print("="*50)
+#sleeeping 5 second(s)
+#sleeeping 3 second(s)
+#sleeeping 4 second(s)
+#sleeeping 2 second(s)
+#sleeeping 1 second(s)
+```
+
+```taken_from_corey.py
+# Taken from [here](https://github.com/CoreyMSchafer/code_snippets/blob/master/Python/Threading/download-images.py)
+import requests
+import time
+import concurrent.futures
+import os
+
+img_urls = [
+    'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759',
+    'https://images.unsplash.com/photo-1532009324734-20a7a5813719',
+    'https://images.unsplash.com/photo-1524429656589-6633a470097c',
+    'https://images.unsplash.com/photo-1530224264768-7ff8c1789d79',
+    'https://images.unsplash.com/photo-1564135624576-c5c88640f235',
+    'https://images.unsplash.com/photo-1541698444083-023c97d3f4b6',
+    'https://images.unsplash.com/photo-1522364723953-452d3431c267',
+    'https://images.unsplash.com/photo-1513938709626-033611b8cc03',
+    'https://images.unsplash.com/photo-1507143550189-fed454f93097',
+    'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e',
+    'https://images.unsplash.com/photo-1504198453319-5ce911bafcde',
+    'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99',
+    'https://images.unsplash.com/photo-1516972810927-80185027ca84',
+    'https://images.unsplash.com/photo-1550439062-609e1531270e',
+    'https://images.unsplash.com/photo-1549692520-acc6669e2f0c'
+]
+
+# Slow solution
+t1 = time.perf_counter()
+for img_url in img_urls:
+    img_bytes = requests.get(img_url).content
+    img_name = img_url.split('/')[3]
+    img_name = f'{img_name}.jpg'
+    with open(f"temp_images/{img_name}", 'wb') as img_file:
+        img_file.write(img_bytes)
+        print(f'{img_name} was downloaded...')
+
+t2 = time.perf_counter()
+print(f'Finished in {t2-t1} seconds')
+
+os.system("cd temp_images/; rm -rf *")
+
+# Faster solution via threading
+t1 = time.perf_counter()
+def download_image(img_url):
+    img_bytes = requests.get(img_url).content
+    img_name = img_url.split('/')[3]
+    img_name = f'{img_name}.jpg'
+    with open(f"temp_images/{img_name}", 'wb') as img_file:
+        img_file.write(img_bytes)
+        print(f'{img_name} was downloaded...')
+
+with concurrent.futures.ThreadPoolExecutor() as executor:
+    executor.map(download_image, img_urls)
+
+t2 = time.perf_counter()
+print(f'Finished in {t2-t1} seconds')
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
