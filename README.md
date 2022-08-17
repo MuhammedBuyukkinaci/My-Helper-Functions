@@ -2353,6 +2353,104 @@ t2 = time.perf_counter()
 print(f'Finished in {t2-t1} seconds')
 ```
 
+66) File objects arecreated via open command in Python. 4 modes in open: read('r'), write('w'), append('a'), read & write('r+'). The default is *read*. The recommended way is context managers. In context managers, the files are getting closed and can't be accessed out of context managers. We can't write to a file in read mode. In write mode, if the file doesn't exist, the code will create it. If it exists, the code will overwrite it. We can use seek method to set the position to the beginning of the file in write mode. In order to work with images, we are going to open images in binary mode.
+
+```open_file.py
+
+# Not recommended way:
+f = open('open_example.txt','r')
+print(f.name)#open_example.txt
+print(f.mode)#r
+# We have to explicitly close the file. If we don't, we can end up with leaks.
+f.close()
+
+# Recommended way in context manager(for small files)
+with open('open_example.txt','r') as f:
+    f_contents = f.read()
+    print(f_contents)
+print(f.closed)#True
+
+print("="*50)
+
+# readlines: Put the content into a list
+with open('open_example.txt','r') as f:
+    f_contents = f.readlines()
+    print(f_contents)
+
+print("="*50)
+# readline: to read one line
+with open('open_example.txt','r') as f:
+    f_contents = f.readline()
+    print(f_contents)#I am Muhammed.
+
+    f_contents = f.readline()
+    print(f_contents)#I was born in 1994.
+print("="*50)
+# for loop in readline, it is efficient for memory issues
+with open('open_example.txt','r') as f:
+    for line in f:
+        print(line)
+print("="*50)
+# to read only the first 20 characters in the file
+with open('open_example.txt','r') as f:
+    f_contents = f.read(20)
+    print(f_contents,end='*')
+    #I am Muhammed.
+    #I was*
+
+    # A 20 more characters
+    f_contents = f.read(20)
+    print(f_contents,end='*')
+    #born in 1994.
+    #I liv*
+
+print("="*50)
+# tell method to say where the cursor is
+# seek method to move the cursor to desired point.
+with open('open_example.txt','r') as f:
+    f_contents = f.read(15)
+    print(f_contents)#I am Muhammed.
+    print(f.tell())#15
+
+    f.seek(0)# set the cursor to beginning-
+    f_contents = f.read(15)
+    print(f_contents)#I am Muhammed.
+
+print("="*50)
+# write example in open
+with open('open_write_example.txt','w') as f:
+    f.write('test write mode')
+    f.seek(5)
+    f.write('write mode with seek')
+
+print("="*50)
+
+#copying lines of a txt from rf to wf.
+with open('open_example.txt','r') as rf:
+    with open('open_write_example.txt','w') as wf:
+        for line in rf:
+            wf.write(line)
+
+print("="*50)
+# change w to wb, r to rb for images
+with open('mbk.jpg','rb') as rf:
+    #wb means write byte
+    with open('mbk_copy.jpg','wb') as wf:
+        for line in rf:
+            wf.write(line)
+
+# reading size of chunk_size instead of lines
+print("="*50)
+with open('mbk.jpg','rb') as rf:
+    with open('mbk_copy.jpg','wb') as wf:
+        chunk_size = 4096
+        rf_chunk = rf.read(chunk_size)
+        while len(rf_chunk) > 0:
+            wf.write(rf_chunk)
+            rf_chunk = rf.read(chunk_size)
+
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
