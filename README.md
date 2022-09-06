@@ -2451,6 +2451,12 @@ with open('mbk.jpg','rb') as rf:
 
 ```
 
+66) Cohesion and Coupling are 2 progrraming terms.
+
+- Coherence means splitting the code into many parts. A big function should be splitted into many small functions and one function should be responsible for one task (like math.cos(x)). THe more the cohesion, the lower the code quality.
+
+- Coupling means different parts of our code shouldn't be dependent on each other a lot. The more the coupling, the lower the code quality. 
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
