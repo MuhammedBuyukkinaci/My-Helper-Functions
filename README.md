@@ -2451,11 +2451,38 @@ with open('mbk.jpg','rb') as rf:
 
 ```
 
+# Arjan Code Notes 
+
+[Link to Youtube Channel](https://www.youtube.com/c/ArjanCodes/videos)
+
 66) Cohesion and Coupling are 2 progrraming terms.
 
-- Coherence means splitting the code into many parts. A big function should be splitted into many small functions and one function should be responsible for one task (like math.cos(x)). THe more the cohesion, the lower the code quality.
+- Coherence means splitting the code into many parts. A big function should be splitted into many small functions and one function should be responsible for one task (like math.cos(x)). The more the cohesion, the lower the code quality.
 
 - Coupling means different parts of our code shouldn't be dependent on each other a lot. The more the coupling, the lower the code quality. 
+
+67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future.
+
+```
+from abc import ABC, abstractmethod
+
+```
+
+68) If you are creating a class and its constructor has 2 parameters except self, we can define the types of these paramaters of the constructor
+
+```
+class Temporary:
+    param1: str
+    param2: int
+
+    def __init__(self,param1,param2):
+        self.param1 = param1
+        self.param2 = param2
+
+temp = Temporary(param1='abcde',param2=5)
+print(temp.param1)#abcde
+print(temp.param2)#5
+```
 
 # Python Logging
 
