@@ -2457,9 +2457,11 @@ with open('mbk.jpg','rb') as rf:
 
 66) Cohesion and Coupling are 2 progrraming terms.
 
-- Coherence means splitting the code into many parts. A big function should be splitted into many small functions and one function should be responsible for one task (like math.cos(x)). The more the cohesion, the lower the code quality.
+- Coherence means splitting the code into many parts. A big function should be splitted into many small functions and one function should be responsible for one task (like math.cos(x)). The more the cohesion, the more the code quality.
 
 - Coupling means different parts of our code shouldn't be dependent on each other a lot. The more the coupling, the lower the code quality. 
+
+- The goal should be to increase cohesion and reduce coupling.
 
 67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future.
 
