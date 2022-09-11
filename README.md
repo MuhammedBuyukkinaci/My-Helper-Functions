@@ -2486,6 +2486,61 @@ print(temp.param1)#abcde
 print(temp.param2)#5
 ```
 
+69) The strategy pattern should cover increasing cohesion.
+
+```strategy_pattern.py
+
+from abc import ABC, abstractclassmethod
+from typing import Callable, List
+
+
+class Vehicle(ABC):
+    @abstractclassmethod
+    def printer():
+        pass
+    def get_models_bad_to_good(input_list: List[str]) -> List[str]:
+        pass
+
+class Bmw(Vehicle):
+    def printer() -> None:
+        print("Bmw")
+    def get_models_bad_to_good(input_list: List[str]) -> List[str]:
+        return sorted(input_list)
+
+class Mercedes(Vehicle):
+    def printer() -> None:
+        print("Mercedes")
+    def get_models_bad_to_good(input_list: List[str]) -> List[str]:
+        return sorted(input_list)
+
+class Audi(Vehicle):
+    def printer() -> None:
+        print("Audi")
+    def get_models_bad_to_good(input_list: List[str]) -> List[str]:
+        return sorted(input_list)
+
+def get_found_bmw() -> str:
+    return "BMW was founded in 1916"
+
+def get_found_mercedes() -> str:
+    return "Mercedes was founded in 1926"
+
+def get_found_audi() -> str:
+    return "Audi was founded in 1899"
+
+
+def sort_models(vehicle: Vehicle,input_list: List[str], founder_method: Callable[[],str]) -> None:
+    vehicle.printer()
+    print(vehicle.get_models_bad_to_good(input_list))
+    print(founder_method())
+
+sort_models(Audi,['Audi A8','Audi A6','Audi A3','Audi A4'],get_found_audi)
+sort_models(Mercedes,['Mercedes A','Mercedes C','Mercedes S','Mercedes E'],get_found_mercedes)
+sort_models(Bmw, ['Bmw 3','Bmw 2','Bmw 7','Bmw 8'],get_found_bmw)
+
+
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
