@@ -2543,6 +2543,19 @@ sort_models(Bmw, ['Bmw 3','Bmw 2','Bmw 7','Bmw 8'],get_found_bmw)
 
 70) Observer Pattern is design pattern which is based on publishedr/subscriber architecture. 1 observable may be attached to 2 observers. Observer Pattern is related to reducing coupling.
 
+71) [Coverage](https://pypi.org/project/coverage/) is a python library which returns a report like how many lines of our code is successful or used etc. It is used in our tests. The documentation is [here](https://coverage.readthedocs.io/en/6.4.4/). Coverage of 100 % doesn't mean our code is bug free. It isn't a good idea to use a random dataset in testing our software because we want out unit tests to be 100% deterministic. It is agood practice to make our unit tests 100 % deterministic.
+
+```
+# Former pytest usage
+pytest arg1 arg2 arg3
+# Pytest usage with Coverage
+coverage run -m pytest arg1 arg2 arg3
+# To show the repor on Terminal
+coverage report -m
+# To get the results in an html file.
+coverage html
+```
+
 
 
 # Python Logging
