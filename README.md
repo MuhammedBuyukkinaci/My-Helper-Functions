@@ -2541,6 +2541,10 @@ sort_models(Bmw, ['Bmw 3','Bmw 2','Bmw 7','Bmw 8'],get_found_bmw)
 
 ```
 
+70) Observer Pattern is design pattern which is based on publishedr/subscriber architecture. 1 observable may be attached to 2 observers. Observer Pattern is related to reducing coupling.
+
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
