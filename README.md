@@ -2490,12 +2490,12 @@ print(temp.param2)#5
 
 ```strategy_pattern.py
 
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 from typing import Callable, List
 
 
 class Vehicle(ABC):
-    @abstractclassmethod
+    @abstractmethod
     def printer():
         pass
     def get_models_bad_to_good(input_list: List[str]) -> List[str]:
@@ -2555,6 +2555,14 @@ coverage report -m
 # To get the results in an html file.
 coverage html
 ```
+
+72) When we are designing software, avoid a class that has many responsibilities.
+
+73) When we have a fixed process but the steps are different, __Template__ software design may be useful. An example might be ticket handling system or placing an order. When we have a class responsible for connecting DB, grapping data, deciding whether to sell or not based on a strategy, we may create an abstract class named TradingBot and 2 subclasses of them like MinMaxTrader or AverageTrader. If we want to add a different strategy like Moving average, we may create a subclass of TradingBot.
+
+74) __Bridge__ is a design pattern which separates different classes. For instance, we create an abstract exchange class and 2 subclasses like Binance and Coinbase. We also created a TradingBot strategy like MinMax or Average. We can easily use all of these 4 (2 * 2)combinations.
+
+
 
 
 
