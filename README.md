@@ -2562,6 +2562,29 @@ coverage html
 
 74) __Bridge__ is a design pattern which separates different classes. For instance, we create an abstract exchange class and 2 subclasses like Binance and Coinbase. We also created a TradingBot strategy like MinMax or Average. We can easily use all of these 4 (2 * 2)combinations.
 
+75) Exceptions are standard ways of dealing with errors. Don't see them only as hidden control flows of software. It is important to handle errors in low levels rather than a general Exception. Setting up a database connection using context managers and discarding `finally` keyword in cancelling connection might be useful.
+
+```exception_context_managers.py
+
+import sqlite3
+
+class DBConnector:
+    def __init__(self,db_name) -> None:
+        self.db_name = db_name
+    def __enter__(self):
+        self.conn = sqlite3.connect(self.db_name)
+        return self.conn.cursor()
+    def __exit__(self, type, value, traceback):
+        return self.conn.close()
+
+with DBConnector('application.db') as cur:
+    cur.execute("SELECT * FROM TABLE")
+
+```
+
+76) A database operation or a network or I/O operation may fail due to some reasons. Therefore, writing a decorator which aims to retry the operation 3 times or 4 times or more sound reasonable. However, we can write a decorator for logging to reduce boilerplate code in our methods.
+
+
 
 
 
