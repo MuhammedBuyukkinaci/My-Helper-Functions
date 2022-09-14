@@ -2712,6 +2712,7 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 
 81) Don't prefer to use singleton and object pool design patterns in Python.
 
+
 82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. Frozen makes the instance unchangable and order provides comparing different instances. 
 
 ```
