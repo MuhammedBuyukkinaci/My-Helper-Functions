@@ -1072,6 +1072,14 @@ hand = random.sample(cars,k = 5)
 print(hand)#['BMW', 'VW', 'Opel', 'Seat', 'Porsche']
 ```
 
+```
+# Generating Random id from lowercases
+import string
+import random
+# To have a 30 characters string
+print(''.join(random.choices(string.ascii_lowercase,k = 30)))
+```
+
 37) In Python 2, xrange is working like a generator and range is loading all results into memory and returning all results once. In dictionaries, iteritems works like a generator and items works like lists.
 
 38) [reveal.js](https://revealjs.com/) is a JS library which provides slides on browser.
@@ -2541,7 +2549,32 @@ sort_models(Bmw, ['Bmw 3','Bmw 2','Bmw 7','Bmw 8'],get_found_bmw)
 
 ```
 
-70) Observer Pattern is design pattern which is based on publishedr/subscriber architecture. 1 observable may be attached to 2 observers. Observer Pattern is related to reducing coupling.
+```
+# Functional Strategy Pattern
+# The task is to create different password generation.
+import uuid
+import string
+import random
+
+def generate_uuid1():
+    return uuid.uuid1()
+
+def generate_uuid4():
+    return uuid.uuid4()
+
+def generate_ascii_password():
+    return ''.join(random.choices(string.ascii_lowercase,k = 30))
+
+
+def call_password_generator(func):
+    return func()
+
+# you can change the input parameter to generate_uuid4 or generate_ascii_password.
+print(call_password_generator(generate_ascii_password))
+
+```
+
+70) __Observer__ Pattern is design pattern which is based on publishedr/subscriber architecture. 1 observable may be attached to 2 observers. Observer Pattern is related to reducing coupling.
 
 71) [Coverage](https://pypi.org/project/coverage/) is a python library which returns a report like how many lines of our code is successful or used etc. It is used in our tests. The documentation is [here](https://coverage.readthedocs.io/en/6.4.4/). Coverage of 100 % doesn't mean our code is bug free. It isn't a good idea to use a random dataset in testing our software because we want out unit tests to be 100% deterministic. It is agood practice to make our unit tests 100 % deterministic.
 
@@ -2556,7 +2589,7 @@ coverage report -m
 coverage html
 ```
 
-72) When we are designing software, avoid a class that has many responsibilities.
+72) When we are designing software, avoid a class that has many responsibilities. Make sure each part of our code has a single responsibility.
 
 73) When we have a fixed process but the steps are different, __Template__ software design may be useful. An example might be ticket handling system or placing an order. When we have a class responsible for connecting DB, grapping data, deciding whether to sell or not based on a strategy, we may create an abstract class named TradingBot and 2 subclasses of them like MinMaxTrader or AverageTrader. If we want to add a different strategy like Moving average, we may create a subclass of TradingBot.
 
@@ -2583,6 +2616,40 @@ with DBConnector('application.db') as cur:
 ```
 
 76) A database operation or a network or I/O operation may fail due to some reasons. Therefore, writing a decorator which aims to retry the operation 3 times or 4 times or more sound reasonable. However, we can write a decorator for logging to reduce boilerplate code in our methods.
+
+77) Using string interpolations in SQL queries may open our backend to SQL injection attacks. The former is wrong, the latter is correct. ORM takes care of injections issues for ourselves. ORM makes lives easier if our app has a database.
+
+```
+# wrong python code
+cur.execute(f"SELECT * FROM TABLE WHERE id = '{id}'")
+# correct python code
+cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
+```
+
+78) Monadic error handling is an error handling approach. It is existing in functional programming languages originally.
+
+79) We can think of code organization in 3 levels:
+
+- Lowest Level: Choose particular syntax elements for a specific problem. Example: sorting an array, for loop.
+
+- Software Design: How to structure functions and classes. Strategy, Observer, Template, Bridge.
+
+- Software Architecture: Overall philosopy or approach of how our code works and how it solves the problem. For instance, Django uses MVT(Model View Architecture). .NET uses MVC.
+
+80) Some commonly used software architecture:
+
+- MVC: Data is in Model, Controller applies the logic and View shows the output.
+
+- Pipeline: Scikit-image follows this architecture.
+
+- Client Server:
+
+- Peer to Peer:
+
+- Microservices: Common in big web applications
+
+- Game Loop Engine: Used in game engines
+
 
 
 
