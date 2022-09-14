@@ -2650,7 +2650,61 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 
 - Game Loop Engine: Used in game engines
 
+81) SOLID design pattern helps us write great codes, easy to reuse and extend. It is introduced by Uncle Bob.
 
+- S: Single Responsibility: We want classes and methods to have single responsibility.
+    
+    - Think of a Sales example. There is an Order class which deals with orders and Payments. Separate Payment as a new class. Also, separate payment method as 2 new methods like pay_credit or pay_debit instead of if-else checking.
+
+- O: Open/Closed: Writing code which is open to extension but closed to modification.
+
+    - In th example above, move pay_debit and pay_credit to a subclass of Payment like DebitPayment or CreditPayment. Inherit DebitPayment and CreditPayment from Payment class, which is a subclass of ABC.
+- Liskov Substitution: Instances of Subclasses should also be passable to main objects.
+
+    - If you have objects in your program, you should be able to replace them with instances of their subclasses without altering the correctness of our program. One of the solution may be moving the subclass-specific attributes to constructor of sublasses. In Sales example, remove security_code from Payment class and move it as an argument to constructors of DebitPayment and CreditPayment. Also, add e-mail address to constructor of PaypalPayment. After these changes, pay method of Payment class can be callable by PaypalPayment, CreditPayment, DebitPayment.
+
+- Interface Segregation: Having several specific interfaces as opposed to one general purpose interface.
+
+    - Instead of one general interface or base class(Payment), write a new class named Payment_SMS(which is inherited from Payment) and inherit DebitPayment and PaypalPayment from Payment_SMS. Inherit CreditPayment from Payment. Interface Segregation can be used via Inheritance or Composition(an alternative method which splits the code into many classes instead inheriting from many parent classes).
+
+    ```
+    from abc import ABC
+
+    class Payment(ABC):
+        pass
+
+    class Payment_SMS(Payment):
+        pass
+
+    class DebitPayment(Payment_SMS):
+        pass
+
+    class CreditPayment(Payment):
+        pass
+
+    class PaypalPayment(Payment_SMS):
+        pass
+        
+    ```
+
+
+- Dependency Inversion: Dependency inversion help us separate components. It helps us to reduce coupling.
+
+    - For instance, we have an SMS authenticator but we also want to add a Google authenticator. What is required is to define a class named Authenticator. Create 2 new classes named SMSAuthenticator and GoogleAuthenticator which will inherit from Authenticator class.
+
+    ```
+    from abc import ABC
+
+    class Authenticator(ABC):
+        pass
+
+    class SMSAuthenticator(Authenticator):
+        pass
+
+    class GoogleAuthenticator(Authenticator):
+        pass
+
+    ```
 
 
 
