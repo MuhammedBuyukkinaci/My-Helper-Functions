@@ -2634,6 +2634,10 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 
 - Software Design: How to structure functions and classes. Strategy, Observer, Template, Bridge.
 
+    - Creational Patterns: Singleton.
+    - Structural Patterns: Bridge pattern is structural.
+    - Behavioral Patterns: Allowing to choose between different algorithms. Strategy and Observer are 2 types.
+
 - Software Architecture: Overall philosopy or approach of how our code works and how it solves the problem. For instance, Django uses MVT(Model View Architecture). .NET uses MVC.
 
 80) Some commonly used software architecture:
@@ -2659,11 +2663,11 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 - O: Open/Closed: Writing code which is open to extension but closed to modification.
 
     - In th example above, move pay_debit and pay_credit to a subclass of Payment like DebitPayment or CreditPayment. Inherit DebitPayment and CreditPayment from Payment class, which is a subclass of ABC.
-- Liskov Substitution: Instances of Subclasses should also be passable to main objects.
+- L: Liskov Substitution: Instances of Subclasses should also be passable to main objects.
 
     - If you have objects in your program, you should be able to replace them with instances of their subclasses without altering the correctness of our program. One of the solution may be moving the subclass-specific attributes to constructor of sublasses. In Sales example, remove security_code from Payment class and move it as an argument to constructors of DebitPayment and CreditPayment. Also, add e-mail address to constructor of PaypalPayment. After these changes, pay method of Payment class can be callable by PaypalPayment, CreditPayment, DebitPayment.
 
-- Interface Segregation: Having several specific interfaces as opposed to one general purpose interface.
+- I: Interface Segregation: Having several specific interfaces as opposed to one general purpose interface.
 
     - Instead of one general interface or base class(Payment), write a new class named Payment_SMS(which is inherited from Payment) and inherit DebitPayment and PaypalPayment from Payment_SMS. Inherit CreditPayment from Payment. Interface Segregation can be used via Inheritance or Composition(an alternative method which splits the code into many classes instead inheriting from many parent classes).
 
@@ -2688,7 +2692,7 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
     ```
 
 
-- Dependency Inversion: Dependency inversion help us separate components. It helps us to reduce coupling.
+- D: Dependency Inversion: Dependency inversion help us separate components. It helps us to reduce coupling.
 
     - For instance, we have an SMS authenticator but we also want to add a Google authenticator. What is required is to define a class named Authenticator. Create 2 new classes named SMSAuthenticator and GoogleAuthenticator which will inherit from Authenticator class.
 
@@ -2706,7 +2710,39 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 
     ```
 
+81) Don't prefer to use singleton and object pool design patterns in Python.
 
+82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. Frozen makes the instance unchangable and order provides comparing different instances.
+
+```
+from dataclasses import dataclass
+
+class Vehicle:
+    name: str
+    age: int
+    def __init__(self,name,age) -> None:
+        self.name = name
+        self.age = age
+
+vehicle1 = Vehicle('BMW',20)
+vehicle2 = Vehicle('Mercedes',15)
+vehicle3 = Vehicle('BMW',20)
+
+print(vehicle1 == vehicle3)# False
+
+@dataclass
+class VehicleWithDataclass:
+    name: str
+    age: int
+    torque: 350
+
+vehicle1 = VehicleWithDataclass('BMW',20)
+vehicle2 = VehicleWithDataclass('Mercedes',15)
+vehicle3 = VehicleWithDataclass('BMW',20)
+
+print(vehicle1 == vehicle3)# True
+
+```
 
 
 
