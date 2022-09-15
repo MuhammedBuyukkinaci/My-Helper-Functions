@@ -2576,7 +2576,17 @@ print(call_password_generator(generate_ascii_password))
 
 70) __Observer__ Pattern is design pattern which is based on publishedr/subscriber architecture. 1 observable may be attached to 2 observers. Observer Pattern is related to reducing coupling.
 
-71) [Coverage](https://pypi.org/project/coverage/) is a python library which returns a report like how many lines of our code is successful or used etc. It is used in our tests. The documentation is [here](https://coverage.readthedocs.io/en/6.4.4/). Coverage of 100 % doesn't mean our code is bug free. It isn't a good idea to use a random dataset in testing our software because we want out unit tests to be 100% deterministic. It is agood practice to make our unit tests 100 % deterministic.
+71) [Coverage](https://pypi.org/project/coverage/) is a python library which returns a report like how many lines of our code is successful or used etc. It is used in our tests. The documentation is [here](https://coverage.readthedocs.io/en/6.4.4/). Coverage of 100 % doesn't mean our code is bug free. It isn't a good idea to use a random dataset in testing our software because we want out unit tests to be 100% deterministic. It is a good practice to make our unit tests 100 % deterministic. To keep abstract classes out of Coverage testing, convert `pass` statements in abstract classes into docstring. Another way of ignoring is creating a `.coveragerc` file and putting the content below into it to ignore abstract methods.
+
+```.coveragerc
+[report]
+exclude_lines =
+    pragma: no cover
+    @abstract
+
+```
+
+
 
 ```
 # Former pytest usage
@@ -2744,6 +2754,14 @@ vehicle3 = VehicleWithDataclass('BMW',20)
 print(vehicle1 == vehicle3)# True
 
 ```
+
+83) Dependency in OOP refers to an object type a class has a direct relationship with.
+
+- Class can have an attribute of another Class.
+- Object of that type has passed as parameter to method.
+- Inheritance: Class inherits from another class. The strongest dependency relationship is inheritance. Inheritance introduces coupling, which is hard to remove.
+
+84) Dependency injection is a design pattern. Dependency injection is all about splitting creation of an object and using of object by passing the object as a parameter. Depdency injection is that if a class uses an instance of a certain class, we aren't making the class responsible for creating that object. Dependency injection makes our code to be tested easily. Without dependency injection, there is no dependency inversion.
 
 
 
@@ -3082,6 +3100,8 @@ class TestEmployee(unittest.TestCase):
 19) Any testing is better than no testing. Even if you write some basic assertions, It is better than nothing.
 
 20) unittest module in Python is originally inspired from Java's JUnit.
+
+21) In testing, we aren't just testing setting data to value, we are also testing the behavior
 
 # Pytest
 
