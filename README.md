@@ -3,7 +3,7 @@ This repository is containing functions that I use in Python a lot.
 
 # Important Python Concepts in OOP
 
-1) Classes allow us to group data and functions and make them easy to use. We don't have to use `self` in regular methods(like constructor) but using `self` is a convention. In class methods, `cls` is a convention. Class variables are variables that were shared by all instances of Class and they are the same across all instances. If we want class variables to be modified through instances, use them via self. However, if you don't want class variables to be modified through instances, use them via Employee.class_variable or define a **classmethod**(set_raise_amt) that modifies class variable. **from_string** is an alternative method defined via **classmethod**. staticmethod neither takes an cls argument like classmethod nor self argument like regular method. It is in class because of some kind of relationship with Class. In reality, staticmethod shouldn't acess to class or instance eanywhere in itself.
+1) Classes allow us to group data and functions and make them easy to use. We don't have to use `self` in regular methods(like constructor) but using `self` is a convention. In class methods, `cls` is a convention. Class variables are variables that were shared by all instances of Class and they are the same across all instances. If we want class variables to be modified through instances, use them via self. However, if you don't want class variables to be modified through instances, use them via Employee.class_variable or define a **classmethod**(set_raise_amt) that modifies class variable. **from_string** is an alternative method defined via **classmethod**. staticmethod neither takes an cls argument like classmethod nor self argument like regular method. It is in class because of some kind of relationship with Class. In reality, staticmethod shouldn't access to a class or an instance anywhere in itself.
 
 ```classes_intro.py
 import datetime
@@ -2812,8 +2812,33 @@ deniz = Person(25,"Deniz")
 print(deniz.age,deniz.name,deniz.gender)
 ```
 
+89) Using `""" Class or function explanation """` should be used after defining a class or a method as docstring.
 
+90) Pydantic is an extension to dataclasses module of Python. Pydantic is similar to dataclasses. Pydantic incorporates validation mechanism for data on top of dataclasses. If you don't need data validation, dataclasses is just fine. Pydantic can generate json schema automatically from the base model defined.
 
+```pydantic_example.py
+
+import pydantic
+from typing import Optional, List
+import json
+
+class Vehicle(pydantic.BaseModel):
+    brand: str
+    model: str
+    year: int
+    price: Optional[float]
+
+def main():
+    with open("vehicles.json") as file:
+        data = json.load(file)
+        vehicles: List[Vehicle] = [Vehicle(**vehicle) for vehicle in data]
+        print(vehicles[0])
+        print(vehicles[0].brand,vehicles[0].price)
+
+if __name__ == '__main__':
+    main()
+
+```
 
 
 # Python Logging

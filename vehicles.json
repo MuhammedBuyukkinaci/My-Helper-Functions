@@ -1,0 +1,17 @@
+[
+    {
+        "brand": "BMW",
+        "model": "X4",
+        "year": 2019
+    },
+    {
+        "brand": "Audi",
+        "model": "A8",
+        "year": 2021
+    },
+    {
+        "brand": "Mercedes",
+        "model": "S680",
+        "year": 2020
+    }
+]
