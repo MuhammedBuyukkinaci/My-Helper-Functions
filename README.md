@@ -2473,14 +2473,16 @@ with open('mbk.jpg','rb') as rf:
 
 67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future.
 
-```
+```abstract_base_class_usage.py
+
 from abc import ABC, abstractmethod
 
 ```
 
 68) If you are creating a class and its constructor has 2 parameters except self, we can define the types of these paramaters of the constructor
 
-```
+```type_hint_class.py
+
 class Temporary:
     param1: str
     param2: int
@@ -2549,7 +2551,7 @@ sort_models(Bmw, ['Bmw 3','Bmw 2','Bmw 7','Bmw 8'],get_found_bmw)
 
 ```
 
-```
+```functional_strategy.py
 # Functional Strategy Pattern
 # The task is to create different password generation.
 import uuid
@@ -2588,7 +2590,7 @@ exclude_lines =
 
 
 
-```
+```coverage_bash.sh
 # Former pytest usage
 pytest arg1 arg2 arg3
 # Pytest usage with Coverage
@@ -2629,7 +2631,7 @@ with DBConnector('application.db') as cur:
 
 77) Using string interpolations in SQL queries may open our backend to SQL injection attacks. The former is wrong, the latter is correct. ORM takes care of injections issues for ourselves. ORM makes lives easier if our app has a database.
 
-```
+```wrong_cursor.py
 # wrong python code
 cur.execute(f"SELECT * FROM TABLE WHERE id = '{id}'")
 # correct python code
@@ -2681,7 +2683,7 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 
     - Instead of one general interface or base class(Payment), write a new class named Payment_SMS(which is inherited from Payment) and inherit DebitPayment and PaypalPayment from Payment_SMS. Inherit CreditPayment from Payment. Interface Segregation can be used via Inheritance or Composition(an alternative method which splits the code into many classes instead inheriting from many parent classes).
 
-    ```
+    ```interface_segregation.py
     from abc import ABC
 
     class Payment(ABC):
@@ -2725,7 +2727,7 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 
 82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. Frozen makes the instance unchangable and order provides comparing different instances. 
 
-```
+```dataclasses_example.py
 from dataclasses import dataclass
 
 class Vehicle:
@@ -2762,6 +2764,55 @@ print(vehicle1 == vehicle3)# True
 - Inheritance: Class inherits from another class. The strongest dependency relationship is inheritance. Inheritance introduces coupling, which is hard to remove.
 
 84) Dependency injection is a design pattern. Dependency injection is all about splitting creation of an object and using of object by passing the object as a parameter. Depdency injection is that if a class uses an instance of a certain class, we aren't making the class responsible for creating that object. Dependency injection makes our code to be tested easily. Without dependency injection, there is no dependency inversion.
+
+85) Some tools to improve code quality on Vscode
+
+- Pylint
+
+- Mypy
+
+- Black
+
+86) In the book of gang of 4 design patterns, most design patterns recommend composition over inheritance. Composition is a "has a" relationship and Inheritance is a "is a" relationship. Inheritance leads to more coupling, which is something we don't want. For the same codebase, composition has less code over inheritance. Inheritance leads to a combinatorial explosion of code base.
+
+87) When we have a parent class and child class and we override a function of Parent class in Child class, we can call the overridden method in Child class. 
+
+```use_base_method_in_child.py
+class Parent:
+    def printer(self):
+        print("Parent")
+
+class Child(Parent):
+    def printer(self):
+        super().printer()
+        print("Child")
+
+child = Child()
+child.printer()
+#Parent
+#Child
+```
+
+88) While defining an class, we may want an attribute to be optional and its default value is set to None. In this situation, __Optional__ from typing module can be useful to indicate that attribute is a type of a data type and it is optional. 
+
+```
+from typing import Optional
+from dataclasses import dataclass
+
+@dataclass
+class Person:
+    age : int
+    name: str
+    gender: Optional[str] = None
+
+deniz = Person(20,"Deniz", gender='Man')
+print(deniz.age,deniz.name,deniz.gender)
+
+deniz = Person(25,"Deniz")
+print(deniz.age,deniz.name,deniz.gender)
+```
+
+
 
 
 
