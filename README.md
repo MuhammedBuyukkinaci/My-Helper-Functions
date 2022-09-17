@@ -2840,6 +2840,54 @@ if __name__ == '__main__':
 
 ```
 
+91) __Refactoring by Martin Fowler__ is book to refactor an existing codebase.
+
+- Some code problem are easy to fix
+- Some code problems are realted to deeper design pattern and take some time to fix.
+- Some code aren't practical at the moment.
+
+92) Let's think about we are running an employee management system. There are many roles that employees have. To show employees' roles, we should use __enum__ module instead of strings. String are easy to collapse like "manager" and "Manager" are 2 different values.
+
+```
+from enum import Enum, auto
+
+class Role(Enum):
+    MANAGER = auto()
+    VICEPRESIDENT = auto()
+    ENGINEER = auto()
+    INTERN = auto()
+
+class Employee:
+    def __init__(self, name: str, role: Role) -> None:
+        self.name = name
+        self.role = role
+
+employee_1 = Employee("Muhammed",Role.ENGINEER)
+employee_2 = Employee("Ahmet",Role.MANAGER)
+
+print(employee_1.name,employee_1.role)
+print(employee_2.name,employee_2.role)
+```
+
+93) Code duplication is bad because if there is a bug, we should fix it in every duplicate. Instead of __find_manager__, __find_vicepresident__, __find_engineer__, use finder method with input paremeters like `president` and `vicepresident`.
+
+
+94) Custom Error Handling can be made via defining an exception class which is inherited from Exception class and create a constructor for child class and passing the message value to super(). \`__init__`(message).
+
+```
+class CustomException(ValueError):
+    def __init__(self, message : str ) -> None:
+        self.message = message
+        super().__init__(message)
+
+a = 1000
+
+if a < 2000:
+    raise CustomException("Can't convert string to integer")
+
+```
+
+95) [replit](https://replit.com/languages/python3) and [pythonsandbox](https://pythonsandbox.com/) are 2 websites to run Python scripts.
 
 # Python Logging
 
@@ -3068,6 +3116,8 @@ logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
 - Arrange: the conditions for the test
 - Act: calling some function or method
 - Assert: check the condition is True
+
+7) Writing testable code is linked to applying design patterns into our code correctly.
 
 # Unit Testing
 
