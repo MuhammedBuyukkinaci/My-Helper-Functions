@@ -282,6 +282,11 @@ my_string = "I am {0[name]} and I am {0[age]} years old. {0[age]} years old is a
 mydict = ['Muhammed',28]
 my_string = "I am {0[0]} and I am {0[1]} years old. {0[1]} years old is a critical age in human life.".format(mydict)
 
+# Single or DOuble quotation for string
+temp_string = "Ali'nin arabası var."
+print(f"cümle = {temp_string}")#cümle = Ali'nin arabası var.
+print(f"cümle = {temp_string!r}")#cümle = "Ali'nin arabası var."
+
 
 ```
 
@@ -2888,6 +2893,12 @@ if a < 2000:
 ```
 
 95) [replit](https://replit.com/languages/python3) and [pythonsandbox](https://pythonsandbox.com/) are 2 websites to run Python scripts.
+
+96) __Structural Pattern Matching__ is a new feature as of Python 3.10 . It is simiar to switch case statements of other languages. It provides the code with the possibility of if-else statements. If the code has lots of if-else or switch-case statements, think about changing the design pattern to __strategy pattern__.
+
+97) Factory is a design pattern which separates the creation from the use. Factory allows us to group objects that belong together. Factory works less well if you want to allow any combination of things.
+
+98) Github CoPilot is an AI Pair Programmer available on VS code extensions. Its fee is 10 dollar per month and requires subsciprtion. For Python, It just needs the name of a function and then bring code suggestions derived from function name.
 
 # Python Logging
 
