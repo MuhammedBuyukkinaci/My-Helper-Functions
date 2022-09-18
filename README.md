@@ -2943,6 +2943,20 @@ from temp2 import a
 print(a)#3
 ```
 
+102) Test Driven Development is introduced by Kent Beck in the book of Test Driven Development By Example. It is also know as Red-Green Refactor.
+
+- 1) Write Tests
+
+- 2) Run the tests
+
+- 3) Write the actual code
+
+- 4) Make all tests pass
+
+- 5) Refactor and improve
+
+
+
 
 # Python Logging
 
