@@ -2901,6 +2901,49 @@ if a < 2000:
 
 98) Github CoPilot is an AI Pair Programmer available on VS code extensions. Its fee is 10 dollar per month and requires subsciprtion. For Python, It just needs the name of a function and then bring code suggestions derived from function name.
 
+99) Walrus operator is an another name for assignment operations. It is combining assignment and checking.
+
+```walrus_operator.py
+a = [1, 2, 3, 4]
+if (n := len(a)) > 3:
+    print(f"List is too long ({n} elements, expected <= 3)")#List is too long (4 elements, expected <= 3)
+
+```
+
+100) 7 + 1 code smells to avoid:
+
+- Too many parameters for a method.
+
+- Too nested code, check conditions at the first of a method and then putthe main logic without nesting.
+
+- Using wrong data type
+
+- Nested conditional expressions(it might be in `return` statement).
+
+- Wildcard imports (from numpy import *)
+
+- Use dunder method str or repr over custom methods if possible
+
+- Using self in staticmethods. Instead, drop self and add @staticmethod decorator.
+
+101) Don't prefer to assign values to variables like temp2.py on module level because these kinds o variables are going to be open to importing by another module.
+
+```temp2.py
+a = 3
+
+if __name__ == '__main__':
+    print(a)
+    a = 4
+    print(a)
+
+```
+
+```temp.py
+from temp2 import a
+print(a)#3
+```
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
