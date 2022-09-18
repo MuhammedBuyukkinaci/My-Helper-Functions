@@ -2501,7 +2501,8 @@ print(temp.param1)#abcde
 print(temp.param2)#5
 ```
 
-69) The strategy pattern should cover increasing cohesion.
+69) The strategy pattern should cover increasing cohesion. It is swapping out the algorithm without changing the code that uses the algorithm. For example, defining different compression algorithms like z or gzip etc and using one of them in the code is an example of strategy pattern. Using the strategy pattern via classes is better than via functions because classes are combining data(attributes) with behavior(functions.). If we have different strategies and each has different parameters, set them in the initializer via dataclass or constructor. This way reduces coupling.
+
 
 ```strategy_pattern.py
 
