@@ -3027,7 +3027,7 @@ sort_models(Bmw, ['Bmw 3','Bmw 2','Bmw 7','Bmw 8'],get_found_bmw)
 
 - Dataclasses are mutable and Tuples are immutable.
 
-109) The usage of pop method of a list is below. It is grepping the item of chosen index and removing it from the list.
+109) The usage of pop method of a list is below. It is grepping the item of chosen index and removing it from the list. The default index is -1.
 
 ```pop_usage.py
 fruits = ['apple', 'banana', 'cherry']
