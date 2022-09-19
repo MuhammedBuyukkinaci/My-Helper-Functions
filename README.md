@@ -2501,7 +2501,7 @@ print(temp.param1)#abcde
 print(temp.param2)#5
 ```
 
-69) The strategy pattern should cover increasing cohesion. It is swapping out the algorithm without changing the code that uses the algorithm. For example, defining different compression algorithms like z or gzip etc and using one of them in the code is an example of strategy pattern. Using the strategy pattern via classes is better than via functions because classes are combining data(attributes) with behavior(functions.). If we have different strategies and each has different parameters, set them in the initializer via dataclass or constructor. This way reduces coupling.
+69) The strategy pattern should cover increasing cohesion. It is swapping out the algorithm without changing the code that uses the algorithm. For example, defining different compression algorithms like zip or gzip etc and using one of them in the code is an example of strategy pattern. Using the strategy pattern via classes is better than via functions because classes are combining data(attributes) with behavior(functions.). If we have different strategies and each has different parameters, set them in the initializer via dataclass or constructor. This way reduces coupling.
 
 
 ```strategy_pattern.py
@@ -2969,6 +2969,74 @@ print(a)#3
 print(3 <= 4 <= 5 and 7 > 6 > 5)  # True
 print(3 <= 4 <= 5 and 7 > 4 > 4)  # False
 ```
+
+107) Protocol is an alternative to Abstract Base Classes(ABC). It is available in Python as of version 3.8 . We don't have to inherit it to use it and we don't have to type abstractmethod as a decorator for each method of abstract class. We can even use inheritance relationship with Protocol. Protocol is more similar to Interfaces in other languages. If Inheritance is going to be kept, prefer to use ABC. Otherwise, use Protocol if you don't have Inheritance relationship. Protocol is more convenient to Python's Duck Typing rather than ABC.
+
+```protocol_usage.py
+from typing import Protocol
+from typing import Callable, List
+
+
+class Vehicle(Protocol):
+    def printer():
+        pass
+    def get_models_bad_to_good(input_list: List[str]) -> List[str]:
+        pass
+
+class Bmw:
+    def printer() -> None:
+        print("Bmw")
+    def get_models_bad_to_good(input_list: List[str]) -> List[str]:
+        return sorted(input_list)
+
+class Mercedes:
+    def printer() -> None:
+        print("Mercedes")
+    def get_models_bad_to_good(input_list: List[str]) -> List[str]:
+        return sorted(input_list)
+
+class Audi:
+    def printer() -> None:
+        print("Audi")
+    def get_models_bad_to_good(input_list: List[str]) -> List[str]:
+        return sorted(input_list)
+
+def get_found_bmw() -> str:
+    return "BMW was founded in 1916"
+
+def get_found_mercedes() -> str:
+    return "Mercedes was founded in 1926"
+
+def get_found_audi() -> str:
+    return "Audi was founded in 1899"
+
+def sort_models(vehicle: Vehicle,input_list: List[str], founder_method: Callable[[],str]) -> None:
+    vehicle.printer()
+    print(vehicle.get_models_bad_to_good(input_list))
+    print(founder_method())
+
+sort_models(Audi,['Audi A8','Audi A6','Audi A3','Audi A4'],get_found_audi)
+sort_models(Mercedes,['Mercedes A','Mercedes C','Mercedes S','Mercedes E'],get_found_mercedes)
+sort_models(Bmw, ['Bmw 3','Bmw 2','Bmw 7','Bmw 8'],get_found_bmw)
+
+```
+
+108) The differences between dataclasses and tuples are as follows:
+
+- Tuples consume less memory and therefore they are faster.
+
+- Dataclasses are mutable and Tuples are immutable.
+
+109) The usage of pop method of a list is below. It is grepping the item of chosen index and removing it from the list.
+
+```pop_usage.py
+fruits = ['apple', 'banana', 'cherry']
+fruit = fruits.pop(2)
+print(fruits)#['apple', 'banana']
+print(fruit)#cherry
+```
+
+
 
 
 
