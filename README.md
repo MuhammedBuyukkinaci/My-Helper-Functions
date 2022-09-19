@@ -2773,6 +2773,8 @@ print(vehicle1 == vehicle3)# True
 
 85) Some tools to improve code quality on Vscode
 
+- Pylance
+
 - Pylint
 
 - Mypy
@@ -2899,7 +2901,7 @@ if a < 2000:
 
 97) Factory is a design pattern which separates the creation from the use. Factory allows us to group objects that belong together. Factory works less well if you want to allow any combination of things.
 
-98) Github CoPilot is an AI Pair Programmer available on VS code extensions. Its fee is 10 dollar per month and requires subsciprtion. For Python, It just needs the name of a function and then bring code suggestions derived from function name.
+98) Github CoPilot is an AI Pair Programmer available on VS code extensions. Its fee is 10 dollar per month and requires subsciprtion. For Python, It just needs the name of a function and then bring code suggestions derived from function name. An alternative to github co pilot is [Tabnine](https://www.tabnine.com/).
 
 99) Walrus operator is an another name for assignment operations. It is combining assignment and checking.
 
@@ -2955,6 +2957,18 @@ print(a)#3
 
 - 5) Refactor and improve
 
+103) Don't put all classes into a single file. Separate them into many files.
+
+104) Uppercase variable names mean constants in Python. If a variable gets modified in the code, don't type in with uppercase.
+
+105) Handle special cases first in if else checks. This reduces indentations in the code and makes the code readable.
+
+106) Multiple operator checking in single line of code 
+
+```check_arithmetic.py
+print(3 <= 4 <= 5 and 7 > 6 > 5)  # True
+print(3 <= 4 <= 5 and 7 > 4 > 4)  # False
+```
 
 
 
