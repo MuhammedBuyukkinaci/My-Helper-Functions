@@ -3036,6 +3036,32 @@ print(fruits)#['apple', 'banana']
 print(fruit)#cherry
 ```
 
+110) Program testing can be uset to show the presence of bugs but not to show the absence of bugs. Different types of Software Testing. Unit tests are white box tests.
+
+- Mutation Testing: Modifying the source code or program. Basicly introducing mutances like changing greater than equal sign to lower than equal sign etc. [Mutmut](https://mutmut.readthedocs.io/en/latest/) is a python library to carry out mutation testing. Low level testing.
+
+- Snapshot Testing: A black box testing used in web development. It may be useful in comparing the expected result of HTML and the HTML output of our application. Jest library in React is a library for snapshot testing. Low level testing.
+
+- Property based testing: [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) is a Python Library to make property based testing. Low level testing.
+
+- Integration Testing and Acceptance Testings are 2 different high-level testing types. DTAP mean Development, Testing, Acceptance, Production.
+
+```property_based_testing.py
+# Property based testing
+def add_four(x):
+    return x + 4
+
+def subtract_four(x):
+    return x - 4
+
+def main():
+    assert subtract_four(add_four(5)) == 5
+
+if __name__ == '__main__':
+    main()
+```
+
+
 
 
 
