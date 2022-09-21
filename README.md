@@ -2476,7 +2476,7 @@ with open('mbk.jpg','rb') as rf:
 
 - The goal should be to increase cohesion and reduce coupling.
 
-67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future.
+67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future. Abstract classes should hae only abstract methods, which means no attributes should be passed to Abstract classes. If you want to use `@staticmethod` decorator within Abstract class, add `@staticmethod` before `@abstractmethod`
 
 ```abstract_base_class_usage.py
 
@@ -2731,7 +2731,7 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 81) Don't prefer to use singleton and object pool design patterns in Python.
 
 
-82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. Frozen makes the instance unchangable and order provides comparing different instances. 
+82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. Frozen makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method.
 
 ```dataclasses_example.py
 from dataclasses import dataclass
@@ -3060,6 +3060,41 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+111) Different concepts in Python:
+
+- Library is a collection of packages
+
+- Package is a collection of modules(.py files) + `__init__.py` file. `__init__.py` makes the package to callable from different directories.
+
+- Module is a just simple file.py in a package.
+
+- Class is a data type which combines data(attributes) and behavior(methods). It is existing in Module.
+
+- Function is a do-something part of a code. If function is located under a class, it becomes a method.
+
+- Global Variable is a variable existing in a module. `__main__` is an example.
+
+112) Naming convension in Python is as follows:
+
+- Library names should be lowercase(`import tensorflow`)
+
+- Module names should be lowercase and can have underscore if it makes reading reasy - (`camelcase.py`)
+
+- Class names should be like `class CamelCase`
+
+- Method and Function names should be lowercase and can have underscores - `def get_info` or `def getter`.
+
+- Instance names should be lowercase and can have underscores - `model_xgb` = XGBClassifier()
+
+- Global variables should be lowercase.
+
+- Constants should be uppercase
+
+113) PyTorch's `Sequential` class(`torch.nn.Sequential`) is similar to `Scikit-Learn`'s `Pipeline`(sklearn.pipeline.Pipeline). Instead of defining a `Neural network` via defining different layers like self.fc1 = `torch.nn.Linear()` in the constructor, define a neural network instance(self.network) derived from torch.nn.Sequential and pass the layers as arguments to it. Then call `self.network` in forward class.
+
+114) **Information Expert** software design pattern is so useful for Data Science projects. It is part of set of principles called [GRASP](https://en.wikipedia.org/wiki/GRASP_(object-oriented_design)#:~:text=The%20different%20patterns%20and%20principles,protected%20variations%2C%20and%20pure%20fabrication.).
+
 
 
 
