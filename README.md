@@ -2976,7 +2976,7 @@ print(3 <= 4 <= 5 and 7 > 6 > 5)  # True
 print(3 <= 4 <= 5 and 7 > 4 > 4)  # False
 ```
 
-107) Protocol is an alternative to Abstract Base Classes(ABC). It is available in Python as of version 3.8 . We don't have to inherit it to use it and we don't have to type abstractmethod as a decorator for each method of abstract class. We can even use inheritance relationship with Protocol. Protocol is more similar to Interfaces in other languages. If Inheritance is going to be kept, prefer to use ABC. Otherwise, use Protocol if you don't have Inheritance relationship. Protocol is more convenient to Python's Duck Typing rather than ABC.
+107) Protocol is an alternative to Abstract Base Classes(ABC). It is available in Python as of version 3.8 . We don't have to inherit it to use it and we don't have to type abstractmethod as a decorator for each method of abstract class. We can even use inheritance relationship with Protocol. Protocol is more similar to Interfaces in other languages. If Inheritance is going to be kept, prefer to use ABC. Otherwise, use Protocol if you don't have Inheritance relationship. Protocol is more convenient to Python's Duck Typing rather than ABC. Protocols rely on structural typing and ABC relies on nomial typing. Protocol defines the interface that is expected in a part of the program that refers to it. Protocol is more suitable to duck typing rater than ABC. Use `...`(3 dots) instead of pass in the method of class which is inheriting from Protocol. Using Protocols instead of ABC reduces coupling because there is no inheritance relationship in Protocols. Protocols is much more natural rather ABC. Protocols are really useful if we want to connect different libraries together and still be able to reduce coupling.
 
 ```protocol_usage.py
 from typing import Protocol
@@ -2985,9 +2985,9 @@ from typing import Callable, List
 
 class Vehicle(Protocol):
     def printer():
-        pass
+        ...
     def get_models_bad_to_good(input_list: List[str]) -> List[str]:
-        pass
+        ...
 
 class Bmw:
     def printer() -> None:
