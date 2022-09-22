@@ -161,7 +161,7 @@ print('test'.__len__())
 
 ![property](./images/010.png)
 
-5)  What does `if __name__ == '__main__'` mean? Whenever Python runs a file, it first goes through before even runs any code, it sets a few special variables. \__name__ is one of these special variables. `if __name__ == '__main__'` checks whether a file in being run directly or imported from a different module. It returns True if directly run from script and returns False if it called from another script. The reason why we use our codes in main function in first_module.py is to make it importable in another script.
+5)  What does `if __name__ == '__main__'` mean? Whenever Python runs a file, it first goes through before even runs any code, it sets a few special variables. \__name__ is one of these special variables. `if __name__ == '__main__'` checks whether a file in being run directly or imported from a different module. It returns True if directly run from script and returns False if it called from another script. The reason why we use our codes in main function in first_module.py is to make it importable in another script. If we don't put our codes in a main function, our global scope will be polluted.
 
 
 ```first_module.py
@@ -2801,7 +2801,7 @@ child.printer()
 #Child
 ```
 
-88) While defining an class, we may want an attribute to be optional and its default value is set to None. In this situation, __Optional__ from typing module can be useful to indicate that attribute is a type of a data type and it is optional. 
+88) While defining an class, we may want an attribute to be optional and its default value is set to None. In this situation, **Optional** from typing module can be useful to indicate that attribute is a type of a data type and it is optional. `Any` can be imported from typing via `from typing import Any`. `Any` can be useful like `List[Any]` if we don't know the type of variable in a list.
 
 ```
 from typing import Optional
@@ -2818,6 +2818,12 @@ print(deniz.age,deniz.name,deniz.gender)
 
 deniz = Person(25,"Deniz")
 print(deniz.age,deniz.name,deniz.gender)
+```
+
+```any_usage.py
+from typing import List,Any
+a: List[List[Any]] = [[1,2,3],['a','b','c']]
+print(a)#[[1, 2, 3], ['a', 'b', 'c']]
 ```
 
 89) Using `""" Class or function explanation """` should be used after defining a class or a method as docstring.
@@ -3094,6 +3100,29 @@ if __name__ == '__main__':
 113) PyTorch's `Sequential` class(`torch.nn.Sequential`) is similar to `Scikit-Learn`'s `Pipeline`(sklearn.pipeline.Pipeline). Instead of defining a `Neural network` via defining different layers like self.fc1 = `torch.nn.Linear()` in the constructor, define a neural network instance(self.network) derived from torch.nn.Sequential and pass the layers as arguments to it. Then call `self.network` in forward class.
 
 114) **Information Expert** software design pattern is so useful for Data Science projects. It is part of set of principles called [GRASP](https://en.wikipedia.org/wiki/GRASP_(object-oriented_design)#:~:text=The%20different%20patterns%20and%20principles,protected%20variations%2C%20and%20pure%20fabrication.).
+
+115) Instead of getting the attribute value of an instance directly, defining a method with `@property` decorator and obtaining it is much more useful.
+
+```property_usage.py
+class Temp:
+    def __init__(self,a) -> None:
+        self.a = a
+        self.b = a *2
+    @property
+    def get_b(self):
+        return self.b
+    
+temp = Temp(a = 3)
+# wrong way to obtain the attribute
+print(temp.b)
+# correct way to obtain the attribute
+print(temp.get_b)
+```
+
+116) In a data science project, always try to simplify **main.py** module. Put the lcasses in differnet modules and call them from **main.py**. Make sure configuration settings are in a single place. THe main takeaway in data science projects is that data is central. We should design our application around how data flows.
+
+
+117) In PyTorch, training and validation can be implemented in the same function/class. There can be 2 different objects (generated from the same class) in main.py for training and validation.
 
 
 
