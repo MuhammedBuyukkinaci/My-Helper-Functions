@@ -3124,6 +3124,33 @@ print(temp.get_b)
 
 117) In PyTorch, training and validation can be implemented in the same function/class. There can be 2 different objects (generated from the same class) in main.py for training and validation.
 
+118) Some code smells:
+
+- Avoid classes that have too many instances as attributes. Segragate interfaces.
+
+- Verb/Subject: Try to avoid doing the computation in the class. For example, if we have an order class and the order has many items, it would be nice to compute total price for each item in the class of Item using `@property` and retreive the total price computation in Order class.
+
+- Try to avoind having lots of objects in the constructor
+
+- If we are creating instances from a class, we should explicitly type the keyword arguments and the values we pass.
+
+119) When we call the method and don't provie the data it needs, that method is going to look around the data in different places. It leads the method to know the implementation details of things that the method shouldn't know. It is backpedalling and we should try to avoid. The related principle is law of matter or **principle of least knowledge**. If we don't avoid backpedalling, we are going to have codes like `self.object1.object2.object3` etc.
+
+120) If we want to use type hints with `staticmethod` that returns an instance of the class of staticmethod, import annotations from \__future__.
+
+```
+from __future__ import annotations
+
+class Temp:
+    def __init__(self, a = False) -> None:
+        self.a = a
+
+    @staticmethod
+    def static_method(b) -> Temp:
+        obj = Temp(a = b)
+        return obj
+
+```
 
 
 
