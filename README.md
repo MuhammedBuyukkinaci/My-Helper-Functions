@@ -3152,6 +3152,14 @@ class Temp:
 
 ```
 
+121) "The command design pattern is a behavioral pattern that provides a way to encapsulate all knowledge of a certain operation into a single object". Banks are great examples in which command patterns work. Command pattern is used in video/audio editing programs. We can take the banking app to a next step by preferring transaction based systems (taking transactions as ground truths)instead of state based systems(taking state as ground truths). 3D modelling applications use command pattern.
+
+- An Account class to create different accounts.
+- A Bank class triggering the creation of accounts.
+- A transaction class, inherited from Protocol and having a method named execute.
+- Deposit, Withdraw, Transfer Classes similar to Transaction class, but no inheritance deu to Protocol.
+- A Controller class to manage Deposit, Withdraw, Transfer.
+
 
 
 
