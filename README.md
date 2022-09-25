@@ -513,7 +513,7 @@ print(my_string[::-1]) #ereh si gnirts a
 
 20) In Python, to list all builtin attributes or exceptions or errors, run `print(dir(locals()['__builtins__']))` .
 
-21) `try`, `except`, `else` and `finally` are keywords in exceptions. THere may be multiple except keyword in error handling. Put the specific exceptions in above excepts and put general ones in below excepts. else runs if try doesn't raise an exception. `finally` is run in every condition. To manually raise an exception, use `raise Exception`
+21) `try`, `except`, `else` and `finally` are keywords in exceptions. THere may be multiple except keyword in error handling. Put the specific exceptions in above excepts and put general ones in below excepts. else runs if try doesn't raise an exception. `finally` is run in every condition. To manually raise an exception, use `raise Exception`. `try` and `finally` can be used without `except` statement.
 
 ```exception01.py
 
@@ -3119,7 +3119,7 @@ print(temp.b)
 print(temp.get_b)
 ```
 
-116) In a data science project, always try to simplify **main.py** module. Put the lcasses in differnet modules and call them from **main.py**. Make sure configuration settings are in a single place. THe main takeaway in data science projects is that data is central. We should design our application around how data flows.
+116) In a data science project, always try to simplify **main.py** module. Put the classes in different modules and call them from **main.py**. Make sure configuration settings are in a single place. The main takeaway in data science projects is that data is central. We should design our application around how data flows. Define a config.json file and put the configuration files there. Then, defnie a **config.py** file and create a **dataclass** and a **function**. The **function** will load the json file into memory and then set the configurations to parameters of dataclass using unpacking keyword arguments (**kwargs). IN Python, there are some configuration tools like dot-env and hydra.
 
 
 117) In PyTorch, training and validation can be implemented in the same function/class. There can be 2 different objects (generated from the same class) in main.py for training and validation.
@@ -3159,6 +3159,19 @@ class Temp:
 - A transaction class, inherited from Protocol and having a method named execute.
 - Deposit, Withdraw, Transfer Classes similar to Transaction class, but no inheritance deu to Protocol.
 - A Controller class to manage Deposit, Withdraw, Transfer.
+
+122) Like list comprehensions, we can have set comprehensions and dict comprehensions
+
+```
+a = set([6,3,4,5,5,6,6])
+print({x*2 for x in a})#{8, 10, 12, 6}
+
+b = {'a':1,'b':2,'c':3}
+print({value:key for (key,value) in b.items()})#{1: 'a', 2: 'b', 3: 'c'}
+```
+
+123) Try to avoid instance variables in methods if they will not be used in the future.
+
 
 
 
