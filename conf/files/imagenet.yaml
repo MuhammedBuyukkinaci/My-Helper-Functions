@@ -1,0 +1,4 @@
+test_data: imagenet_test_input
+test_labels: imagenet_test_output
+train_data: imagenet_train_input
+train_labels: imagenet_train_output

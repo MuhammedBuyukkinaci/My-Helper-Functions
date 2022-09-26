@@ -1,0 +1,15 @@
+# defaults is a keyword to use sub yaml files.
+defaults:
+  - files: imagenet
+  - _self_
+
+params:
+  epoch_count: 200
+  learning_rate: 0.001
+  batch_size: 32
+
+paths:
+  log: ./runs
+  data: ${hydra:runtime.cwd}/data/images
+
+

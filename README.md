@@ -3198,6 +3198,28 @@ if __name__ == "__main__":
 
 ```
 
+125) [python-dotenv(.env)](https://pypi.org/project/python-dotenv/) is a library to load environment variables into our code and enables us to use them. However, its structure is weak.
+
+126) [hydra](https://github.com/facebookresearch/hydra) is a library launched by Facebook to deal with configurations via
+
+- Defining yaml files containing configurations
+- Sub objects of configurations
+- Configurations in multiple configurations
+- Overriding configurations
+
+Hydra uses yaml file with `.yaml` extension. Yaml uses indentation(2 spaces) and lowercase characters. We can use the subconfiguration yaml file (conf/files/imagenet.yaml) in th main configuration file(conf/config.yaml)
+
+```conf/config.yaml
+params:
+  epoch_count: 200
+  learning_rate:0.001
+  batch_size: 32
+
+```
+
+127)
+
+
 
 
 
