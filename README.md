@@ -137,15 +137,17 @@ print(issubclass(Developer,Manager))# False
 
 - Inheritance: Using methods and attributes of a parent Class in Child Class
 
-- Encapsulation: Accessing the attribute of a Class only in itself(private) by defining the attributes starting with double underscore __. Single underscore _ used for defining protected attributes in a class. Protected means accesible with the Class and its subclasses. No underscore for public attributes. If we want to see method resolution order or a sub class, run `print(help(Developer)) Every class in Python inherits from builtins.object class. Change in child class doesn't affect parent class.
+- Encapsulation: Accessing the attribute of a Class only in itself(private) by defining the attributes starting with double underscore __. It isn't accessible from instances of that Class. Single underscore _ used for defining protected attributes in a class. Protected means accesible with the Class and its subclasses but expected not to be accessible from instances of objects. No underscore for public attributes. Encapsulation isn't only for attributes. Encapsulation may be implemented for methods too. If we want to see method resolution order or a sub class, run `print(help(Developer)) Every class in Python inherits from builtins.object class. Change in child class doesn't affect parent class.
 
-- Polymorphism: Being available to send different inputs to a method or a function like Python's built-in len function.
+- Polymorphism: Being able to send different inputs to a method or a function like Python's built-in len function.
 
 - Method Overriding: Rewriting a method inherited from a parent class in the Child class.
 
 - Method Overloading: Calling same method with different number of parameters like we did in C#. Two methods can't have the same name in Python. Not possible in Python.
 
 - A method in a class may return only `self`, which means itself.
+
+- Information Hiding: It is about hiding information from different components of the program in order to be flexible. It is related to Encapsulation. 
 
 3) Double underscores is called as dunder. \__init__ is a special method. \__repr__ and \__str__. These 2 special methods allow us to change how our objects are printed and displayed. len is a special method too, which runs a dunder method named \__len__ .
 
@@ -186,7 +188,7 @@ print("Second module's name: {}".format(__name__))
 ```
 
 
-6) property usage in Python classes. property is making a method as an attribute of a Class. It is a decorator. peperty decorator allows us to define method but we can access it like an attribute.
+6) property usage in Python classes. property is making a method as an attribute of a Class. It is a decorator. peperty decorator allows us to define method but we can access it like an attribute. Properties shoul be cheap, simple and unsurprising, which means it shouldn't make complex computations.
 
 ```property_usage.py
 # Property Decorator
@@ -513,7 +515,7 @@ print(my_string[::-1]) #ereh si gnirts a
 
 20) In Python, to list all builtin attributes or exceptions or errors, run `print(dir(locals()['__builtins__']))` .
 
-21) `try`, `except`, `else` and `finally` are keywords in exceptions. THere may be multiple except keyword in error handling. Put the specific exceptions in above excepts and put general ones in below excepts. else runs if try doesn't raise an exception. `finally` is run in every condition. To manually raise an exception, use `raise Exception`. `try` and `finally` can be used without `except` statement.
+21) `try`, `except`, `else` and `finally` are keywords in exceptions. THere may be multiple except keyword in error handling. Put the specific exceptions in above excepts and put general ones in below excepts. else runs if try doesn't raise an exception. `finally` is run in every condition. To manually raise an exception, use `raise Exception`. `try` and `finally` can be used without `except` statement. `finally` can be used to clean up the resources.
 
 ```exception01.py
 
@@ -2773,7 +2775,7 @@ print(vehicle1 == vehicle3)# True
 
 85) Some tools to improve code quality on Vscode
 
-- Pylance
+- Pylance: Intellisense service that VS code uses
 
 - Pylint
 
@@ -3217,7 +3219,42 @@ params:
 
 ```
 
-127)
+127) Some vscode tricks
+
+- [oh my zsh](https://ohmyz.sh/): It is a framework running on Mac's terminal. It is showing git branch by default.
+
+- [iterm2](https://iterm2.com/): A replacement to Mac's default Terminal. It has split panels and hotkey window(bringing terminal on where we are)
+
+- typeChecking: It is a setting in **settings.json**. It is settings -> python.analysis.typeCheckingModel . It can be `off`, `basic` and `strict`.
+
+- vim: VS code has a vim emulator. **"settings" -> "vim.smartRelativeLine": true**
+
+```settings.json
+"vim.smartRelativeLine":true,
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#5fbe00"
+    },
+```
+
+- Markdown preview Mermaid support: It enables us to visualize md files using
+
+128) Some Google Tips to write better Python code:
+
+- Instead of from `package_name.module_name import function_name`, prefer `from package_name import module_name; module_name.function_name()`.
+
+- Property should be used in simple operations. Getters should return the attribute of an object. Setters should set the attribute of an object to a value.
+
+- Don't put a lot of try/except blocks in the code.
+
+- Don't use assert in the module. It can be used in PyTest.
+
+- Don't put much code in try/except blocks.
+
+- Don't refactor or change functionality at the same time. Refactoring doesn't change tests but changing functionality changes testing.
+
+129) Encapsulation and Information Hiding is helping to reduce coupling and increase cohesion. Encapsulation is about using protected and private attributes in class. Information Hiding is about hiding information of critical attributes or methods in different ways.
+
+
 
 
 
