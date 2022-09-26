@@ -3172,6 +3172,32 @@ print({value:key for (key,value) in b.items()})#{1: 'a', 2: 'b', 3: 'c'}
 
 123) Try to avoid instance variables in methods if they will not be used in the future.
 
+124) Traditional way to deal with asyncronous code is to use threads. Async I/O program have become easier to deal with in Python 3.10. "Async I/O is a style of concurrent programming". Async I/O is used in I/O operations like connecting to a device and setting up a database connections.
+
+![ASYNC](./images/016.png)
+
+
+```async_example.py
+import numpy as np
+from datetime import datetime
+import asyncio
+
+async def waiter():
+    await asyncio.sleep(1)
+
+async def main():
+    await asyncio.gather(waiter(),
+    waiter()
+    )
+
+if __name__ == "__main__":
+    time_begin = datetime.now()
+    asyncio.run(main())
+    time_end = datetime.now()
+    print((time_end - time_begin).total_seconds() * 1000)
+
+```
+
 
 
 
