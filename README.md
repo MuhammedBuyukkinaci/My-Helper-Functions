@@ -1421,7 +1421,7 @@ image1.convert(mode='L').save('mbk_black_white.jpg')
 image1.filter(ImageFilter.GaussianBlur(15)).save('mbk_blurred.jpg')
 ```
 
-46) **Context Managers** allow us to properly manage resources so that we can specify exacyly what we want to set up and tear down when working with certain objects. We no longer have to close down opened files within context managers. If an error is thrown, it is still get closed properly. This is why context managers are super useful. Context managers can be used to read a file, connect to a database. There are a couple of ways to write our custom context managers. We can use them via creating classes or creating functions via decorators. Using context managers via functions is mostly preferred way. It is used in opening and closing DB connections; acquiring and releasing locks while using threads manually.
+46) **Context Managers** allow us to properly manage resources so that we can specify exactly what we want to set up and tear down when working with certain objects. We no longer have to close down opened files within context managers. If an error is thrown, it is still get closed properly. This is why context managers are super useful. Context managers can be used to read a file, connect to a database. There are a couple of ways to write our custom context managers. We can use them via creating classes or creating functions via decorators. Using context managers via functions is mostly preferred way. However, using context managers in Classes look prettyeasy when compared to using it in functions. Context managers are used in opening and closing DB connections; acquiring and releasing locks while using threads manually. COntext managers can be used with asyncio.
 
 ```context_managers.py
 # Naive way to open a file
@@ -3254,8 +3254,9 @@ params:
 
 129) Encapsulation and Information Hiding is helping to reduce coupling and increase cohesion. Encapsulation is about using protected and private attributes in class. Information Hiding is about hiding information of critical attributes or methods in different ways.
 
+130) REST(Representational State Transfer) Interface is quite old. It was invented in 2000. REST is resource oriented. We can create a simple REST API using Flask. Swagger is providing interfaces for rest apis. We can look at API methods and their parameters on Swagger UI. Rest has multiple endpoints and uses various http words(GET, POST, PUT, DELETE). REST API is vulnerable to security bugs more. Rest is simple to use, great for small applications and public-facing API's.
 
-
+131) GrapQL uses single endpoint and query language to interact with the server. In Graphql, objects are connected by relationships and thus forming graphs. [ariadne](https://github.com/mirumee/ariadne) is a Python library to use Graphql server in our apps. Using GrapQL is better for frant end development. Sending a request to a server in Graphql is more complicated. GrapQL suffers from n+1 problem. IN order to solve this n+1 problem, local caching might come in handy. GrapQL is better for complex applications.
 
 
 
