@@ -2584,7 +2584,7 @@ print(call_password_generator(generate_ascii_password))
 
 ```
 
-70) __Observer__ Pattern is design pattern which is based on publishedr/subscriber architecture. 1 observable may be attached to 2 observers. Observer Pattern is related to reducing coupling.
+70) __Observer__ Pattern is design pattern which is based on publisher/subscriber architecture. 1 observable may be attached to 2 observers. Observer Pattern is related to reducing coupling. It is used in most big projects.
 
 71) [Coverage](https://pypi.org/project/coverage/) is a python library which returns a report like how many lines of our code is successful or used etc. It is used in our tests. The documentation is [here](https://coverage.readthedocs.io/en/6.4.4/). Coverage of 100 % doesn't mean our code is bug free. It isn't a good idea to use a random dataset in testing our software because we want out unit tests to be 100% deterministic. It is a good practice to make our unit tests 100 % deterministic. To keep abstract classes out of Coverage testing, convert `pass` statements in abstract classes into docstring. Another way of ignoring is creating a `.coveragerc` file and putting the content below into it to ignore abstract methods.
 
@@ -2613,7 +2613,9 @@ coverage html
 
 73) When we have a fixed process but the steps are different, __Template__ software design may be useful. An example might be ticket handling system or placing an order. When we have a class responsible for connecting DB, retrieving data, deciding whether to sell or not based on a strategy, we may create an abstract class named TradingBot and 2 subclasses of them like MinMaxTrader or AverageTrader. If we want to add a different strategy like Moving average, we may create a subclass of TradingBot.
 
-74) __Bridge__ is a design pattern which separates different classes. For instance, we create an abstract exchange class and 2 subclasses like Binance and Coinbase. We also created a TradingBot strategy like MinMax or Average. We can easily use all of these 4 (2 * 2)combinations.
+74) __Bridge__ is a design pattern which separates different classes. For instance, we create an abstract exchange class and 2 subclasses like Binance and Coinbase. We also created a TradingBot strategy like MinMax or Average. We can easily use all of these 4 (2 * 2)combinations. This pattern introduces 2 separate hierarchies of abstraction. There is a dependendency between these 2 hierarchies. We can simplify things by converting classes into functions. Abstract base class is more useful than Protocol in __Bridge__ Pattern. Bridge pattern is highly powerful if you combine it with functional approaches.
+
+![ASYNC](./images/017.png)
 
 75) Exceptions are standard ways of dealing with errors. Don't see them only as hidden control flows of software. It is important to handle errors in low levels rather than a general Exception. Setting up a database connection using context managers and discarding `finally` keyword in cancelling connection might be useful.
 
@@ -3258,7 +3260,7 @@ params:
 
 131) GrapQL uses single endpoint and query language to interact with the server. In Graphql, objects are connected by relationships and thus forming graphs. [ariadne](https://github.com/mirumee/ariadne) is a Python library to use Graphql server in our apps. Using GrapQL is better for frant end development. Sending a request to a server in Graphql is more complicated. GrapQL suffers from n+1 problem. IN order to solve this n+1 problem, local caching might come in handy. GrapQL is better for complex applications.
 
-
+132)
 
 
 
