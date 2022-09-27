@@ -3238,7 +3238,7 @@ params:
     },
 ```
 
-- Markdown preview Mermaid support: It enables us to visualize md files using
+- Markdown preview Mermaid support: It enables us to visualize md files using. Its website link is [here](https://mermaid.live/).
 
 128) Some Google Tips to write better Python code:
 
@@ -3254,13 +3254,19 @@ params:
 
 - Don't refactor or change functionality at the same time. Refactoring doesn't change tests but changing functionality changes testing.
 
+- Function names should be like read_input and process_input, not like first_step or second_step.
+
 129) Encapsulation and Information Hiding is helping to reduce coupling and increase cohesion. Encapsulation is about using protected and private attributes in class. Information Hiding is about hiding information of critical attributes or methods in different ways.
 
 130) REST(Representational State Transfer) Interface is quite old. It was invented in 2000. REST is resource oriented. We can create a simple REST API using Flask. Swagger is providing interfaces for rest apis. We can look at API methods and their parameters on Swagger UI. Rest has multiple endpoints and uses various http words(GET, POST, PUT, DELETE). REST API is vulnerable to security bugs more. Rest is simple to use, great for small applications and public-facing API's.
 
 131) GrapQL uses single endpoint and query language to interact with the server. In Graphql, objects are connected by relationships and thus forming graphs. [ariadne](https://github.com/mirumee/ariadne) is a Python library to use Graphql server in our apps. Using GrapQL is better for frant end development. Sending a request to a server in Graphql is more complicated. GrapQL suffers from n+1 problem. IN order to solve this n+1 problem, local caching might come in handy. GrapQL is better for complex applications.
 
-132)
+132) While loop can be an alternative to recursive approach.
+
+133) The code should explain itself. A lot of documentation isn't needed in the code via docstrings.
+
+
 
 
 
