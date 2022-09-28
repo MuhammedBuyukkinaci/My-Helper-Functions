@@ -2503,7 +2503,55 @@ print(temp.param1)#abcde
 print(temp.param2)#5
 ```
 
-69) The strategy pattern should cover increasing cohesion. It is swapping out the algorithm without changing the code that uses the algorithm. For example, defining different compression algorithms like zip or gzip etc and using one of them in the code is an example of strategy pattern. Using the strategy pattern via classes is better than via functions because classes are combining data(attributes) with behavior(functions.). If we have different strategies and each has different parameters, set them in the initializer via dataclass or constructor. This way reduces coupling.
+69) The strategy pattern should cover increasing cohesion. It is swapping out the algorithm without changing the code that uses the algorithm. For example, defining different compression algorithms like zip or gzip etc and using one of them in the code is an example of strategy pattern. Using the strategy pattern via classes is better than via functions because classes are combining data(attributes) with behavior(functions.). If we have different strategies and each has different parameters, set them in the initializer via dataclass or constructor. This way reduces coupling. An example usage of strategy pattern is that we have a TradingBot class. It takes 2 arguments in the constructor: The first one is Exchange and the second one is TradingStrategy. Exchange and TradingStrategy are 2 abstract base classes. Exchange may have more than 2 child classes like BinanceExchange and CoinbaseExchange. TradingStrategy may have more than 2 child classes like MinMaxTrader or AverageTrader. We can create instances of BinanceExchange and MinMaxTrader and then pass these instances to TradingBot constructor.
+
+```
+from abc import ABC
+
+
+class Exchange(ABC):
+    pass
+
+
+class BinanceExchange(Exchange):
+    pass
+
+
+class CoinbaseExchange(Exchange):
+    pass
+
+
+class TradingStrategy(ABC):
+    pass
+
+
+class MinMaxStrategy(TradingStrategy):
+    pass
+
+
+class AverageStrategy(TradingStrategy):
+    pass
+
+
+class TradingBot():
+    def __init__(self,exchange: Exchange, strategy: TradingStrategy):
+        self.exchange = exchange
+        self.strategy = strategy
+
+    def predict(self):
+        pass
+
+def main():
+    exchange = CoinbaseExchange()
+    strategy = MinMaxStrategy()
+    trading_bot = TradingBot(exchange = exchange, strategy = strategy)
+
+    trading_bot.predict()
+
+if __name__ == '__main__':
+    main()
+
+```
 
 
 ```strategy_pattern.py
@@ -2735,7 +2783,7 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 81) Don't prefer to use singleton and object pool design patterns in Python.
 
 
-82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. Frozen makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method.
+82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. Frozen makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods.
 
 ```dataclasses_example.py
 from dataclasses import dataclass
@@ -3266,7 +3314,75 @@ params:
 
 133) The code should explain itself. A lot of documentation isn't needed in the code via docstrings.
 
+134) In Python, functions are objects of type **Callable**. We can type aliases for them. We can pass functions as arguments to other functions. If we use functools, we can even call functions partially. Using closures solves the problem of not being able to pass parameters to functions. Using partial is shorter than closures. **partial** is neater than **closures**.
 
+```functools_with_partial.py
+from dataclasses import dataclass
+from typing import Callable, List
+from functools import partial
+from dataclasses import dataclass
+
+calculator = Callable[[List[int], int], float]
+
+
+def increment_7(numbers: List, index) -> float:
+    return numbers[index] + 7
+
+
+def decrement_7(numbers: List, index) -> float:
+    return numbers[index] - 7
+
+
+@dataclass
+class Operator:
+    increment: calculator
+    decrement: calculator
+
+    def run(self):
+        numbers = [1, 2, 3, 4, 5]
+        print(self.increment(numbers))
+        print(self.decrement(numbers))
+
+
+def main():
+    incrementer = partial(increment_7, index=0)
+    decrementer = partial(decrement_7, index=-1)
+    operator = Operator(increment=incrementer, decrement=decrementer)
+    operator.run()
+
+
+if __name__ == "__main__":
+    main()
+    # 8
+    # -2
+
+```
+
+135) Currying is functional programming approach that nests multiple functions.
+
+```currying_example.py
+def currying(b, c, d):
+    def a(x):
+        return b(c(d(x)))
+    return a
+      
+def kilometer2meter(dist): 
+    """ Function that converts km to m. """
+    return dist * 1000
+      
+def meter2centimeter(dist): 
+    """ Function that converts m to cm. """
+    return dist * 100
+      
+def centimeter2feet(dist):
+    """ Function that converts cm to ft. """
+    return dist / 30.48
+      
+if __name__ == '__main__':
+    transform = currying(centimeter2feet, meter2centimeter, kilometer2meter )
+    e = transform(565)
+    print(e)
+```
 
 
 
