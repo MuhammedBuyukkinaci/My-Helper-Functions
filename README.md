@@ -3409,7 +3409,29 @@ if __name__ == '__main__':
     print(e)
 ```
 
-136)
+136) Some Devops practices for SaaS
+
+- The Twelve Factor App: A methodology to create a SaaS app.
+
+- Deploy is a running instance of our software.
+
+- Make dependencies explicit.
+
+- Store config settings in the environment. The most common place to store settings is environment variables. .env is for development environment especially(but dangerous to be committed to git).
+
+- When deployment happens, three phase arise:
+
+    - Build: Converting the code into an executable bundle(Docker Image)
+
+    - Release: Environment variables, k8s configurations(number of pods etc.) on top of Build phase.
+
+    - Run: Manages the currently running docker images.
+
+- Distinguish stateful and stateless services.
+
+- Make development, stage and production environments similar to each other.
+
+- Keep your releases small.
 
 
 
