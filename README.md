@@ -147,7 +147,9 @@ print(issubclass(Developer,Manager))# False
 
 - A method in a class may return only `self`, which means itself.
 
-- Information Hiding: It is about hiding information from different components of the program in order to be flexible. It is related to Encapsulation. 
+- Information Hiding: It is about hiding information from different components of the program in order to be flexible. It is related to Encapsulation.
+
+- It is not recommended to use multiple inheritance and mixins. THey are problematic in terms of cohesion and coupling.
 
 3) Double underscores is called as dunder. \__init__ is a special method. \__repr__ and \__str__. These 2 special methods allow us to change how our objects are printed and displayed. len is a special method too, which runs a dunder method named \__len__ .
 
@@ -2783,10 +2785,11 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 81) Don't prefer to use singleton and object pool design patterns in Python.
 
 
-82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. Frozen makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods.
+82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. A of Python 3.10, dataclass decorator hasaan argument named slots. WHen slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance.
 
 ```dataclasses_example.py
-from dataclasses import dataclass
+from dataclasses import dataclass,field
+from typing import List
 
 class Vehicle:
     name: str
@@ -2800,18 +2803,40 @@ vehicle2 = Vehicle('Mercedes',15)
 vehicle3 = Vehicle('BMW',20)
 
 print(vehicle1 == vehicle3)# False
+```
 
-@dataclass
+```
+from dataclasses import dataclass,field
+import random
+import string
+from typing import List
+
+def generate_random_id():
+    return "".join(random.choices(string.ascii_lowercase,k = 12))
+
+@dataclass(slots=True)
 class VehicleWithDataclass:
     name: str
     age: int
-    torque: 350
+    torque: int = 350
+    specs: List[str] = field(default_factory = list)
+    #init is used to prevent id value to be settable.
+    id: str = field(init=False,default_factory = generate_random_id)
+    # search_string set in __post_init__. repr=False hides search_string in print
+    _search_string: str = field(init=False, repr=False)
+
+    # __post_init__ is run after the instance variables set.
+    def __post_init__(self) -> None:
+        self._search_string = f"{self.name}_{self.age}"
+
 
 vehicle1 = VehicleWithDataclass('BMW',20)
 vehicle2 = VehicleWithDataclass('Mercedes',15)
 vehicle3 = VehicleWithDataclass('BMW',20)
 
-print(vehicle1 == vehicle3)# True
+print(vehicle1 == vehicle3)# False
+print(vehicle1)#VehicleWithDataclass(name='BMW', age=20, torque=350, specs=[], id=['xoonkedpmbhg'])
+print(vehicle1.__dict__['name'])# BMW
 
 ```
 
@@ -3384,6 +3409,7 @@ if __name__ == '__main__':
     print(e)
 ```
 
+136)
 
 
 
