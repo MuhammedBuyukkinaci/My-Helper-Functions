@@ -3523,6 +3523,26 @@ class RegularClassWithoutSlot:
 
 ```
 
+141) The goal of adapter design pattern is to adapt an existing so that you can use it. It is done via creating a layer called adapter between the existing system and our code. Object base adapter design pattern is better than class base adapter design. Object base design pattern uses composition. Class base adapter design uses inheritance. For instance, when we are using json file in our roject and we decide to use xml file instead of json file; adapter design pattern might be pretty useful by defining a class called Config(inherited from Protocol) and defining a new XMLparser class like Config.
+
+142) Input usage in CLI example:
+
+```
+day = int(input("enter your birth day info"))
+month = int(input("enter your birth month"))
+year = int(input("enter your enter year"))
+from datetime import date, datetime
+
+print(type(day),type(month),type(year))
+
+
+def set_date(day,month,year):
+    return (datetime.now() - datetime(year=year,month=month,day=day)).days / 365
+
+print(set_date(day = day,month= month, year= year))
+```
+
+143) If we can turn a method into a function, we should turn.
 
 
 # Python Logging
@@ -3755,6 +3775,21 @@ logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
 
 7) Writing testable code is linked to applying design patterns into our code correctly.
 
+8) Always start to test simple codes.
+
+9) In testing, we aren't just testing setting data to value, we are also testing the behavior.
+
+10) In unit testing, always think about where you should start.
+
+11) If you write unit tests and you focus on your code to be tested better, it will improve the quality of your design.
+
+12) It isn't a good idea to use hard coded dates like(2024-12-01) etc. When time moves forward, tests may fail.
+
+13) It might be a good idea to use `.env` file via **python-dotenv** library.
+
+14) Always make sure that you test the right thing in the right place.
+
+
 # Unit Testing
 
 [Video Link](https://www.youtube.com/watch?v=6tNS--WetLI)
@@ -3863,7 +3898,6 @@ class TestEmployee(unittest.TestCase):
 
 20) unittest module in Python is originally inspired from Java's JUnit.
 
-21) In testing, we aren't just testing setting data to value, we are also testing the behavior
 
 # Pytest
 
@@ -3915,6 +3949,19 @@ def test_error():
         demo.add(99,1)s
 ```
 
+``` error_raise.py
+import pytest
+
+def converter(x):
+    return int(x)
+
+def test_converter():
+    with pytest.raises(ValueError):
+        my_string = "a33"
+        print(converter(my_string))
+
+```
+
 14) If the first assertion in test method fails, it aborts the rest of the test.
 
 ```test_demo.py
@@ -3952,7 +3999,13 @@ def test_fixture(my_fixture):
 
 20) capsys is a pretty cool tool to capture system output.
 
-21) Mnkeypatch is a fixture. monkeypatching is a terminology used when you want to dynamically add runtimes, swap out the behavior of a thing.
+21) Monkeypatch is a fixture. monkeypatching is a terminology used when you want to dynamically add runtimes, swap out the behavior of a thing. It is a mocking procedure that make tests runnable. An alternative is that we can create a Mock instance and use it in our tests instead of creating real instances.
+
+```
+from pytest import monkeypatch
+#usage
+monkeypatch.setattr(ClassName,attribute_name,attribute_value)
+```
 
 22) tmpdir is creating a new file and prints results on it and delete it ultimately.
 
@@ -4033,6 +4086,11 @@ pytest --durations=3
 - pytest-cov
 - pytest-django
 - pytest-bdd
+
+36) Place your tests into a **tests** and put a \__init__.py to make it a package.
+
+37) `pytest --cov` is a unix command to show the results of our tests.
+
 
 # Unit Testing for Data Science
 
