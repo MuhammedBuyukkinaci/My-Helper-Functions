@@ -3290,7 +3290,9 @@ print({value:key for (key,value) in b.items()})#{1: 'a', 2: 'b', 3: 'c'}
 
 123) Try to avoid instance variables in methods if they will not be used in the future.
 
-124) Traditional way to deal with asyncronous code is to use threads. Async I/O program have become easier to deal with in Python 3.10. "Async I/O is a style of concurrent programming". Async I/O is used in I/O operations like connecting to a device and setting up a database connections.
+124) Traditional way to deal with asyncronous code is to use threads. Async I/O program have become easier to deal with in Python 3.10. "Async I/O is a style of concurrent programming". Async I/O is used in I/O operations like connecting to a device and setting up a database connections. 
+
+An anology: Concurrency is two lines of customers from a single cashier(lines take turns ordering); Parallelism is two lines of customers ordering from two cashiers(each line gets its own cashier)
 
 ![ASYNC](./images/016.png)
 
@@ -3353,6 +3355,8 @@ params:
 ```
 
 - Markdown preview Mermaid support: It enables us to visualize md files using. Its website link is [here](https://mermaid.live/).
+
+- [Hackerdraw](https://www.hackerdraw.com/), [draw.io](https://app.diagrams.net/) are some visualization tools to draw.
 
 128) Some Google Tips to write better Python code:
 
@@ -3543,6 +3547,16 @@ print(set_date(day = day,month= month, year= year))
 ```
 
 143) If we can turn a method into a function, we should turn.
+
+144) Some tricks for OOP in Python:
+
+- Combining functional programming principles and OOP principles.
+
+- Use classes either in data-oriented way or behavior-oriented way.
+
+- Be careful for inheritance.
+
+- Don't abuse dunder methods to modify objects
 
 
 # Python Logging

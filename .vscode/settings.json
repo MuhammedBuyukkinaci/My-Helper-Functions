@@ -1,7 +1,7 @@
 {
     "workbench.startupEditor": "none",
     "workbench.iconTheme": "ayu",
-    "workbench.colorTheme": "Default High Contrast",
+    "workbench.colorTheme": "Tomorrow Night Blue",
     "workbench.settings.editor": "json",
     "workbench.colorCustomizations": {
         "titleBar.activeBackground": "#3ccd1c",
