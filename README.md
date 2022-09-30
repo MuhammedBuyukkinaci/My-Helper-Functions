@@ -2129,6 +2129,18 @@ print(sys.path)
 - install code command on path using command palette
 - testing: search configure tests on command palette and choose pytest or unittest library. We can run a single test of a Class rather than whole tests.
 - zenmode: it is distraction-free mode, it hides menus etc. Search toggle zen mode on Command Palette.
+- vscode-pdf
+- Error Lens: To highlight errors more
+
+- Some Mac Programs to increase efficiency:
+
+    - Flycut: A clipboard program, free, and provides the history of Clipboard.
+
+    - Bitwarden and authy: SOme authentication tools.
+
+    - Homebrew:
+
+    - Rectangle: Free windows manager.
 
 62) subprocess module is enabling us to run external commands. Useful in scripts for web servers.
 
@@ -2785,7 +2797,7 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 81) Don't prefer to use singleton and object pool design patterns in Python.
 
 
-82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. A of Python 3.10, dataclass decorator hasaan argument named slots. WHen slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance.
+82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. A of Python 3.10, dataclass decorator hasaan argument named slots. When slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance.
 
 ```dataclasses_example.py
 from dataclasses import dataclass,field
@@ -2937,9 +2949,9 @@ if __name__ == '__main__':
 - Some code problems are realted to deeper design pattern and take some time to fix.
 - Some code aren't practical at the moment.
 
-92) Let's think about we are running an employee management system. There are many roles that employees have. To show employees' roles, we should use __enum__ module instead of strings. String are easy to collapse like "manager" and "Manager" are 2 different values.
+92) Let's think about we are running an employee management system. There are many roles that employees have. To show employees' roles, we should use __enum__ module instead of strings. String are easy to collapse like "manager" and "Manager" are 2 different values. Using strings instead of auto() in Enum class might be better.
 
-```
+```enum_usage1.py
 from enum import Enum, auto
 
 class Role(Enum):
@@ -2958,6 +2970,35 @@ employee_2 = Employee("Ahmet",Role.MANAGER)
 
 print(employee_1.name,employee_1.role)
 print(employee_2.name,employee_2.role)
+```
+
+```enum_usage2.py
+from enum import Enum, auto
+
+
+class EnumClass(Enum):
+    AUDI = auto()
+    BMW = auto()
+    MERCEDES = auto()
+
+
+bmw1 = EnumClass.BMW
+bmw2 = EnumClass.BMW
+
+print(bmw1 == bmw2)# True
+
+
+class RegularClass:
+    AUDI = 0
+    BMW = 1
+    MERCEDES = 2
+
+
+regular_class1 = RegularClass()
+regular_class2 = RegularClass()
+print(regular_class1 == regular_class2)# False
+print(regular_class1.AUDI == regular_class2.AUDI)# True
+
 ```
 
 93) Code duplication is bad because if there is a bug, we should fix it in every duplicate. Instead of __find_manager__, __find_vicepresident__, __find_engineer__, use finder method with input paremeters like `president` and `vicepresident`.
@@ -3317,7 +3358,7 @@ params:
 
 - Instead of from `package_name.module_name import function_name`, prefer `from package_name import module_name; module_name.function_name()`.
 
-- Property should be used in simple operations. Getters should return the attribute of an object. Setters should set the attribute of an object to a value.
+- Property should be used in simple operations. Getters should return the attribute of an object. Setters should set a value to the attribute of an object.
 
 - Don't put a lot of try/except blocks in the code.
 
@@ -3433,6 +3474,54 @@ if __name__ == '__main__':
 
 - Keep your releases small.
 
+137) Law of Demeter is an OOP design guideline. Each unit of code(function, method, class etc) should have limited knowledge about other parts of the program. This principle is related to decreasing coupling and information hiding.
+
+138) In the constructor of a class, it shouldn't create an instance of another class. The constuctor should be responsible for initizaling first. It is related to dependency injection.
+
+```constructor_wrong_correct.py
+class Connector:
+    def __init__(self) -> None:
+        pass
+
+class ProcessorCorrect:
+    def __init__(self, connector: Connector) -> None:
+        self.connector = connector
+
+class ProcessorWrong:
+    def __init__(self) -> None:
+        self.connector = Connector()
+```
+
+139) Attributes of an instance of a class is dynamic. We can append new attributes to an existing object.
+
+```
+class Car:
+    def __init__(self,car) -> None:
+        self.car = car
+
+bmw = Car(car = 'bmw')
+bmw.model = 'X4'
+```
+
+140) In terms of performance, \__slots__ is 20% faster than regular classes in the operations of deleting, reading and updating the attribute of an object.
+
+```
+from dataclasses import dataclass
+
+@dataclass(slots=True)
+class DataClassWithSlot:
+    name: str
+
+class RegularClassWithSlot:
+    __slots__ = "name"
+    def __init__(self,name) -> None:
+        self.name
+
+class RegularClassWithoutSlot:
+    def __init__(self,name) -> None:
+        self.name
+
+```
 
 
 
