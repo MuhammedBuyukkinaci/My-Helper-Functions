@@ -3590,8 +3590,24 @@ print(set_date(day = day,month= month, year= year))
 
 - Don't abuse dunder methods to modify objects.
 
-145) Test driven development advocates Arrange, act assert and behavior based development advocates given when then.
+145) Test driven development advocates Arrange, act assert and behavior based development advocates given, when, then.
 
+146) Some takeaways from functional programming
+
+- If a function doesn't have a side effect and its return value is only determined by its inputs(no random number, I/0 operation etc.), the function is called pure function. Pure functions are easy to test.
+
+- Functions in Python are first class citizens and they are objects. We can pass a function as a parameter to another function. One method/function can return another function as a result.
+
+- Prefer immutability over mutability
+
+147) Hungarian notation is expressing the type of an name in variable name. i_a means integer, f_b means float, s_c means string etc. Don't use them because our IDE's are capable of capturing the data structures of our variables.
+
+```sample.py
+i_a = 1
+f_b = 2.0
+s_c = 'c is a string'
+
+```
 
 
 # Python Logging
@@ -3752,7 +3768,7 @@ logging.basicConfig(format = "{asctime} {levelname:<8} {message}",  style = '{' 
 
 20) Filemode can be either 'a' or 'w'. 'w' overrides the existing one.
 
-21) If you are using try and except words in Python code, python logging is great to capture what is going on. It gives tracebacks etc.
+21) If you are using try and except words in Python code, python logging is great to capture what is going on. It gives tracebacks etc. Always aim to keep try blocks small.
 
 ```
 a = 2
