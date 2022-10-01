@@ -3166,7 +3166,33 @@ print(fruit)#cherry
 
 - Snapshot Testing: A black box testing used in web development. It may be useful in comparing the expected result of HTML and the HTML output of our application. Jest library in React is a library for snapshot testing. Low level testing.
 
-- Property based testing: [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) is a Python Library to make property based testing. Low level testing.
+- Property based testing: [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) is a Python Library to make property based testing. Low level testing. It is well known in functional programming. Encoding and Decoding a string, sorting an array and its affect on array length. In property based testing, we aren't actually defining what the input data is going to be like we did in unit testing. We can write our custom strategies using `from hypothesis.strategies.composite`. Some default strategies are `floats` and `integers`. We can let hypothesis create some tests via the command below
+
+```hypo.sh
+hypothesis write module_name.function_name > test_file_to_export.py
+hypothesis write temp.pop_list > test_file_to_export.py
+```
+
+```temp.py
+def pop_list(x):
+    return x.pop()
+```
+
+```test_deneme.py
+# This test code was written by the `hypothesis.extra.ghostwriter` module
+# and is provided under the Creative Commons Zero public domain dedication.
+
+import temp
+from hypothesis import given, strategies as st
+
+# TODO: replace st.nothing() with an appropriate strategy
+
+
+@given(x=st.nothing())
+def test_fuzz_pop_list(x):
+    temp.pop_list(x=x)
+
+```
 
 - Integration Testing and Acceptance Testings are 2 different high-level testing types. DTAP mean Development, Testing, Acceptance, Production.
 
@@ -3556,7 +3582,10 @@ print(set_date(day = day,month= month, year= year))
 
 - Be careful for inheritance.
 
-- Don't abuse dunder methods to modify objects
+- Don't abuse dunder methods to modify objects.
+
+145) Test driven development advocates Arrange, act assert and behavior based development advocates given when then.
+
 
 
 # Python Logging
