@@ -2142,6 +2142,12 @@ print(sys.path)
 
     - Rectangle: Free windows manager.
 
+- Some Youtube channels on Software development:
+
+- codestackr: Web development
+
+- Jack Herrington: Front end
+
 62) subprocess module is enabling us to run external commands. Useful in scripts for web servers.
 
 ```subprocess_example.py
@@ -3280,7 +3286,7 @@ print(temp.get_b)
 
 119) When we call the method and don't provie the data it needs, that method is going to look around the data in different places. It leads the method to know the implementation details of things that the method shouldn't know. It is backpedalling and we should try to avoid. The related principle is law of matter or **principle of least knowledge**. If we don't avoid backpedalling, we are going to have codes like `self.object1.object2.object3` etc.
 
-120) If we want to use type hints with `staticmethod` that returns an instance of the class of staticmethod, import annotations from \__future__.
+120) If we want to use type hints with `staticmethod` that returns an instance of the class of staticmethod, import annotations from \__future__. Type hints makes less documentation possible.
 
 ```
 from __future__ import annotations
