@@ -2923,7 +2923,7 @@ print(a)#[[1, 2, 3], ['a', 'b', 'c']]
 
 89) Using `""" Class or function explanation """` should be used after defining a class or a method as docstring.
 
-90) Pydantic is an extension to dataclasses module of Python. Pydantic is similar to dataclasses. Pydantic incorporates validation mechanism for data on top of dataclasses. If you don't need data validation, dataclasses is just fine. Pydantic can generate json schema automatically from the base model defined.
+90) Pydantic is an extension to dataclasses module of Python. Pydantic is similar to dataclasses. Pydantic incorporates validation mechanism for data on top of dataclasses. If you don't need data validation, dataclasses is just fine. Pydantic can generate json schema automatically from the base model defined. Pydantic supports Pathlib but dataclass doesn't support.
 
 ```pydantic_example.py
 
@@ -3637,6 +3637,72 @@ print(temp)#I am Muhammed. I like to play chess
 
 151) Pulumi is an open source infrastracture as code platform. Instead of dealing with yaml configurations and manul workload, you write everything in code. We can create cloud resource by just writing Python code.
 
+152) Pathlib is  python package to deal with files and directories. It is available as of Python 3.6.
+
+'''pathlib_usage.py
+
+import os
+from pathlib import Path
+
+print(f"Current working directory is {Path.cwd()}")#Current working directory is /home/muhammed/Documents/My-Helper-Functions
+print(f"Home directory is {Path.home()}")#Home directory is /home/muhammed
+
+# Define a custom path
+custom_path = Path("/usr/bin")
+print(custom_path.exists())# True
+
+
+custom_path_2 = Path('/home') / 'muhammed' / 'Documents'
+print(custom_path_2.exists())# True
+
+# Creating a path witch cwd
+vehicles_path = Path.cwd() / 'vehicles.json'
+print(vehicles_path.exists())# True
+
+# Read a file
+with vehicles_path.open() as file:
+    print(file.read())
+# [
+#     {
+#         "brand": "BMW",
+#         "model": "X4",
+#         "year": 2019
+#     }
+# ]
+
+# Get absolute path of a file
+vehicles_alone = Path("vehicles.json")
+print(vehicles_alone)# vehicles.json
+vehicles_absolute = vehicles_alone.resolve()
+print(vehicles_absolute)# /home/muhammed/Documents/My-Helper-Functions/vehicles.json
+print(f"stem is {vehicles_absolute.stem}")# stem is vehicles
+print(f"suffix is {vehicles_absolute.suffix}")# name is vehicles.json
+print(f"is directory info is {vehicles_absolute.is_dir()}")# is directory info is False
+print(f"is file info is {vehicles_absolute.is_file()}")# is directory info is False
+print(f"name is {vehicles_absolute.name}")# name is vehicles.json
+print(f"parent is {vehicles_absolute.parent}")#parent is /home/muhammed/Documents/My-Helper-Functions
+print(f"parent of parent is {vehicles_absolute.parent.parent}")#parent of parent is /home/muhammed/Documents
+
+
+# Create a file using pathlib
+new_file = Path.cwd() / "new_file.txt"
+new_file.touch()
+# Adding a text to file
+new_file.write_text("Hello")
+# Deleting the file
+new_file.unlink()
+
+# Create a directory using pathlib
+new_folder = Path.cwd() / "new_directory"
+new_folder.mkdir()
+# Changing directory to new folder
+os.chdir(new_folder)
+print(f"current working directory = {Path.cwd()}")#current working directory = /home/muhammed/Documents/My-Helper-Functions/new_directory
+# Delete the directory
+new_folder.rmdir()
+
+
+'''
 
 
 # Python Logging
