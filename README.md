@@ -3541,7 +3541,7 @@ bmw.model = 'X4'
 
 140) In terms of performance, \__slots__ is 20% faster than regular classes in the operations of deleting, reading and updating the attribute of an object.
 
-```
+```slots_usage.py
 from dataclasses import dataclass
 
 @dataclass(slots=True)
@@ -3563,7 +3563,7 @@ class RegularClassWithoutSlot:
 
 142) Input usage in CLI example:
 
-```
+```input_usage.py
 day = int(input("enter your birth day info"))
 month = int(input("enter your birth month"))
 year = int(input("enter your enter year"))
@@ -3608,6 +3608,35 @@ f_b = 2.0
 s_c = 'c is a string'
 
 ```
+
+148) Some tips to reduce coupling:
+
+- Avoid deep inheritance:
+
+- Separate creating objects from using: It is related to dependency injection.
+
+- Introducing abstraction: INstead of importing a class and using it in the code, think about using an abstraction layer to ube ablte to use a differnt class in the future. It is about dependency inversion.
+
+- Avoid inappropriate intimacy: If we are only using the first element of an array and we are passing all array to a method, it is inappropriate.
+
+- Introduce an intermediate data structure.
+
+149) Pendulum is a Python library deliang with datetimes in a better way than datetime module.
+
+150) Multiline(multi line) strings in F-strings. F-strings are faster than `.format` and `%s` usage.
+
+```multi_line_string.py
+name = "Muhammed"
+temp = (
+    f" I am {name}. "
+    "I like to play chess"
+)
+
+print(temp)#I am Muhammed. I like to play chess
+```
+
+151) Pulumi is an open source infrastracture as code platform. Instead of dealing with yaml configurations and manul workload, you write everything in code. We can create cloud resource by just writing Python code.
+
 
 
 # Python Logging
