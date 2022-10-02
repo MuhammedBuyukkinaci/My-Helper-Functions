@@ -3701,8 +3701,22 @@ print(f"current working directory = {Path.cwd()}")#current working directory = /
 # Delete the directory
 new_folder.rmdir()
 
-
 '''
+
+153) \__call__ is a dunder method or magic method. It makes us capable of calling a function via passing parameters to class, not to methods.
+
+```dunder_call_usage.py
+class CallUsage():
+    def __init__(self) -> None:
+        pass
+
+    def __call__(self, a, b ) -> None:
+        print(f"the result is {a**b}")
+
+call_usage = CallUsage()
+call_usage(3,4)#the result is 81
+
+```
 
 
 # Python Logging
