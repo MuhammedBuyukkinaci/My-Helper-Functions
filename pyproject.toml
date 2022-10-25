@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "project2"
+version = "0.1.0"
+description = "project2"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tqdm = "^4.64.1"
+jupyterlab = "^3.5.0"
+
+[tool.poetry.group.dev.dependencies]
+tqdm = "4.64.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

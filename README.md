@@ -4380,6 +4380,133 @@ assert 1 > a, 'the input bigger than 1'
 
 17) For one-off analyses, writing tests isn't advised. Focusing on clear documentation sounds more logical.
  
+# Poetry
+
+1) [Poetry](https://python-poetry.org/) is a python package and dependency manager. We can install it as a program in our OS. In order to create a new project with poetry
+
+```new.sh
+poetry new poetry-demo
+```
+
+![poetry_new](./images/poetry_images/001.png)
+
+2) Add a new dependency on CLI. It will add installed libraries to pyproject.toml.
+
+```add.sh
+poetry add dependency_name
+# an example
+poetry add pendulum
+# a specific version bigger than 2.0.5
+poetry add pendulum@^2.0.5
+```
+
+3) Another way to add a dependency is to add a dependency on pyproject.toml under **[tool.poetry.dependencies]**
+
+4) We can remove dependencies on CLI. To remove a dependency(it will delete the relevant content from pyproject.toml)
+
+```remove.sh
+poetry remove dependency_name
+
+poetry remove pandas
+```
+
+5) To add a new dependency into development environment and remove a dependenct from a development environment, run the following 2 commands:
+
+```run.sh
+# To add into development environment
+poetry add tqdm --group dev
+# To remove a library from development environment
+poetry remove tqdm --group dev
+```
+
+5) To add a group named `test` into our toml file, add the following 2 lines into toml file and run `poetry add pytest --group test`.
+
+```run.py
+[tool.poetry.group.test]
+
+[tool.poetry.group.test.dependencies]
+```
+
+6) Some syntaxes for versioning
+
+![poetry_new](./images/poetry_images/002.png)
+
+7) After cloning a repo, to install dependencies(it is using pyproject.toml of cloned repo)
+
+```run.sh
+# to install a pre-defined environment
+poetry install
+```
+
+8) Poetry is dealing with virtual environments. We don't have to deal with it. Poetry is doing all the stuff in the background. To get into virtual environment, run the following
+
+```get_into.sh
+poetry shell
+```
+
+9) Poetry keeps a **poetry.lock** file which resolves all dependencies as listed in pyproject.toml. It takes precedence over **pyproject.toml** . It should be added to git. To refresh dependencies, run `poetry update`.
+
+10) We can define aliases  under **[tool.poetry.scripts]** in `pyproject.toml`.
+
+```pyproject.toml
+[tool.poetry.scripts]
+alias_name = "package.module:main"
+```
+
+```run.sh
+poetry run alias_name
+```
+
+11) We can upload our package into Pypi via the following commands
+
+```run.sh
+# to create file in sdist and wheel
+poetry build
+# pushes into pypi
+poetry publish
+# to publish into testpypi
+poetry publish -r testpypi
+```
+
+12) After installing poetry, there are 2 configuration files which is affecting all poetry packages: **auth.toml** and **config.toml**.
+
+13) To export a requirements.txt file
+
+```
+poetry export -f requirements.txt --output requirements.txt
+# include dev in requirements.txt
+poetry export -f requirements.txt --output requirements_dev.txt --with dev
+# only dev dependencies
+poetry export -f requirements.txt --output requirements_dev.txt --only dev
+```
+
+14) To list information about Python installation
+
+```
+poetry env info
+```
+
+15) To use a different version of Python(must be installed in the OS before)
+
+```run.sh
+poetry env use 3.10
+```
+
+16) What poetry combines
+
+![poetry_combine](./images/poetry_images/003.png)
+
+17) To create a pyproject.toml in an existing project, run `poetry init` and interactively fill out **pyproject.toml** .
+
+18) Poetry is creating a virtual environment and storing downloaded packages under **~/.cache/pypoetry/virtualenvs** directory(for linux) using the dependencies in pyproject.toml.
+
+19) To run jupyter lab
+
+```jupyter_lab.sh
+poetry run jupyter notebook
+```
+
+
 
 
 

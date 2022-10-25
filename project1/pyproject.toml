@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "project1"
+version = "0.1.0"
+description = ""
+authors = ["Muhammed Buyukkinaci <email_address_here>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest = "^5.2"
+tqdm = "^4.64.1"
+
+
+
+[tool.poetry.group.dev.dependencies]
+tqdm = "^4.64.1"
+
+
+[tool.poetry.group.test.dependencies]
+tqdm = "^4.64.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
