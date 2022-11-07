@@ -3718,6 +3718,34 @@ call_usage(3,4)#the result is 81
 
 ```
 
+154) Default dict usage of collection, setdefault
+
+```default_dict.py
+county_city_map = {
+    'Kadıköy': 'İstanbul',
+    'Üsküdar':'İstanbul',
+    'Bozyazı': 'Mersin',
+    'Seyhan': 'Adana',
+    'Ceyhan':'Adana',
+    'Anamur': 'Mersin',
+    'Zile': 'Tokat'
+}
+# we want to have a city: [county1, county2]
+
+# first way
+from collections import defaultdict
+
+dct = defaultdict(list)
+for county,city in county_city_map.items():
+    dct[city].append(county)
+print(dct)
+# second way
+dct = {}
+for county,city in county_city_map.items():
+    dct.setdefault(city, []).append(county)
+print(dct)
+```
+
 
 # Python Logging
 
