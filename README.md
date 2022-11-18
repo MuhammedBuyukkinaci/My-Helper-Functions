@@ -3639,7 +3639,7 @@ print(temp)#I am Muhammed. I like to play chess
 
 152) Pathlib is  python package to deal with files and directories. It is available as of Python 3.6.
 
-'''pathlib_usage.py
+```pathlib_usage.py
 
 import os
 from pathlib import Path
@@ -3701,7 +3701,7 @@ print(f"current working directory = {Path.cwd()}")#current working directory = /
 # Delete the directory
 new_folder.rmdir()
 
-'''
+```
 
 153) \__call__ is a dunder method or magic method. It makes us capable of calling a function via passing parameters to class, not to methods.
 
