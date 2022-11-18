@@ -3767,6 +3767,15 @@ import file2
 
 ```
 
+156) pprint means pretty print and it is used to print in a nice manner.
+
+```
+from pprint import pprint
+
+pprint(A_COMPLICATED_JSON_VARIABLE)
+
+```
+
 
 
 # Python Logging
