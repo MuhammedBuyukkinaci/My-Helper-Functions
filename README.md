@@ -3746,6 +3746,28 @@ for county,city in county_city_map.items():
 print(dct)
 ```
 
+155) sys.path is showing us the directories that python looks for. sys.path doesn't force use to make a directory as a package by adding a \__init__.py file. When you look for files on package1/ directory, you will see no \__init__.py file there.
+
+```temp.py
+import sys
+# Append a directory to sys.path
+sys.path.append('./package1/')
+print(sys.path)
+#['/home/muhammed/Documents/My-Helper-Functions', '/usr/lib/python38.zip', '/usr/lib/python3.8',
+#'/usr/lib/python3.8/lib-dynload', '/home/muhammed/Documents/My-Helper-Functions/venv/lib/python3.8/
+#site-packages', './package1/']
+
+#file1 is ready to be imported thanks to sys.path
+import file1
+
+file1.printer()#zzzz
+
+#below code prompts error because it isn't appended above
+import file2
+
+```
+
+
 
 # Python Logging
 
