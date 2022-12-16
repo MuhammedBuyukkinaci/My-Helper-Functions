@@ -3776,6 +3776,8 @@ pprint(A_COMPLICATED_JSON_VARIABLE)
 
 ```
 
+157) [ByteByteGo](https://bytebytego.com/) is a website for System Design Interviews.
+
 
 
 # Python Logging
@@ -4323,6 +4325,37 @@ pytest --durations=3
 36) Place your tests into a **tests** and put a \__init__.py to make it a package.
 
 37) `pytest --cov` is a unix command to show the results of our tests.
+
+38) We can pass 2 values to parametrize decorator at the same time.
+
+```test_abc.py
+# test_abc.py
+import pytest
+
+input_list = [
+    ('image1','resim1'),
+    ('image2','resim2')
+]
+
+class TestAbc:
+    @pytest.mark.parametrize('fixture1, fixture2', input_list, indirect = ['fixture1', 'fixture2'])
+    def test_function(fixture1, fixture2):
+        pass
+```
+
+```conftest.py
+# conftest.py
+import pytest
+
+@pytest.fixture
+def fixture1(request):
+    return request.param # or replace with Image.open() etc.
+
+@pytest.fixture
+def fixture2(request):
+    return request.param # or replace with Image.open() etc.
+
+```
 
 
 # Unit Testing for Data Science
