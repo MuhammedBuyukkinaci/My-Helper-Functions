@@ -286,12 +286,14 @@ my_string = "I am {0[name]} and I am {0[age]} years old. {0[age]} years old is a
 mydict = ['Muhammed',28]
 my_string = "I am {0[0]} and I am {0[1]} years old. {0[1]} years old is a critical age in human life.".format(mydict)
 
-# Single or DOuble quotation for string
+# Single or Double quotation for string
 temp_string = "Ali'nin arabası var."
 print(f"cümle = {temp_string}")#cümle = Ali'nin arabası var.
 print(f"cümle = {temp_string!r}")#cümle = "Ali'nin arabası var."
 
-
+# Variable name and its value
+a = 344
+print(f"my variable is {a=}")#my variable is a=344
 ```
 
 11) Idempotency is a programming term meaning that calling something(an HTTP word, python function etc.) once is the same as calling it multiple times. GET, PUT, DELELTE are idempotent HTTP words. POST isn't a idempotent HTTP word.
@@ -3778,7 +3780,15 @@ pprint(A_COMPLICATED_JSON_VARIABLE)
 
 157) [ByteByteGo](https://bytebytego.com/) is a website for System Design Interviews.
 
+158) assert can be used with second argument. The second argument is going to be what to prompt in case of error. `python -O file.py` is used to disable asserts and docstrings.
 
+```assert.py
+a = 3
+assert a == 4, f"a is not equal to 4"
+# AssertionError: a is not equal to 4
+```
+
+159) `breakpoint()` is enabling us to debug our code. To see more, type h om prompted terminal. It is a wrapper for `import pdb; pdb.set_trace()`
 
 # Python Logging
 
