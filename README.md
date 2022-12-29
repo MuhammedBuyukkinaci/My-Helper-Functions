@@ -3790,6 +3790,15 @@ assert a == 4, f"a is not equal to 4"
 
 159) `breakpoint()` is enabling us to debug our code. To see more, type h om prompted terminal. It is a wrapper for `import pdb; pdb.set_trace()`
 
+160) To create a temporary file under /tmp . It is useful in setup and tear down phases of tests.
+
+```tmp.py
+import pytest
+with tempfile.TemporaryDirectory() as tmpdir:
+    print(tmpdir)# /tmp/tmpx1106uy2
+
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
@@ -4366,6 +4375,29 @@ def fixture2(request):
     return request.param # or replace with Image.open() etc.
 
 ```
+
+39) Pytest setup and tear down example. Run pytest with -s flag.
+
+```pytest_setup_teardown.py
+import pytest
+
+
+@pytest.fixture
+def setup_teardown():
+    print("setup")
+    yield
+    print("teardown")
+
+def test_with_setup_teardown(setup_teardown):
+    assert True
+    print("in test")
+# temp.py setup
+# in test
+# .teardown
+```
+
+40) @pytest.fixture decorator has different parameter options like autouse=True/False or scope = 'module', 'function', 'package', 'session'. We can also rename a pytest fixture too. A fixture with the same name can overwrite other fixtures with the same name.
+
 
 
 # Unit Testing for Data Science
