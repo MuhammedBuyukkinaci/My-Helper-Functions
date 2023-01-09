@@ -135,7 +135,7 @@ print(issubclass(Developer,Manager))# False
 
 2) Some terms about OOP:
 
-- Inheritance: Using methods and attributes of a parent Class in Child Class
+- Inheritance: Using methods and attributes of a parent Class in Child Clas. `super` keyword is used to inherit from a class. Don't call super() in the middle of a constructor method. Run it either at the beginning or at the end.
 
 - Encapsulation: Accessing the attribute of a Class only in itself(private) by defining the attributes starting with double underscore __. It isn't accessible from instances of that Class. Single underscore _ used for defining protected attributes in a class. Protected means accesible with the Class and its subclasses but expected not to be accessible from instances of objects. No underscore for public attributes. Encapsulation isn't only for attributes. Encapsulation may be implemented for methods too. If we want to see method resolution order or a sub class, run `print(help(Developer)) Every class in Python inherits from builtins.object class. Change in child class doesn't affect parent class.
 
@@ -3288,7 +3288,7 @@ print(temp.get_b)
 
 119) When we call the method and don't provie the data it needs, that method is going to look around the data in different places. It leads the method to know the implementation details of things that the method shouldn't know. It is backpedalling and we should try to avoid. The related principle is law of matter or **principle of least knowledge**. If we don't avoid backpedalling, we are going to have codes like `self.object1.object2.object3` etc.
 
-120) If we want to use type hints with `staticmethod` that returns an instance of the class of staticmethod, import annotations from \__future__. Type hints makes less documentation possible.
+120) If we want to use type hints with `staticmethod` that returns an instance of the class of staticmethod, import annotations from \__future__. Type hints makes less documentation possible. Use type hints precisely. Don't use `a: List`. Prefer using `a: List[int, int]`
 
 ```
 from __future__ import annotations
