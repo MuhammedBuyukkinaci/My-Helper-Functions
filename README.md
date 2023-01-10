@@ -994,7 +994,16 @@ print(dt_utcnow.strftime('%B %d, %Y'))#June 05, 2022
 time_string = "June 05, 2022"
 converted_to_dt = datetime.datetime.strptime(time_string,'%B %d, %Y')
 print(converted_to_dt)#2022-06-05 00:00:00
+
 ```
+
+- 32 bit computers will face 2038 problem. They can't create unix times at that time.
+- To create datetime object from iso format
+```temp.py
+from datetime import datetime
+print(datetime.fromisoformat("2022-09-16T14:05:13"))
+```
+- Default datetime package in Python is timezone naive. Pendulum is a timezone aware package and alternative to datetime. However, pendulum hasn't been being maintained for more than 2 years.
 
 35) Variable Scope is composed of 4 components: LEGB (Local - Enclosing - Global - Built-in ). **Local** variables are variables in which defined in a function. **Enclosing** variables are variables in local scope of enclosing functions. **Global** are variables defined at the top level of a module, explicitly declared global. **Builtins** are pre-assigned variables. Python checks a variable in LEGB order. Using `global` statement isn't mostly recommended. `nonlocal` is a statement similar to `global`, but used in inner function to do what `global` statement does.
 
