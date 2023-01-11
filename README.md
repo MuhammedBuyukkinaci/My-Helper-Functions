@@ -3830,6 +3830,11 @@ with tempfile.TemporaryDirectory() as tmpdir:
 
 ```
 
+161) A/B Testing is also called bucket testing or split testing. It is a way of comparing 2 versions of a single variable. It is commonly used in user experience research. The common mechanism to provide A/B varieties is to use feature flags. Feature flag is nothing more than a boolean value set to True or False. Depending on that value, you are going to display or do something different in your application. It is a good practice to move the value of feature flag to a configuration file. Feature flags aren't just useful for feature flags. e can also use feature flag in order to hide a feature that we are still working on. The code is publised but the feature is not active yet thanks to feature flag.
+
+162) LaundhDarkly, [GrowthBook](https://www.growthbook.io/), Flagship are feature flag as as service platforms. GrowthBook is open source. Install [Python SDK of GrowthBook](https://docs.growthbook.io/lib/python) via `pip install growthbook`. Mixpanels in Growthbook is able to do many things like collecting statistics when a button is pressed etc.
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
