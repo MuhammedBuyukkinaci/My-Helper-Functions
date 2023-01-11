@@ -3018,6 +3018,26 @@ print(regular_class1.AUDI == regular_class2.AUDI)# True
 
 ```
 
+- StrEnum is a new feature as of Python 3.11:
+
+```
+from enum import Enum, StrEnum, auto
+
+
+class Color(Enum):
+    WHITE = auto()
+    BLACK = auto()
+
+print(Color.WHITE.value)# 1
+print(Color.BLACK.value)# 2
+
+class ColorStrEnum(StrEnum):
+    WHITE = auto()
+    BLACK = auto()
+
+print(ColorStrEnum.WHITE.value)#white
+```
+
 93) Code duplication is bad because if there is a bug, we should fix it in every duplicate. Instead of __find_manager__, __find_vicepresident__, __find_engineer__, use finder method with input paremeters like `president` and `vicepresident`.
 
 
@@ -3370,7 +3390,7 @@ if __name__ == "__main__":
 - Configurations in multiple configurations
 - Overriding configurations
 
-Hydra uses yaml file with `.yaml` extension. Yaml uses indentation(2 spaces) and lowercase characters. We can use the subconfiguration yaml file (conf/files/imagenet.yaml) in th main configuration file(conf/config.yaml)
+- Hydra uses yaml file with `.yaml` extension. Yaml uses indentation(2 spaces) and lowercase characters. We can use the subconfiguration yaml file (conf/files/imagenet.yaml) in th main configuration file(conf/config.yaml)
 
 ```conf/config.yaml
 params:
@@ -3379,6 +3399,8 @@ params:
   batch_size: 32
 
 ```
+
+- Another alternative to yaml and json is toml. As of Python 3.11, tomllib is a default package coming with Python installation. Toml fies can have comments. It reads the toml file as a dictionary in Python.
 
 127) Some vscode tricks
 
