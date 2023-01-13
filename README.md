@@ -3493,6 +3493,19 @@ if __name__ == "__main__":
 
 ```
 
+```partial_usage.py
+from functools import partial
+
+
+def my_func(x,y):
+    return x+y
+
+partial_my_func = partial(my_func, y=10)
+result = partial_my_func(19)
+print(result)#29
+
+```
+
 135) Currying is functional programming approach that nests multiple functions.
 
 ```currying_example.py
@@ -3833,6 +3846,13 @@ with tempfile.TemporaryDirectory() as tmpdir:
 161) A/B Testing is also called bucket testing or split testing. It is a way of comparing 2 versions of a single variable. It is commonly used in user experience research. The common mechanism to provide A/B varieties is to use feature flags. Feature flag is nothing more than a boolean value set to True or False. Depending on that value, you are going to display or do something different in your application. It is a good practice to move the value of feature flag to a configuration file. Feature flags aren't just useful for feature flags. e can also use feature flag in order to hide a feature that we are still working on. The code is publised but the feature is not active yet thanks to feature flag.
 
 162) LaundhDarkly, [GrowthBook](https://www.growthbook.io/), Flagship are feature flag as as service platforms. GrowthBook is open source. Install [Python SDK of GrowthBook](https://docs.growthbook.io/lib/python) via `pip install growthbook`. Mixpanels in Growthbook is able to do many things like collecting statistics when a button is pressed etc.
+
+163) Facade design pattern helps by introducing an object that sits between your low level system and your application code. The object defines a simplified interface to low level system so that your code isn't coupled to low level things. Facade often hides some concepts and simplifies other.
+Facade hides the various classes to the client and client uses the much simplified interface of Facade. We shouldn't deal with logging in Facade class. Facade works well with MVC.
+
+- In main.py, call functions from controller. The functions in controller module should carry out logging. However, the logic should be implemented in a Facade class, which is called in controller module
+
+![Facade](./images/018.png)
 
 
 # Python Logging
