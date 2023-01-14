@@ -3854,6 +3854,104 @@ Facade hides the various classes to the client and client uses the much simplifi
 
 ![Facade](./images/018.png)
 
+164) If we want to force functions to have keyword arguments, put * as argument in the beginning of function declaration. Hereby, the function can't be called withour keyword arguments.
+
+```force_function.py
+def calculate_sum(*, x: int, y: int):
+    return x + y
+
+print(calculate_sum(x=5,y=4))# returning 9
+print(calculate_sum(5,4))# prompting error
+```
+
+165) We can use Protocol and its affiliated methods with property.
+
+```property_with_protocol.py
+from dataclasses import dataclass
+from typing import Protocol
+
+
+class CardInfo:
+    @property
+    def card_number():
+        ...
+    @property
+    def name():
+        ...
+
+def validate_card(card_info: CardInfo):
+    print(f"{card_info.name} has a valid card with number {card_info.card_number}")
+
+@dataclass
+class Consumer:
+    card_number: int
+    name: str
+    exp_date: int
+
+
+consumer = Consumer(1111222233334444, "Muhammed", 202212)
+validate_card(card_info=consumer)
+
+
+```
+
+166) Parameters and Arguments aren't the same. Parameters are a part of definition of a function. Arguments are the values that we set to these parameters.
+
+167) Don't use boolean flags to run 2 different logics in the same function. Split the function into 2 different functions.
+
+```boolean_flag.py
+# Bad implementation
+def boolean_flag(x: float, increment: bool):
+    if increment:
+        print(x + 100)
+    else:
+        print(x - 100)
+
+
+boolean_flag(x=100, increment=True)# 200
+# Good implementation
+def incrementor(x):
+    print(x + 100)
+
+
+def decrementor(x):
+    print(x - 100)
+
+# call incrementor or decrementor instead of boolean_flag
+
+incrementor(100)#200, 
+decrementor(100)#0
+```
+
+168) Separate commands from query(CQS, [Command-Query Separation](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation)) is an imperative computer programming. It states that every method should either be a command that performs an action, or a query that returns data to the caller, but not both.
+
+```cqs.py
+from dataclasses import dataclass
+
+
+# Bad practice
+@dataclass
+class Person:
+    name: str
+    age: int
+
+def check_is_big_bad(person: Person):
+    person.is_big = True if person.age > 60 else False
+    return person
+
+def check_is_big_good(person: Person):
+    return True if person.age > 60 else False
+
+person1 = Person("Muhammed", 29)
+person1 = check_is_big_bad(person=person1)
+print(f"{person1.name}, {person1.age}, {person1.is_big}")
+
+person2 = Person("Ahmet", 69)
+person2.is_big = check_is_big_good(person=person2)
+print(f"{person2.name}, {person2.age}, {person2.is_big}")
+```
+
+
 
 # Python Logging
 
