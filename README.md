@@ -3951,7 +3951,9 @@ person2.is_big = check_is_big_good(person=person2)
 print(f"{person2.name}, {person2.age}, {person2.is_big}")
 ```
 
+169) If we want to run our tests after our commit, we need a workflow. For Github Asctions, we need a .github folder in our root directory of our projects. In this folder, there should be some yaml files depictings what to do after committing. An example yaml file is below. Github is also able to store secrets for our workflows.
 
+![github_actions](./images/019.png)
 
 # Python Logging
 
