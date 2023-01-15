@@ -3952,8 +3952,27 @@ print(f"{person2.name}, {person2.age}, {person2.is_big}")
 ```
 
 169) If we want to run our tests after our commit, we need a workflow. For Github Asctions, we need a .github folder in our root directory of our projects. In this folder, there should be some yaml files depictings what to do after committing. An example yaml file is below. Github is also able to store secrets for our workflows.
-
 ![github_actions](./images/019.png)
+
+
+170) Some vscode shortcuts on ubuntu
+
+    - Ctrl + Shift + N: To open up a new vscode
+    - Ctrl + +/-: To zoom in or zoom out
+    - Ctrl + B: To hide or show sidebar
+    - Ctrl + Home/End: To move up or move down
+    - Ctrl + F: To search something on file. Use Enter to move forward. Use Shift+Enter to move backward.
+    - Shift + F12: To see where the element the cursor is on is used
+    - F12: To directly go to the definition of a class or object.
+    - Ctrl + Up/Down Direction: To move up or down in current file without the mouse.
+    - Ctrl + Tab: To move between different open files. Ctrl + Shift + Tab for reverse order.
+    - Ctrl + W: To close the tab. To close all tabs, use Ctrl + K + W.
+    - Ctrl + Shift + E: To open up Explorer.
+    - Alt + Up/Down: To carry the line the cursor is on to above or below line.
+    - Ctrl + ,: To open up settings
+    - Ctrl + K + Ctrl + S: To show shortcuts
+
+
 
 # Python Logging
 
