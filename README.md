@@ -3972,6 +3972,17 @@ print(f"{person2.name}, {person2.age}, {person2.is_big}")
     - Ctrl + ,: To open up settings
     - Ctrl + K + Ctrl + S: To show shortcuts
 
+171) GUI architectures:
+
+- MVC: Model View Controller
+    
+![mvc](./images/020.png)
+
+- MVP: Model View Presenter
+
+![mvc](./images/021.png)
+
+- MVVM: Model View ViewModel
 
 
 # Python Logging
