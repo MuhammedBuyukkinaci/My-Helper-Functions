@@ -1620,7 +1620,7 @@ print(sys.version)
 #'3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0]'
 ```
 
-50) Iterators and iterables are 2 different terms. List is an iterable and not an iterator. Iterable is something that can be looped over. We can loop over tuples, dictionaries,generators,strings, files and all kinds of different objects. If something is isterable, it has a method named \__iter__ . Iterator is an object with a state so that it remember where it is during iteration. Iterators can get the next value via \__next__ method. next method runs \__next__ method and iter function runs \__iter__ in the background. Iterators are also iterables but the opposite isn't true. \__iter__ method of an iterators returns self. Iterators only go forward. Generators are extremely useful in creating easy-to-read iterators. Generatros are iterators as well but \__iter__ and \__next__ methods are created automatically.
+50) Iterators and iterables are 2 different terms. List is an iterable and not an iterator. Iterable is something that can be looped over. We can loop over tuples, dictionaries,generators,strings, files and all kinds of different objects. If something is iterable, it has a method named \__iter__ . Iterator is an object with a state so that it remember where it is during iteration. Iterators can get the next value via \__next__ method. next method runs \__next__ method and iter function runs \__iter__ in the background. Iterators are also iterables but the opposite isn't true. \__iter__ method of an iterators returns self. Iterators only go forward. Generators are extremely useful in creating easy-to-read iterators. Generators are iterators as well but \__iter__ and \__next__ methods are created automatically.
 
 ```iterator_vs_iterable.py
 
@@ -1732,7 +1732,7 @@ print(next(my_sentence))#example
 print(next(my_sentence))# Raises an error.
 ```
 
-51) The iterators module is a collection of functions that allows us to work with iterators efficiently. zip function takes 2 iterators and return an iterator. Files are also iterators. itertools.groupby expects its input iterator as sorted to group efficiently.
+51) The iterators module is a collection of functions that allows us to work with iterators efficiently. Iterator is an object that is used to traverse some sequence of items. zip function takes 2 iterators and return an iterator. Files are also iterators. itertools.groupby expects its input iterator as sorted to group efficiently.
 
 ```itertools_module.py
 import itertools
@@ -1786,6 +1786,18 @@ for item in result:
 #('a', 'b')
 #('a', 'c')
 #('b', 'c')
+
+# combinations, repeating
+letters = ['a','b','c']
+result = itertools.combinations_with_replacement(letters,2)
+for item in result:
+    print(item)
+# ('a', 'a')
+# ('a', 'b')
+# ('a', 'c')
+# ('b', 'b')
+# ('b', 'c')
+# ('c', 'c')
 
 #permutations, no repeating
 result = itertools.permutations(letters,2)
@@ -2814,7 +2826,7 @@ cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
 81) Don't prefer to use singleton and object pool design patterns in Python.
 
 
-82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. A of Python 3.10, dataclass decorator hasaan argument named slots. When slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance.
+82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. A of Python 3.10, dataclass decorator has an argument named slots. When slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance.
 
 ```dataclasses_example.py
 from dataclasses import dataclass,field
@@ -3982,7 +3994,21 @@ print(f"{person2.name}, {person2.age}, {person2.is_big}")
 
 ![mvc](./images/021.png)
 
-- MVVM: Model View ViewModel
+- MVVM: Model View ViewModel. PyQt uses.
+
+172) `from typing import Iterable` is providing a new abstraction for type hints. Let's assume we want to pass a list or a tuple to a function. If the function expects a List, it will prompt a warning if we pass a tuple. If the function expects an Iterable, passing a List or a Tuple doesn't matter.
+
+```iterable.py
+from typing import Iterable
+
+
+def my_func(item: Iterable):
+    print(item)
+
+my_func([1,2,3])# [1, 2, 3]
+my_func(('a','b','c'))# ('a', 'b', 'c')
+
+```
 
 
 # Python Logging
