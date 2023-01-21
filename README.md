@@ -253,11 +253,22 @@ del wor_1.fullname# delete name !
 
 7) self is a conventional name in Python classes, not a magical keyword. It could be s or me or whatever we name. 
 
-8) To check if a variable has a numeric type of Float, integer, Decimal etc; use isinstance.
+8) To check if a variable has a numeric type of Float, integer, Decimal etc; use isinstance. If you want check whether a class is a subclass of another class, use `issubclass`
 
 ```filename.py
 import numbers
 isinstance(variable_name,numbers.Number)
+```
+
+```is_subclass.py
+class A:
+    pass
+
+class B(A):
+    pass
+
+print(issubclass(B,A))# True, B is a sub class of A.
+
 ```
 
 9) Always try to make code DRY(don't repeat yourself)
@@ -4009,6 +4020,47 @@ my_func([1,2,3])# [1, 2, 3]
 my_func(('a','b','c'))# ('a', 'b', 'c')
 
 ```
+
+173) In order to suppress exceptions, the former method works fine but Pylint doesn't like it. The latter method(contextlib.suppress) is an alternative which Pylint shows no reaction to. THe latter method is slower.
+
+```former.py
+try:
+    int("a33")
+except:
+    print("exception is excepted")
+```
+
+```latter.py
+from contextlib import suppress
+
+with suppress(Exception):
+    int("a33")
+
+```
+
+174) We can measure the runtime of a code thanks to `timeit.timeit()`
+
+```comparison.py
+import timeit
+
+setup = 'empty_list=[]'
+
+first_code = '''\
+for i in range(100):
+    empty_list.append(i)
+'''
+
+second_code = '''\
+empty_list = list(range(100))
+'''
+
+print("first code")
+print(timeit.timeit(first_code,setup))# 4.081986575998599
+print("second code")
+print(timeit.timeit(second_code,setup))# 0.6562269149981148
+
+```
+
 
 
 # Python Logging
