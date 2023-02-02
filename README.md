@@ -2071,6 +2071,22 @@ for letter,number,check in zip(letters,numbers,checks):
 ```underscore.py
 a , _ = (1,2)
 print(a)
+
+# multiple values to ignore.
+_, _, a = (1,2,3)
+print(a)#3
+print(_)#2
+
+# send many input to same function but get the same result
+def my_func(*_,**__):
+    print("hello")
+
+
+my_func(1)#hello
+my_func(1,2)#hello
+my_func(a=1, b=2)#hello
+my_func(1, c=3)#hello
+
 ```
 
 56) Unpacking not equal values and variables can be carried out via putting an asteriks to the beginning of latest variable.
