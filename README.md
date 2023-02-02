@@ -4061,6 +4061,7 @@ print(timeit.timeit(second_code,setup))# 0.6562269149981148
 
 ```
 
+175) We can install Rust in a Python environment thanks to [Rustenv](https://pypi.org/project/rustenv/).
 
 
 # Python Logging
