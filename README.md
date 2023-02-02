@@ -1103,7 +1103,7 @@ hand = random.sample(cars,k = 5)
 print(hand)#['BMW', 'VW', 'Opel', 'Seat', 'Porsche']
 ```
 
-```
+```r.py
 # Generating Random id from lowercases
 import string
 import random
@@ -4078,6 +4078,46 @@ print(timeit.timeit(second_code,setup))# 0.6562269149981148
 ```
 
 175) We can install Rust in a Python environment thanks to [Rustenv](https://pypi.org/project/rustenv/).
+
+
+176) `...` is Ellipsis. Ellipsis is a special word equal to `...`. It is working like a placeholder for expressions and statement. It works the same way as *pass*. It is used in numpy for indexing. It can be used in type hints with `from typing import Tuple`. Ellipsis means any set of arguments can fit there.
+
+```ellipsis.py
+from typing import List, Tuple
+
+
+def my_func() -> Tuple[int, ...]:
+    a: List[int] = [1,2,3,4]
+    return tuple(a)
+
+print(my_func())
+
+```
+
+177) **mypy** is a type checker for  Python. It can be installed via `pip install mypy`. To check a file, run `mypy file_name.py`.
+
+178) Always prefer using `and` and `or` instead of `&` or `|` as much as possible.
+
+```compare.py
+import timeit
+
+setup = 'import random; random_list = random.sample(range(1,1001),1000)'
+
+first_code = '''\
+result_1 = [rand for rand in random_list if (rand >750) or (rand <250)]
+'''
+
+second_code = '''\
+result_2 = [rand for rand in random_list if (rand >750) | (rand <250)]
+'''
+
+print("first code:")
+print(timeit.timeit(first_code,setup, number=100))# 0.00705821999872569
+print("second code:")
+print(timeit.timeit(second_code,setup,number=100))# 0.01121905699983472
+
+```
+
 
 
 # Python Logging
