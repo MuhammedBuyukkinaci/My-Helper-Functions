@@ -4328,7 +4328,20 @@ logging.config.fileConfig(fname='file.conf', disable_existing_loggers=False)
 - logger.exception(e): will print out error and traceback (same as **logger.error("message here", exc_info=True)** )
 
 
-28) [graypy](https://github.com/severb/graypy) is a python library to send python logs into Graylog in the format of GELF (Graylog Extended Log Format).
+28) [graypy](https://github.com/severb/graypy) is a python library to send python logs into Graylog in the format of GELF (Graylog Extended Log Format). Another alternative of graylog is papertrail. It is similar to Graylog. Graylog and Papertrail are 2 logging solutions for our logs. Papertrail is used as below:
+
+```t.py
+import logging
+from logging.handlers import SysLogHandler
+PAPERTRAIL_HOST = "abc.com"
+PAPERTRAIL_PORT = 35555
+
+logger = logging.getLogger()
+handler = SysLogHandler(address=(PAPERTRAIL_HOST,PAPERTRAIL_PORT))
+logger.addHandler(handler)
+
+
+```
 
 29) [Loguru](https://loguru.readthedocs.io/en/stable/) and [structlog](https://www.structlog.org/en/stable/) are 2 python libraries for logging.
 
