@@ -3488,7 +3488,9 @@ params:
 
 133) The code should explain itself. A lot of documentation isn't needed in the code via docstrings.
 
-134) In Python, functions are objects of type **Callable**. We can type aliases for them. We can pass functions as arguments to other functions. If we use functools, we can even call functions partially. Using closures solves the problem of not being able to pass parameters to functions. Using partial is shorter than closures. **partial** is neater than **closures**.
+134) In Python, functions are objects of type **Callable**. We can type aliases for them. We can pass functions as arguments to other functions. If we use functools, we can even call functions partially. Using closures solves the problem of not being able to pass parameters to functions. Using partial is shorter than closures. **partial** is neater than **closures**. 
+
+    - Another example is that we want to filter some columns bigger than a user-specified threshold. In this scenario, we are using the same data but we are changing column name and threshold. Instead of using the same data in our function, we can use **functools.partial** not to call data much more times. Also, if we want to make filter operations on a determined column with different threshold, we can use partial one more time.
 
 ```functools_with_partial.py
 from dataclasses import dataclass
@@ -4094,7 +4096,7 @@ print(my_func())
 
 ```
 
-177) **mypy** is a type checker for  Python. It can be installed via `pip install mypy`. To check a file, run `mypy file_name.py`.
+177) **mypy** is a static & mostly used type checker for Python. It can be installed via `pip install mypy`. To check a file, run `mypy file_name.py`. mypy will take annotations and validate them statically. reveal_type can be used in a script to learn the type of a function. reveal_type is non-importable. It prompts no error when we invoke `mypy file.py`.
 
 178) Always prefer using `and` and `or` instead of `&` or `|` as much as possible.
 
@@ -4118,6 +4120,59 @@ print(timeit.timeit(second_code,setup,number=100))# 0.01121905699983472
 
 ```
 
+179) To create a bytes object, run `a = b'abde'`. It is an object of type bytes. When we run `list(a)`, it will return **[97, 98, 100, 101]**. a[0] returns **97** but a[1:] returns **b'bde'**.
+
+
+180) Usage of mypy with **typing.overload**. **typing.overload** can be used for type checking in mypy.
+
+```t.py
+from typing import Union, overload
+
+
+@overload
+def bytes_getter(b: bytes, idx: int) -> int: ...
+@overload
+def bytes_getter(b: bytes, idx: slice) -> bytes: ...
+
+
+def bytes_getter(b: bytes, idx: Union[int, slice]) -> Union[int, bytes]:
+    return b[idx]
+
+bar = b'100'
+
+print(bytes_getter(bar, 0) - ord('0'))
+
+```
+
+181) 1-ary function overloading in Python thanks to **functools.singledispatch**.
+
+```single_dispatch.py
+from functools import singledispatch
+
+
+@singledispatch
+def my_caster(x):
+    raise NotImplementedError(f"{type(x)} is not implemented")
+
+@my_caster.register
+def int_function(x: int):
+    return f"{x} is an integer"
+
+@my_caster.register
+def str_function(x: str):
+    return f"{x} is an string"
+
+@my_caster.register
+def float_function(x: float):
+    return f"{x} is a float"
+
+
+print(my_caster(3))#3 is an integer
+print(my_caster("abc"))# abc is an string
+print(my_caster(3.0))# 3.0 is a float
+print(my_caster([1,2,4]))# raises an error: NotImplementedError: <class 'list'> is not implemented
+
+```
 
 
 # Python Logging
