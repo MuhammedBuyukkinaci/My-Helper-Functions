@@ -4174,6 +4174,13 @@ print(my_caster([1,2,4]))# raises an error: NotImplementedError: <class 'list'> 
 
 ```
 
+182) Usage of center method for strings
+
+```c.py
+txt = "banana"
+x = txt.center(20,"=")
+print(x)#=======banana=======
+```
 
 # Python Logging
 
