@@ -4201,6 +4201,13 @@ print(dis.dis(f))
 
 ```
 
+184) It is good practice to have 4 requirements.txt file as below
+
+    - requirements-dev.txt: A freezed version of requirements-dev-minimal.txt
+    - requirements-dev-minimal.txt: Installed libraries for development
+    - requirements.txt: A freezed version of requirements-minimal.txt
+    - requirements-minimal.txt: Installed libraries for production.
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
