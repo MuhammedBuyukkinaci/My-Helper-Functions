@@ -4182,6 +4182,25 @@ x = txt.center(20,"=")
 print(x)#=======banana=======
 ```
 
+183) `dis` is a built-in python package. **dis.dis** shows us how Python compiles the function. It shows us the bytecodes. Python is a stack based language. This means when it is executing bytes code, it is building and growing a datastack inside of a function.
+
+```disassembler.py
+
+import dis
+
+
+def f(x):
+    return x*x
+
+print(dis.dis(f))
+#  5 0 LOAD_FAST   0 (x)
+#    2 LOAD_FAST   0 (x)
+#    4 BINARY_MULTIPLY
+#    6 RETURN_VALUE
+# None
+
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
