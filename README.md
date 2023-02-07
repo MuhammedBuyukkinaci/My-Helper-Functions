@@ -2735,7 +2735,7 @@ coverage html
 
 ![ASYNC](./images/017.png)
 
-75) Exceptions are standard ways of dealing with errors. Don't see them only as hidden control flows of software. It is important to handle errors in low levels rather than a general Exception. Setting up a database connection using context managers and discarding `finally` keyword in cancelling connection might be useful.
+75) Exceptions are standard ways of dealing with errors. Don't see them only as hidden control flows of software. It is important to handle errors in low levels rather than a general Exception. Setting up a database connection using context managers and discarding `finally` keyword in cancelling connection might be useful. `except` and `finally` are optional but we hve to at least one of them. It is a **good practice** to reduce code in try/except blocks. Also, it is a **best practice** to use as specific exception types as possible.
 
 ```exception_context_managers.py
 
@@ -2752,6 +2752,13 @@ class DBConnector:
 
 with DBConnector('application.db') as cur:
     cur.execute("SELECT * FROM TABLE")
+
+# multiple exceptions in the same catch
+
+try:
+    do_something()
+except (ValueError,NameError):
+    pass
 
 ```
 
