@@ -4215,6 +4215,16 @@ print(dis.dis(f))
     - requirements.txt: A freezed version of requirements-minimal.txt
     - requirements-minimal.txt: Installed libraries for production.
 
+185) Splat usage in Python. It is also used with keyword arguments.
+
+```splat_usage.py
+a = [1,2,3]
+b = [*a, 4,5,6]
+c = a + [4,5,6]
+print(b)#[1, 2, 3, 4, 5, 6]
+print(c)#[1, 2, 3, 4, 5, 6]
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
