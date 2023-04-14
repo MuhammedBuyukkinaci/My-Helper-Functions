@@ -4226,6 +4226,8 @@ print(b)#[1, 2, 3, 4, 5, 6]
 print(c)#[1, 2, 3, 4, 5, 6]
 ```
 
+186) [Rich](https://github.com/Textualize/rich) is a python library for rich text and beautiful formatting in the Terminal.
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
