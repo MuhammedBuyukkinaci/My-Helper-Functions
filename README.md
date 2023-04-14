@@ -4228,6 +4228,9 @@ print(c)#[1, 2, 3, 4, 5, 6]
 
 186) [Rich](https://github.com/Textualize/rich) is a python library for rich text and beautiful formatting in the Terminal.
 
+186) We can build packages and publish them to pypi via following [this tutorial](https://packaging.python.org/en/latest/tutorials/packaging-projects/). Take a look at [packaging_tutorial](./packaging-tutorial/) folder for details.
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)

@@ -1,0 +1,33 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "helpers-mbk"
+version = "1.0.1"
+description = "Some functions that Muhammed Buyukkinaci uses a lot"
+readme = "README.md"
+authors = [{ name = "Muhammed Buyukkinaci", email = "muhammedbuyukkinaci@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["feed", "reader", "tutorial"]
+dependencies = [
+    "pandas >= 2.0.0",
+    "numpy >= 1.24.2",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/MuhammedBuyukkinaci/helpers-mbk"
+
+[project.scripts]
+showdateinfo = "helpers_mbk.__main__:main"
