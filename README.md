@@ -4228,7 +4228,16 @@ print(c)#[1, 2, 3, 4, 5, 6]
 
 186) [Rich](https://github.com/Textualize/rich) is a python library for rich text and beautiful formatting in the Terminal.
 
-186) We can build packages and publish them to pypi via following [this tutorial](https://packaging.python.org/en/latest/tutorials/packaging-projects/). Take a look at [packaging_tutorial](./packaging-tutorial/) folder for details.
+187) We can build packages and publish them to pypi via following [this tutorial](https://packaging.python.org/en/latest/tutorials/packaging-projects/). Take a look at [packaging_tutorial](./packaging-tutorial/) folder for details.
+
+188) Some principles proposed by GRASP design principles
+
+    - Creator: Helping us decide we create objects. Factory design pattern as an example.
+    - Information Expert: Where does this information/extension make sense?
+    - Indirection: introduce an intermediate unit between 2 other units, to remove direct coupling. Adapter & Facade uses.
+    - High cohesion: A method should work only one thing.
+    - Low coupling: Avoid too many instance attributes in a class. 5-6 maximum. Avoid too many methods.
+
 
 
 # Python Logging
