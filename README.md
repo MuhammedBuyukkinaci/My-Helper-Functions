@@ -5000,7 +5000,7 @@ poetry remove dependency_name
 poetry remove pandas
 ```
 
-5) To add a new dependency into development environment and remove a dependenct from a development environment, run the following 2 commands:
+5) To add a new dependency into development environment and remove a dependency from a development environment, run the following 2 commands:
 
 ```run.sh
 # To add into development environment
@@ -5009,7 +5009,7 @@ poetry add tqdm --group dev
 poetry remove tqdm --group dev
 ```
 
-5) To add a group named `test` into our toml file, add the following 2 lines into toml file and run `poetry add pytest --group test`.
+6) To add a group named `test` into our toml file, add the following 2 lines into toml file and run `poetry add pytest --group test`.
 
 ```run.py
 [tool.poetry.group.test]
@@ -5017,26 +5017,26 @@ poetry remove tqdm --group dev
 [tool.poetry.group.test.dependencies]
 ```
 
-6) Some syntaxes for versioning
+7) Some syntaxes for versioning
 
 ![poetry_new](./images/poetry_images/002.png)
 
-7) After cloning a repo, to install dependencies(it is using pyproject.toml of cloned repo)
+8) After cloning a repo, to install dependencies(it is using pyproject.toml of cloned repo)
 
 ```run.sh
 # to install a pre-defined environment
 poetry install
 ```
 
-8) Poetry is dealing with virtual environments. We don't have to deal with it. Poetry is doing all the stuff in the background. To get into virtual environment, run the following
+9) Poetry is dealing with virtual environments. We don't have to deal with it. Poetry is doing all the stuff in the background. To get into and activate a virtual environment, run the following
 
 ```get_into.sh
 poetry shell
 ```
 
-9) Poetry keeps a **poetry.lock** file which resolves all dependencies as listed in pyproject.toml. It takes precedence over **pyproject.toml** . It should be added to git. To refresh dependencies, run `poetry update`.
+10) Poetry keeps a **poetry.lock** file which resolves all dependencies as listed in pyproject.toml. It takes precedence over **pyproject.toml** . It should be added to git. To refresh dependencies, run `poetry update`.
 
-10) We can define aliases  under **[tool.poetry.scripts]** in `pyproject.toml`.
+11) We can define aliases  under **[tool.poetry.scripts]** in `pyproject.toml`.
 
 ```pyproject.toml
 [tool.poetry.scripts]
@@ -5047,7 +5047,7 @@ alias_name = "package.module:main"
 poetry run alias_name
 ```
 
-11) We can upload our package into Pypi via the following commands
+12) We can upload our package into Pypi via the following commands
 
 ```run.sh
 # to create file in sdist and wheel
@@ -5058,9 +5058,9 @@ poetry publish
 poetry publish -r testpypi
 ```
 
-12) After installing poetry, there are 2 configuration files which is affecting all poetry packages: **auth.toml** and **config.toml**.
+13) After installing poetry, there are 2 configuration files which is affecting all poetry packages: **auth.toml** and **config.toml**.
 
-13) To export a requirements.txt file
+14) To export a requirements.txt file
 
 ```
 poetry export -f requirements.txt --output requirements.txt
@@ -5070,31 +5070,44 @@ poetry export -f requirements.txt --output requirements_dev.txt --with dev
 poetry export -f requirements.txt --output requirements_dev.txt --only dev
 ```
 
-14) To list information about Python installation
+15) To list information about Python installation
 
-```
+```shell
 poetry env info
+# To show the path on a local computer
+poetry env info -p
+# To list virtual environments(there can be more than 1 virtual environment)
+poetry env list
+# To deactivate a virtual environment
+deactivate
 ```
 
-15) To use a different version of Python(must be installed in the OS before)
+16) To use a different version of Python(must be installed in the OS before)
 
 ```run.sh
 poetry env use 3.10
 ```
 
-16) What poetry combines
+17) What poetry combines
 
 ![poetry_combine](./images/poetry_images/003.png)
 
-17) To create a pyproject.toml in an existing project, run `poetry init` and interactively fill out **pyproject.toml** .
+18) To create a pyproject.toml in an existing project, run `poetry init` and interactively fill out **pyproject.toml** .
 
-18) Poetry is creating a virtual environment and storing downloaded packages under **~/.cache/pypoetry/virtualenvs** directory(for linux) using the dependencies in pyproject.toml.
+19) Poetry is creating a virtual environment and storing downloaded packages under **~/.cache/pypoetry/virtualenvs** directory(for linux) using the dependencies in pyproject.toml.
 
-19) To run jupyter lab
+20) To run jupyter lab
 
 ```jupyter_lab.sh
 poetry run jupyter notebook
 ```
+
+21) To locate poetry environment under current project folder(as .venv)
+
+```shell
+poetry config virtualenvs.in-project true
+```
+
 
 
 
