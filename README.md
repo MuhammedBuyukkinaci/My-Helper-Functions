@@ -2186,11 +2186,21 @@ print(sys.path)
 
     - Flycut: A clipboard program, free, and provides the history of Clipboard.
 
-    - Bitwarden and authy: SOme authentication tools.
+    - Bitwarden and authy: Some authentication tools.
 
-    - Homebrew:
+    - Homebrew: A package manager
 
     - Rectangle: Free windows manager.
+
+    - Maccy: Managing copy-paste behavior. Free.
+
+    - Things: A premium app to automate things.
+
+    - Toggle Track: A time logger to optimize our hours
+
+    - Fig: An autocomplete tool on terminal or elsewhere. Available on Vscode.
+
+    - DevToys: An app to convert files into another format. From json to yaml etc. oTo install it, `brew install devtoys --cask`.
 
 - Some Youtube channels on Software development:
 
@@ -4252,7 +4262,7 @@ print(c)#[1, 2, 3, 4, 5, 6]
     - SQL Query Builder: An interface on top of SQL to construct SQL queries. A middle point between flexiblity and security. Pypika is an SQL Query Builder library in Python. A disadvantage is no Type Hints.
     - ORM: Using object oriented programming to define a layer on top of a DB. Classes and objects are used to represent tables and records. A very common ORM is SQLAlchemy. PeeWee and PonyORM are also other alternatives instead of SQLAlchemy. Each table in a DB is represented by a class. It works independent of SQL dialects(postgresql, mysql, mariadb etc.). If you are using an ORM and want to switch to another one, there might happen some compatibility issues. More durable to SQL injection attacks. Supporting type hints.
 
-190) Object is a pandas datatype that Pandas assigns to unidentifed columns. Some data types are **string**, **boolean**, **category**. If we are dealing wtih string data, the data dtype should be string. In some cases, it might be more optimal to use category instead of string. Category data type should be used in the place that a columns has finite unique values. One example might be cityname. To obtain memory consumption of a dataframe, use `data.memory_usage(deep=True)`.
+190) Object is a pandas datatype that Pandas assigns to unidentifed columns. Some data types are **string**, **boolean**, **category**. If we are dealing wtih string data, the data dtype should be string. In some cases, it might be more optimal to use **category** instead of **string**. Category data type should be used in the place that a columns has finite unique values. One example might be cityname. To obtain memory consumption of a dataframe, use `data.memory_usage(deep=True)`.
 
 
 # Python Logging
