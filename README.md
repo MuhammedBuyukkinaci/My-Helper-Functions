@@ -2770,7 +2770,15 @@ except (ValueError,NameError):
 # wrong python code
 cur.execute(f"SELECT * FROM TABLE WHERE id = '{id}'")
 # correct python code
-cur.execute(f"SELECT * FROM TABLE WHERE id = ? ",[id])
+cur.execute("SELECT * FROM TABLE WHERE id = ? ",[id])
+# We can use dictionary in an sql query
+my_dict = {
+    'top_limit': 100
+    'department': 'sales'
+}
+# No risk of SQL injection attacks
+cur.execute("SELECT TOP :top_limit * FROM table where department = :department", my_dict)
+# Another better way is to put sql queries in a .sql file and read it via Path(file_path).read_text()
 ```
 
 78) Monadic error handling is an error handling approach. It is existing in functional programming languages originally.
@@ -4237,6 +4245,13 @@ print(c)#[1, 2, 3, 4, 5, 6]
     - Indirection: introduce an intermediate unit between 2 other units, to remove direct coupling. Adapter & Facade uses.
     - High cohesion: A method should work only one thing.
     - Low coupling: Avoid too many instance attributes in a class. 5-6 maximum. Avoid too many methods.
+
+189) 3 ways to work with a DB
+
+    - Raw SQL: The most powerful and flexible way. Directly interacting with SQL. Can be used with dictionary or with a separate file.
+    - SQL Query Builder: An interface on top of SQL to construct SQL queries. A middle point between flexiblity and security. Pypika is an SQL Query Builder library in Python. A disadvantage is no Type Hints.
+    - ORM: Using object oriented programming to define a layer on top of a DB. Classes and objects are used to represent tables and records. A very common ORM is SQLAlchemy. PeeWee and PonyORM are also other alternatives instead of SQLAlchemy. Each table in a DB is represented by a class. It works independent of SQL dialects(postgresql, mysql, mariadb etc.). If you are using an ORM and want to switch to another one, there might happen some compatibility issues. More durable to SQL injection attacks. Supporting type hints.
+
 
 
 
