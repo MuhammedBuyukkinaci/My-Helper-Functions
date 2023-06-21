@@ -4264,6 +4264,64 @@ print(c)#[1, 2, 3, 4, 5, 6]
 
 190) Object is a pandas datatype that Pandas assigns to unidentifed columns. Some data types are **string**, **boolean**, **category**. If we are dealing wtih string data, the data dtype should be string. In some cases, it might be more optimal to use **category** instead of **string**. Category data type should be used in the place that a columns has finite unique values. One example might be cityname. To obtain memory consumption of a dataframe, use `data.memory_usage(deep=True)`.
 
+191) Pandera is a data validation library in Python for Pandas. It can be considered as pandas extension. We define a schema that corresponds to what our data looks like. We can automatically expect Pandera to detec data types or we can use Pydantic in a customized way. Pandera also has some data types like boolean, int, strings, int64. It has a FastAPI integration.
+
+```pandera_example.py
+
+import pandas as pd
+import pandera as pa
+from pandera.typing import DataFrame, Series
+
+data = pd.DataFrame({'A':[1,2,3],'B':['a','b','c']})
+
+data_schema = pa.infer_schema(data)
+
+with open('inferred_schema.py',"w") as file:
+    file.write(data_schema.to_script())
+
+from inferred_schema import schema
+
+data_new = pd.DataFrame({'A':[1.0,2.0,3.0],'B':['a','b','c']})
+print(data_new)
+#      A  B
+# 0  1.0  a
+# 1  2.0  b
+# 2  3.0  c
+data_new_validated = schema.validate(data_new,lazy=True)
+print(data_new_validated)
+#    A  B
+# 0  1  a
+# 1  2  b
+# 2  3  c
+
+data_not_valid = pd.DataFrame({'A':[1.0,2.0,'3.0'],'B':['a','b','c']})
+
+try:
+    data_not_valid_validated = schema.validate(data_not_valid,lazy=True)
+    print(data_not_valid_validated)# Prompts Error
+except:
+    with pa.errors.SchemaErrors as err:
+        print(err)
+
+# Validating using decorator
+@pa.check_output(schema=schema, lazy=True)
+def retrieve_data(path: str) -> pd.DataFrame:
+    return pd.read_csv(path)
+
+# For validation, prefer using PyDantic rather than inferring and checking
+
+class OutputSchema(pa.SchemaModel):
+    A: Series[str] = pa.Field(ge=0)
+    B: Series[int] = pa.Field(nullable=True)
+
+# Validating using decorator
+@pa.check_types(lazy=True)
+def retrieve_data_pydantic(path: str) -> DataFrame[OutputSchema]:
+    return pd.read_csv(path)
+
+
+```
+
 
 # Python Logging
 
