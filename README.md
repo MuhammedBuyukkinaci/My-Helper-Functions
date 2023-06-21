@@ -4322,6 +4322,15 @@ def retrieve_data_pydantic(path: str) -> DataFrame[OutputSchema]:
 
 ```
 
+192) 5 Chatgpt tips:
+
+    - Be clear
+    - Use related terms(Single Responsibility and Low Cohesion etc.)
+    - Give formatting instructions.
+    - Chain Questions
+    - Verify the correctness.
+    - A plus tip: Use continue when character limit is exceeded. 
+
 
 # Python Logging
 
