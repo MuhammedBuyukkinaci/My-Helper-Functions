@@ -2951,6 +2951,14 @@ print(vehicle1.__dict__['name'])# BMW
 
 - Black
 
+- Pdoc
+
+- Better Comments: Available on Pycharm too.
+
+- autoDocstring: To automatically generate docstrings. Available on Vscode.
+
+- mkdocs: A way to automatically generate documentation on a GUI
+
 86) In the book of gang of 4 design patterns, most design patterns recommend composition over inheritance. Composition is a "has a" relationship and Inheritance is a "is a" relationship. Inheritance leads to more coupling, which is something we don't want. For the same codebase, composition has less code over inheritance. Inheritance leads to a combinatorial explosion of code base.
 
 87) When we have a parent class and child class and we override a function of Parent class in Child class, we can call the overridden method in Child class. 
@@ -3101,6 +3109,29 @@ class ColorStrEnum(StrEnum):
     BLACK = auto()
 
 print(ColorStrEnum.WHITE.value)#white
+```
+
+- Enum can be used in type hints.
+
+```enum_type_hint.py
+from enum import Enum, auto
+
+
+class Action(Enum):
+    DEPOSIT = auto()
+    WITHDRAW = auto()
+    TRANSFER = auto()
+
+
+def temporary_function(action: Action):
+    if action == Action.DEPOSIT:
+        print("Money deposited")
+    else:
+        print("No money deposited")
+
+
+temporary_function(action=Action.DEPOSIT)
+
 ```
 
 93) Code duplication is bad because if there is a bug, we should fix it in every duplicate. Instead of __find_manager__, __find_vicepresident__, __find_engineer__, use finder method with input paremeters like `president` and `vicepresident`.
@@ -3487,6 +3518,8 @@ params:
 - Markdown preview Mermaid support: It enables us to visualize md files using. Its website link is [here](https://mermaid.live/).
 
 - [Hackerdraw](https://www.hackerdraw.com/), [draw.io](https://app.diagrams.net/) are some visualization tools to draw.
+
+- Vscode settings in 3 layers: Global, Workspace(Opened window) and Folder.
 
 128) Some Google Tips to write better Python code:
 
@@ -4329,7 +4362,14 @@ def retrieve_data_pydantic(path: str) -> DataFrame[OutputSchema]:
     - Give formatting instructions.
     - Chain Questions
     - Verify the correctness.
-    - A plus tip: Use continue when character limit is exceeded. 
+    - A plus tip: Use continue when character limit is exceeded.
+    - One more tip: Tell ChatGPT "you are a developer".
+    - When talking to ChatGPT, ask it to prepare the docstrings in numpy style.
+
+
+193) Functions are action-focused and Classes are state-focused. Functions care about the flow. Functions are easy to test. Reading a file and processing and obtaining some statistics can be an example of where functions fit better. Bank Account case is a better example of where classes fit better, in which state is more important.
+
+194) [ElevenLabs](https://beta.elevenlabs.io/) is a startup focusing on Voice.
 
 
 # Python Logging
