@@ -137,19 +137,44 @@ print(issubclass(Developer,Manager))# False
 
 - Inheritance: Using methods and attributes of a parent Class in Child Clas. `super` keyword is used to inherit from a class. Don't call super() in the middle of a constructor method. Run it either at the beginning or at the end.
 
-- Encapsulation: Accessing the attribute of a Class only in itself(private) by defining the attributes starting with double underscore __. It isn't accessible from instances of that Class. Single underscore _ used for defining protected attributes in a class. Protected means accesible with the Class and its subclasses but expected not to be accessible from instances of objects. No underscore for public attributes. Encapsulation isn't only for attributes. Encapsulation may be implemented for methods too. If we want to see method resolution order or a sub class, run `print(help(Developer)) Every class in Python inherits from builtins.object class. Change in child class doesn't affect parent class.
+- Encapsulation: Accessing the attribute of a Class only in itself(private) by defining the attributes starting with double underscore __. It isn't accessible from instances of that Class. Single underscore _ used for defining protected attributes in a class. Protected means accesible with the Class and its subclasses but expected not to be accessible from instances of objects. However, protected variables are accessible from instances though. No underscore for public attributes. Encapsulation isn't only for attributes. Encapsulation may be implemented for methods too. If we want to see method resolution order or a sub class, run `print(help(Developer)). Every class in Python inherits from builtins.object class. Change in child class doesn't affect parent class. Python's Dataclasses don't support encapsulation.
+
+```ensapsulation.py
+
+class Temp:
+    def __init__(self,public, protected, private):
+        self.public = public
+        self._protected = protected
+        self.__private = private
+
+temp = Temp(public=1,protected=2, private=3)
+print(temp.public)#1
+print(temp._protected)#2
+print(temp._Temp__private)#3
+print(temp.__private)# AttributeError
+
+
+```
 
 - Polymorphism: Being able to send different inputs to a method or a function like Python's built-in len function.
 
 - Method Overriding: Rewriting a method inherited from a parent class in the Child class.
 
-- Method Overloading: Calling same method with different number of parameters like we did in C#. Two methods can't have the same name in Python. Not possible in Python.
+- Method Overloading: Calling same method with different number of parameters like we did in C#. Two methods can't have the same name in Python. Not possible in Python by default. However, some ways in this document are existent.
 
 - A method in a class may return only `self`, which means itself.
 
 - Information Hiding: It is about hiding information from different components of the program in order to be flexible. It is related to Encapsulation.
 
 - It is not recommended to use multiple inheritance and mixins. THey are problematic in terms of cohesion and coupling.
+
+- Some guides on classes:
+    - Keep classes small
+    - Consider classes either data focused or behavior focused
+    - Encourage using property if posbbile rather than a method.
+    - lru_cache, cached_property usage
+    - dependency injection
+    - make sure class is needed.
 
 3) Double underscores is called as dunder. \__init__ is a special method. \__repr__ and \__str__. These 2 special methods allow us to change how our objects are printed and displayed. len is a special method too, which runs a dunder method named \__len__ .
 
@@ -2957,7 +2982,7 @@ print(vehicle1.__dict__['name'])# BMW
 
 - autoDocstring: To automatically generate docstrings. Available on Vscode.
 
-- mkdocs: A way to automatically generate documentation on a GUI
+- [mkdocs](https://github.com/mkdocs/mkdocs): A way to automatically generate documentation on a GUI
 
 86) In the book of gang of 4 design patterns, most design patterns recommend composition over inheritance. Composition is a "has a" relationship and Inheritance is a "is a" relationship. Inheritance leads to more coupling, which is something we don't want. For the same codebase, composition has less code over inheritance. Inheritance leads to a combinatorial explosion of code base.
 
@@ -4370,6 +4395,101 @@ def retrieve_data_pydantic(path: str) -> DataFrame[OutputSchema]:
 193) Functions are action-focused and Classes are state-focused. Functions care about the flow. Functions are easy to test. Reading a file and processing and obtaining some statistics can be an example of where functions fit better. Bank Account case is a better example of where classes fit better, in which state is more important.
 
 194) [ElevenLabs](https://beta.elevenlabs.io/) is a startup focusing on Voice.
+
+195) **cached_property** can be used to compute a property in a class and store it in the RAM once. It is used for caching.
+
+```cached.py
+
+from dataclasses import dataclass
+from functools import cached_property
+
+
+@dataclass
+class Car:
+    name: str
+
+    @cached_property
+    def country(self):
+        if self.name == 'TOGG':
+            return 'Turkish'
+        elif self.name == 'Ford':
+            return 'American'
+        else:
+            return 'Other'
+        
+    @property
+    def consumption(self):
+        if self.country == 'Turkish':
+            return "Electric"
+        elif self.country == 'American':
+            return "Most consumption"
+        else:
+            return "Average consumption"
+
+car = Car(name='TOGG')
+print(car.country)
+print(car.consumption)
+        
+```
+
+196) `lru_cache` is a functional way of cached_property. lru means least recently used. For country function, it caches `TOGG`'s mapping to `Turkish`. Therefore, cached value of step 1 will be used in step 2 without recomputing.
+
+```lru_cache_file.py
+from dataclasses import dataclass
+from functools import cached_property, lru_cache
+
+
+@lru_cache
+def country(name: str):
+    if name == 'TOGG':
+        return 'Turkish'
+    elif name == 'Ford':
+        return 'American'
+    else:
+        return 'Other'
+
+@lru_cache
+def consumption(country_value: str):
+    if country_value == 'Turkish':
+        return "Electric"
+    elif country_value == 'American':
+        return "Most consumption"
+    else:
+        return "Average consumption"
+
+## 1
+country_value = country(name='TOGG')
+print(country_value)
+consumption_value = consumption(country_value=country_value)
+print(consumption_value)
+## 2
+# The below line is taken from cache, which is faster.
+country_value = country(name='TOGG')
+print(country_value)
+# The below line is taken from cache, which is faster.
+consumption_value = consumption(country_value=country_value)
+print(consumption_value)
+##3
+# The below line isn't taken from cache because country is different
+country_value = country(name='Ford')
+print(country_value)
+# The below line isn't taken from cache because country_value is different
+consumption_value = consumption(country_value=country_value)
+print(consumption_value)
+
+```
+
+
+197) You should prefer using Decimal over Float. Actually, you shouldn't use Decimals too. Decimals are Python-specific objects, which means it is required to convert Decimal to another type for DB operations.. Decimals aren't high-performant. Using integer for money is a way that Stripes uses. They store 100 dollars as 10000. Numpy data dtypes like np.int64, np.int32 can be used too.
+
+```decimal_usage.py
+from decimal import Decimal, getcontext
+
+print(Decimal(2.2) + Decimal(1.1))# 3.300000000000000266453525910
+getcontext().prec = 2
+print(Decimal(2.2) + Decimal(1.1))# 3.3
+
+```
 
 
 # Python Logging
