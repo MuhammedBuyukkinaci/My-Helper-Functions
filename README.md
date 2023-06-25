@@ -2185,7 +2185,7 @@ print(sys.path)
 - Naming Conflicts: Don't use built-in modues names in your scripts(math.py datetime.py)
 - Mutable Default Arguments: Don't pass lists or any other mutable data dtypes to a function as default parameter. Set it to None by default and change it in other lines.
 - Exhausting Iterators: We can't access to elements of an iterator if all of elements are looped over once. It isn't like list.
-- Importng with *: Import only needed functions from a module. Don't import whole module like `import os`
+- Importng with *: Import only needed functions from a module. Don't import whole module like `import os`. Don't name a module as utils.py or util.py, which doesn't give information about the content.
 
 61) Some Vscode Advices:
 
@@ -3373,7 +3373,7 @@ if __name__ == '__main__':
 
 - Library is a collection of packages
 
-- Package is a collection of modules(.py files) + `__init__.py` file. `__init__.py` makes the package to callable from different directories.
+- Package is a collection of modules(.py files) + `__init__.py` file. `__init__.py` makes the package to callable from different directories. It is a good practice to leave `__init__.py` file empty.
 
 - Module is a just simple file.py in a package.
 
@@ -3421,7 +3421,7 @@ print(temp.b)
 print(temp.get_b)
 ```
 
-116) In a data science project, always try to simplify **main.py** module. Put the classes in different modules and call them from **main.py**. Make sure configuration settings are in a single place. The main takeaway in data science projects is that data is central. We should design our application around how data flows. Define a config.json file and put the configuration files there. Then, defnie a **config.py** file and create a **dataclass** and a **function**. The **function** will load the json file into memory and then set the configurations to parameters of dataclass using unpacking keyword arguments (**kwargs). IN Python, there are some configuration tools like dot-env and hydra.
+116) In a data science project, always try to simplify **main.py** module. Put the classes in different modules and call them from **main.py**. Make sure configuration settings are in a single place. The main takeaway in data science projects is that data is central. We should design our application around how data flows. Define a config.json file and put the configuration files there. Then, defnie a **config.py** file and create a **dataclass** and a **function**. The **function** will load the json file into memory and then set the configurations to parameters of dataclass using unpacking keyword arguments (**kwargs). IN Python, there are some configuration tools like dot-env and hydra. In a main.py file, put a docstring which tells us the runtime version of Python and LICENSE.
 
 
 117) In PyTorch, training and validation can be implemented in the same function/class. There can be 2 different objects (generated from the same class) in main.py for training and validation.
@@ -4491,6 +4491,10 @@ print(Decimal(2.2) + Decimal(1.1))# 3.3
 
 ```
 
+198) [Taipy](https://github.com/Avaiga/taipy) is a framework to build data GUI apps in Python.
+
+
+
 
 # Python Logging
 
@@ -4723,7 +4727,7 @@ logger.addHandler(handler)
 
 2) In order to have a complete set of manual tests, what is required is to list all features our application has, different types of input it can accept and the expected results.
 
-3) Testing multiple parts of our application is called **Integration testing**.
+3) Testing multiple parts of our application is called **Integration testing**. Checking our API endpoints's returning correct responses is integration testing
 
 4) If you have many test files, create a folder named **tests** and locate your tests there.
 
@@ -5354,7 +5358,7 @@ poetry env use 3.10
 poetry run jupyter notebook
 ```
 
-21) To locate poetry environment under current project folder(as .venv)
+21) To locate poetry environment under current project folder(as .venv) or add a poetry.toml file as in this repository.
 
 ```shell
 poetry config virtualenvs.in-project true
