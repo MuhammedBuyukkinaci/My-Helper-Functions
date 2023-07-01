@@ -4493,6 +4493,14 @@ print(Decimal(2.2) + Decimal(1.1))# 3.3
 
 198) [Taipy](https://github.com/Avaiga/taipy) is a framework to build data GUI apps in Python.
 
+199) divmod is used to find quotient and remainder of a division operation.
+
+```a.py
+
+a,b = divmod(11,5)
+print(a)#2
+print(b)#1
+```
 
 
 
