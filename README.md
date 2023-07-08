@@ -4502,6 +4502,19 @@ print(a)#2
 print(b)#1
 ```
 
+200) To capture latest argument from the terminal
+
+```python
+
+import sys
+
+argument = sys.argv[-1]
+print(argument)
+# run `python temp.py data.csv` on terminal
+# it will output data.csv
+
+```
+
 
 
 # Python Logging
