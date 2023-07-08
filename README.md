@@ -4742,6 +4742,8 @@ logger.addHandler(handler)
 
 29) [Loguru](https://loguru.readthedocs.io/en/stable/) and [structlog](https://www.structlog.org/en/stable/) are 2 python libraries for logging.
 
+30) It is a good practice to use DEBUG level for new production code. If everything goes well, change it to info or warning.
+
 # Python Testing
 
 1) Exploratory testing is a test without a plan.
