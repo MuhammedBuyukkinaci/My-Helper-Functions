@@ -4517,6 +4517,38 @@ print(argument)
 
 201) Click is a library to parse command line arguments. It is an alternative to argparse.
 
+202) We can create a custom cli command via click package. An example demonstration is below. Run `python setup.py develop` to install **csv-linter**. `setup.py` and `csv_linter.py` are in the same directory. If main function was in the file main.py that is in a package named csv_linter, we should type `csv-linter=csv_linter.main:main` in the setup.py.
+
+```setup.py
+#setup.py
+from setuptools import setup, find_packages
+
+setup(
+    name = 'csv-linter',
+    description = 'lint csv files',
+    packages = find_packages(),
+    author = 'Alfredo Deza',
+    entry_points="""
+    [console_scripts]
+    csv-linter=csv_linter:main
+    """,
+    install_requires = ['click==7.1.2', 'pandas==1.2.0'],
+    version = '0.0.1',
+    url = 'https://github.com/paiml/practical-mlops-book',
+)
+```
+
+```csv_linter.py
+#csv_linter.py
+import click
+
+
+@click.command()
+@click.argument('filename', type=click.Path(exists=True))
+def main(filename):
+    df = pd.read_csv(filename)
+```
+
 
 # Python Logging
 
