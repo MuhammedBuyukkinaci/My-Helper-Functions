@@ -4109,7 +4109,7 @@ print(f"{person2.name}, {person2.age}, {person2.is_big}")
 
 - MVVM: Model View ViewModel. PyQt uses.
 
-172) `from typing import Iterable` is providing a new abstraction for type hints. Let's assume we want to pass a list or a tuple to a function. If the function expects a List, it will prompt a warning if we pass a tuple. If the function expects an Iterable, passing a List or a Tuple doesn't matter.
+172) `from typing import Iterable` is providing a new abstraction for type hints. Let's assume we want to pass a list or a tuple to a function. If the function expects a List, it will prompt a warning if we pass a tuple. If the function expects an Iterable, passing a List or a Tuple doesn't matter. `from typing import Sized` can be used to describe an element that is able to call \__len__ method. Prefer to be flexible in argument types and specific in return types.
 
 ```iterable.py
 from typing import Iterable
@@ -4120,6 +4120,26 @@ def my_func(item: Iterable):
 
 my_func([1,2,3])# [1, 2, 3]
 my_func(('a','b','c'))# ('a', 'b', 'c')
+
+# Iterable with Sized
+
+from typing import Iterable, List, Sized
+
+
+def wrong_implementation(my_list: List[str]) -> int:
+    return len(my_list[0])
+
+def correct_implementation(my_iterable: Iterable[Sized]):
+    return len(my_iterable[0])
+
+my_list = ['a','b']
+list_of_list = [['a','b'], ['a','b']]
+
+print(wrong_implementation(my_list=my_list))#1
+
+print(correct_implementation(my_iterable=my_list))#2
+print(correct_implementation(my_iterable=list_of_list))#2
+
 
 ```
 
@@ -4549,6 +4569,105 @@ def main(filename):
     df = pd.read_csv(filename)
 ```
 
+203)"Ask for more than you need"  is a mistake made by developers a lot. Let's assume we have a list containing integers and we have a function that takes an input as integer and returns an output. We should feed only a single integer to this function rather than feeding whole list. The principle is law of demeter.
+
+```python
+from typing import List
+
+a = [1,2,3]
+
+def wrong_implementation(my_list: List):
+    return my_list[0]*2
+
+def correct_implementation(element: int):
+    return element*2
+
+print(wrong_implementation(a))
+print(correct_implementation(a[0]))
+
+```
+
+204) We can use dunder methods to overwrite the default behavior. \__enter__ and \__exit__ dunder methods can be used in order to connect to a database via context manager. In this scenario, use Class for context managers rather than function. \__new__ is a dunder method which is called when an object is created.
+
+- When to use dunder methods:
+
+    - Implementing custom behavior -> \__repr__
+    - Emulating existing types -> \__getitem__, \__len__, \__iter__
+    - Operator overloading -> \__eq__, \__add__, \__sub__
+    - Building context managers -> \__enter__, \__exit__
+
+- When not to use dunder methods:
+    - If it brings unnecessary complexity
+    - If it violates principle of least astonishment
+    - If it leads to performance issues
+    - If it harms code readability
+
+```python
+from dataclasses import dataclass
+from typing import List
+
+# Emulating existing types
+
+@dataclass
+class Property:
+    key: str
+    value: str
+
+
+@dataclass
+class Listing:
+    properties: List[Property]
+
+    def __len__(self):
+        return len(self.properties)
+
+    def __getitem__(self, property_id: int) -> Property:
+        return self.properties[property_id]
+    
+    def __iter__(self):
+        return iter(self.properties)
+
+property1 = Property(key="sqm", value="2+1")
+property2 = Property(key="district", value="Merkez")
+listing = Listing(properties=[property1,property2])
+
+print(len(listing)) #2
+print(listing[0]) #Property(key='sqm', value='2+1')
+for property in listing:
+    print(property)
+
+# Property(key='sqm', value='2+1')
+# Property(key='district', value='Merkez')
+
+# Operator overloading
+
+@dataclass
+class Location:
+    x: float
+    y: float
+
+    def __add__(self, other):
+        return Location(self.x + other.x, self.y+other.y)
+
+    def __sub__(self, other):
+        return Location(self.x - other.x, self.y-other.y)
+    
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+    
+
+location_a = Location(x=3.0, y = 4.0)
+location_b = Location(x=6.0, y = 8.0)
+
+location_c = location_a + location_b
+location_d = location_a - location_b
+diff_check = location_a == location_b
+
+print(location_c)# Location(x=9.0, y=12.0)
+print(location_d)# Location(x=-3.0, y=-4.0)
+print(diff_check)# False
+
+```
 
 # Python Logging
 
