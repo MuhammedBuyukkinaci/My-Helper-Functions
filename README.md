@@ -4669,6 +4669,11 @@ print(diff_check)# False
 
 ```
 
+205) [Langchain](https://github.com/langchain-ai/langchain) is a Python library that enables us to build up LLM applications.
+
+206) [MongoDB Atlas](https://www.mongodb.com/atlas/database) is a managed NoSQL DB service.
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
