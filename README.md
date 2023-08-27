@@ -497,7 +497,7 @@ for i in nums_generators:
 
 ```
 
-17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter
+17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter. Python list comprehensions are faster in python 3.12 because it reduces the number of function calls. It will call less functions. Calling a function in python is a costly operation which should be avoided if possible.
 
 ```prefer_lc.py
 nums = [1,2,3]
@@ -1768,7 +1768,7 @@ print(next(my_sentence))#example
 print(next(my_sentence))# Raises an error.
 ```
 
-51) The iterators module is a collection of functions that allows us to work with iterators efficiently. Iterator is an object that is used to traverse some sequence of items. zip function takes 2 iterators and return an iterator. Files are also iterators. itertools.groupby expects its input iterator as sorted to group efficiently.
+51) The iterators module is a collection of functions that allows us to work with iterators efficiently. Iterator is an object that is used to traverse some sequence of items. zip function takes 2 iterators and return an iterator. Files are also iterators. itertools.groupby expects its input iterator as sorted to group efficiently. In python 3.12, itertools.batched was introduced.
 
 ```itertools_module.py
 import itertools
@@ -1964,6 +1964,29 @@ copy1,copy2 = itertools.tee(person_group)
 
 for key, group in person_group:
     print(key,len(list(group)))
+
+# Python 3.12,
+
+import itertool
+my_list = [1,2,3,4,5,6,7,8,9]
+
+for a,b,c in itertools.batched(my_list, 3):
+    print(a,b,c)
+#1,2,3
+#4,5,6
+#7,8,9
+
+for a,b in itertools.batched(my_list, 2):
+    print(a,b)
+#1,2
+#3,4
+#5,6
+#7,8
+# it prompts a ValueError. 
+
+
+
+
 ```
 
 52) **requests** library is great for getting information from a website, not to parse it. Beautiful soup is used  to parse html. There is another library called request-html to parse html. In HTTP status codes, 200's are successes and 300's are redirects, 400's are client errors, 500 errors are server errors. [httpbin.org](https://httpbin.org) is web site to test different queries. It is a good idea to set a timeout. **elapsed** measures the time between sending the request and finishing parsing the response headers, not until the full response has been transferred
