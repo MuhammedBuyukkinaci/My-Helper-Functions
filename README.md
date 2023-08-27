@@ -4673,6 +4673,45 @@ print(diff_check)# False
 
 206) [MongoDB Atlas](https://www.mongodb.com/atlas/database) is a managed NoSQL DB service.
 
+207) In python 3.12, `from typing import override` is a new feature to describe overridden methods. Let's assume we have a method that calls another method inside. The inside method is changed to **new_my_first**. In this scenario, we should decorate the child class by override keyword.
+
+```python
+# before
+class A:
+    def my_first(self):
+        print("A")
+    
+    def my_second(self):
+        self.my_first()
+
+class B(A):
+    def my_first(self):
+        print("B")
+
+b = B()
+b.my_second()# B
+
+```
+
+```python
+# new codebase
+from typing import override
+
+class A:
+    def new_my_first(self):
+        print("A")
+    
+    def my_second(self):
+        self.new_my_first()
+
+class B(A):
+    @override
+    def my_first(self):
+        print("B")
+
+b = B()
+b.my_second()# A
+```
 
 # Python Logging
 
