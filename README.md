@@ -4736,6 +4736,29 @@ b = B()
 b.my_second()# A
 ```
 
+208) ast.parse can be used to use the same line of code multiple times
+
+```python
+import ast
+
+# Creating AST
+code = ast.parse("print([1,2,3,4,5])")  
+# Printing AST
+print(ast.dump(code))
+
+#Module(body=[Expr(value=Call(func=Name(id='print', ctx=Load()),
+# args=[List(elts=[Constant(value=1, kind=None), 
+# Constant(value=2, kind=None), Constant(value=3, kind=None), 
+# Constant(value=4, kind=None), Constant(value=5, kind=None)]
+#ctx=Load())], keywords=[]))], type_ignores=[])
+
+# Executing AST
+
+exec(compile(code, filename="", mode="exec"))
+# [1, 2, 3, 4, 5]
+
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
