@@ -4692,6 +4692,27 @@ print(diff_check)# False
 
 ```
 
+```python
+# __del__ and __delitem__ methods
+class WtfDict(dict):
+    def __delitem__(self, key) -> None:
+        print("wtf object deleted")
+        return super().__delitem__(key)
+    def __del__(self):
+        print("item deleted")
+    
+
+wtf_dict = WtfDict({'a':1,'b':2})
+
+print(wtf_dict)#{'a': 1, 'b': 2}
+
+del wtf_dict['a']
+print(wtf_dict)
+#wtf object deleted
+#{'b': 2}
+del wtf_dict # item deleted
+```
+
 205) [Langchain](https://github.com/langchain-ai/langchain) is a Python library that enables us to build up LLM applications.
 
 206) [MongoDB Atlas](https://www.mongodb.com/atlas/database) is a managed NoSQL DB service.
