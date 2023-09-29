@@ -2188,6 +2188,7 @@ print(num1)
 # getattr and setattr
 # getpass: instead of input function while accepting password to hide it.
 # python -m: python -m temp == python temp.py
+# prefer using == over !=. != makes code hard to review.
 ```
 
 59) *sys.path* is the list of directories where python looks modules when we run an import. It firstly lists current directory, then default directories of default modules like itertools or datetimes and lastly looks for third party libraries.
