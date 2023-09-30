@@ -4781,6 +4781,16 @@ exec(compile(code, filename="", mode="exec"))
 
 ```
 
+209) Some useful Python libraries:
+    - [pypdf](https://github.com/py-pdf/pypdf): A tool to eal with pdf files
+    - icecream: a tool for simple debugging
+    - [xarray](https://github.com/pydata/xarray): "Xarray makes working with labelled multi-dimensional arrays in Python simple, efficient, and fun!"
+    - [polars](https://www.pola.rs/): An alternative to pandas
+    - [SQLModel](https://github.com/tiangolo/sqlmodel): A library for ORM. Pretty useful. SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
+    - [httpx](https://www.python-httpx.org/): An alternative to requests.
+
+210) [GPT Engineer](https://github.com/AntonOsika/gpt-engineer) is a tool to build up a project using chatgpt. "Specify what you want it to build, the AI asks for clarification, and then builds it".
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
