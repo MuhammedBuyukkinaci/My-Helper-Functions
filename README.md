@@ -4791,6 +4791,13 @@ exec(compile(code, filename="", mode="exec"))
 
 210) [GPT Engineer](https://github.com/AntonOsika/gpt-engineer) is a tool to build up a project using chatgpt. "Specify what you want it to build, the AI asks for clarification, and then builds it".
 
+
+211) [memray](https://bloomberg.github.io/memray/getting_started.html) is a python library for memory profiling. It shows us where memory is used.
+
+
+
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
