@@ -2607,11 +2607,36 @@ with open('mbk.jpg','rb') as rf:
 
 - The goal should be to increase cohesion and reduce coupling.
 
-67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future. Abstract classes should hae only abstract methods, which means no attributes should be passed to Abstract classes. If you want to use `@staticmethod` decorator within Abstract class, add `@staticmethod` before `@abstractmethod`
+67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future. Abstract classes can have abstract methods and hook methods. Abstract methods should be implemented obligatorily. Whereas, hook methods defined in abstract classes don't have be implemented in child classes but they can be reimplemented in child classes. No logic should be coded in abstract base classes. If you want to use `@staticmethod` decorator within Abstract class, add `@staticmethod` before `@abstractmethod`.
 
-```abstract_base_class_usage.py
+```python
 
 from abc import ABC, abstractmethod
+
+class MyBaseClass(ABC):
+    @abstractmethod
+    def abstract_method(self):
+        pass
+
+    def hook_method_to_be_overridden(self):
+        print("This is a hook method in the abstract class.")
+    
+    def hook_method_not_to_be_overridden(self):
+        print("This is the non-overridden hook method in the concrete class.")
+
+class MyConcreteClass(MyBaseClass):
+    def abstract_method(self):
+        print("This is the implementation of the abstract method.")
+
+    def hook_method_to_be_overridden(self):
+        print("This is the overridden hook method in the concrete class.")
+
+
+# Example usage
+obj = MyConcreteClass()
+obj.abstract_method()
+obj.hook_method_to_be_overridden()
+obj.hook_method_not_to_be_overridden()
 
 ```
 
@@ -2634,7 +2659,7 @@ print(temp.param2)#5
 
 69) The strategy pattern should cover increasing cohesion. It is swapping out the algorithm without changing the code that uses the algorithm. For example, defining different compression algorithms like zip or gzip etc and using one of them in the code is an example of strategy pattern. Using the strategy pattern via classes is better than via functions because classes are combining data(attributes) with behavior(functions.). If we have different strategies and each has different parameters, set them in the initializer via dataclass or constructor. This way reduces coupling. An example usage of strategy pattern is that we have a TradingBot class. It takes 2 arguments in the constructor: The first one is Exchange and the second one is TradingStrategy. Exchange and TradingStrategy are 2 abstract base classes. Exchange may have more than 2 child classes like BinanceExchange and CoinbaseExchange. TradingStrategy may have more than 2 child classes like MinMaxTrader or AverageTrader. We can create instances of BinanceExchange and MinMaxTrader and then pass these instances to TradingBot constructor.
 
-```
+```python
 from abc import ABC
 
 
@@ -2683,7 +2708,7 @@ if __name__ == '__main__':
 ```
 
 
-```strategy_pattern.py
+```python
 
 from abc import ABC, abstractmethod
 from typing import Callable, List
@@ -2736,7 +2761,7 @@ sort_models(Bmw, ['Bmw 3','Bmw 2','Bmw 7','Bmw 8'],get_found_bmw)
 
 ```
 
-```functional_strategy.py
+```python
 # Functional Strategy Pattern
 # The task is to create different password generation.
 import uuid
@@ -2762,6 +2787,50 @@ print(call_password_generator(generate_ascii_password))
 ```
 
 70) __Observer__ Pattern is design pattern which is based on publisher/subscriber architecture. 1 observable may be attached to 2 observers. Observer Pattern is related to reducing coupling. It is used in most big projects.
+
+
+```python
+from abc import ABC, abstractmethod
+from dataclasses import dataclass, field
+
+class BaseObserver(ABC):
+    @abstractmethod
+    def update(self, value: str) -> None:
+        pass
+
+
+@dataclass
+class CustomObserver1(BaseObserver):
+    def update(self, value: str) -> None:
+        print(f"{value} is obtained in custom observer 1")
+
+
+@dataclass
+class CustomObserver2(BaseObserver):
+    def update(self, value: str) -> None:
+        print(f"{value} is obtained  in custom observer 2")
+
+
+@dataclass
+class Subject:
+    observers: list[BaseObserver] = field(default_factory=list)
+
+    def attach(self, observer: BaseObserver):
+        self.observers.append(observer)
+
+    def detach(self, observer: BaseObserver):
+        self.observers.remove(observer)
+
+    def notify(self, some_update: str):
+        for observer in self.observers:
+            observer.update(some_update)
+
+subject= Subject()
+subject.attach(CustomObserver1())
+subject.attach(CustomObserver2())
+
+subject.notify("Emergent Notification")
+```
 
 71) [Coverage](https://pypi.org/project/coverage/) is a python library which returns a report like how many lines of our code is successful or used etc. It is used in our tests. The documentation is [here](https://coverage.readthedocs.io/en/6.4.4/). Coverage of 100 % doesn't mean our code is bug free. It isn't a good idea to use a random dataset in testing our software because we want out unit tests to be 100% deterministic. It is a good practice to make our unit tests 100 % deterministic. To keep abstract classes out of Coverage testing, convert `pass` statements in abstract classes into docstring. Another way of ignoring is creating a `.coveragerc` file and putting the content below into it to ignore abstract methods.
 
@@ -4794,6 +4863,24 @@ exec(compile(code, filename="", mode="exec"))
 
 211) [memray](https://bloomberg.github.io/memray/getting_started.html) is a python library for memory profiling. It shows us where memory is used.
 
+212)  In python 3.12, Unpack can be used in order to declare types of kwargs.
+
+```python
+from typing import TypedDict
+from typing import Unpack
+
+class Car(TypedDict):
+    age: int
+    brand: str
+
+def some_printer(**kwargs: Unpack[Car]):
+    print(type(kwargs))
+    print(kwargs)
+
+car = Car(age=4, brand= "BMW")
+some_printer(**car)
+
+```
 
 
 
