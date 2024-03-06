@@ -4882,6 +4882,13 @@ some_printer(**car)
 
 ```
 
+213) 7 tips for a data science project
+
+- Use a common structure, cookiecutter
+
+- Use existing libraries. Taipy is a pipeline library to manage ML pipelines.
+
+- 
 
 
 
@@ -5111,6 +5118,8 @@ logger.addHandler(handler)
 29) [Loguru](https://loguru.readthedocs.io/en/stable/) and [structlog](https://www.structlog.org/en/stable/) are 2 python libraries for logging.
 
 30) It is a good practice to use DEBUG level for new production code. If everything goes well, change it to info or warning.
+
+31) [Papertrail](https://www.papertrail.com/) is a cloud based service to store logs. It is an alternative to datadog.
 
 # Python Testing
 
