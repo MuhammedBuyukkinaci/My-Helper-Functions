@@ -4888,8 +4888,95 @@ some_printer(**car)
 
 - Use existing libraries. Taipy is a pipeline library to manage ML pipelines.
 
-- 
 
+214) `from typing import TypeVar` can be used for static type checkers. If we have a generic function and it applies the same logic to the input irrespective of input's type, TypeVar can be used. TypeVar is more useful than Any. 
+
+
+```python
+from typing import TypeVar
+
+T= TypeVar('T')
+
+def function(x: T, n: int):
+    return [x]*n
+
+string_output = function(x='string',n=3)
+print(string_output)# ['string', 'string', 'string']
+integer_output = function(x=1,n=4)
+print(integer_output)# [1, 1, 1, 1]
+```
+
+```python
+from typing import Generic, TypeVar
+
+T = TypeVar('T')
+
+class Box(Generic[T]):
+    def __init__(self, content: T):
+        self.content = content
+
+# Usage
+int_box = Box(42)
+str_box = Box("Hello, Generic!")
+
+print(int_box.content)  # Output: 42
+print(str_box.content)  # Output: Hello, Generic!
+```
+
+```python
+# Typevar with bound
+from dataclasses import dataclass
+from typing import Generic, TypeVar
+
+
+@dataclass
+class Game:
+    def printer(self):
+        print("this is a game")
+
+
+class Bridge(Game):
+    def printer(self):
+        print("this is a bridge")
+
+
+class Poker(Game):
+    def printer(self):
+        print("this is a poker")
+
+
+V = TypeVar("V", bound=Game)
+
+
+class GameRegistry(Generic[V]):
+    def __init__(self) -> None:
+        self.games: list[V] = []
+
+    def add_game(self, game: V):
+        self.games.append(game)
+
+
+class ComputerGame:
+    pass
+
+
+# No errors or warnings
+game_registry = GameRegistry[Game]()
+game_registry.add_game(Bridge())
+game_registry.add_game(Poker())
+print(game_registry.games)
+
+# Only objects created from Bridge to be added
+bridge_registry = GameRegistry[Bridge]()
+bridge_registry.add_game(Bridge())
+# Expected type 'Bridge' (matched generic type 'V'), got 'Poker' instead
+bridge_registry.add_game(Poker())
+print(bridge_registry.games)
+
+# Type Checking Error
+computer_registry = GameRegistry[ComputerGame]()
+
+```
 
 
 # Python Logging
