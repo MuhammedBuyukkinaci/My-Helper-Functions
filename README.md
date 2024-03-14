@@ -1989,9 +1989,10 @@ for a,b in itertools.batched(my_list, 2):
 
 ```
 
-52) **requests** library is great for getting information from a website, not to parse it. Beautiful soup is used  to parse html. There is another library called request-html to parse html. In HTTP status codes, 200's are successes and 300's are redirects, 400's are client errors, 500 errors are server errors. [httpbin.org](https://httpbin.org) is web site to test different queries. It is a good idea to set a timeout. **elapsed** measures the time between sending the request and finishing parsing the response headers, not until the full response has been transferred
+52) **requests** library is great for getting information from a website, not to parse it. Beautiful soup is used  to parse html. There is another library called request-html to parse html. In HTTP status codes, 200's are successes and 300's are redirects, 400's are client errors, 500 errors are server errors. [httpbin.org](https://httpbin.org) is web site to test different queries. It is a good idea to set a timeout. **elapsed** measures the time between sending the request and finishing parsing the response headers, not until the full response has been transferred. Requests isn't designed for performance but for simplicity. For each new request, a new connection is being created, which isn't computationally optimized. In order to solve this problem, requests library introduced Connecion Pooling as known as Sessions. Instead of calling via `requests.get` or `requests.post`, create a session object by `session = requests.Session()` and call the methods of this session object via `session.get` or `session.post`. This will reduce the time and make our code more optimized. For more details, click [here](https://requests.readthedocs.io/en/latest/user/advanced/). Requests doesn't support concurrency. [Aiohttp](https://docs.aiohttp.org/en/stable/) library supports concurrency. The drawback of Aiohttp is that it introduces boilerplate code more. Aiohttp can also be used as a web server but it isn't preferred in this way by developers because Fastapi beats Aiohttp in web serving. Httpx is another alternative to requests. Httpx has almost the same API's and methods like requests. Httpx's Client is similar to requests' Session.
 
-```requests_examples.py
+
+```python
 import requests
 
 ## Graping an html
