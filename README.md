@@ -4978,6 +4978,38 @@ computer_registry = GameRegistry[ComputerGame]()
 
 ```
 
+215) State design pattern is a behavioral design pattern. It allows an object to change its state. The advantage of State design pattern is that we can put the behaviors(on or off) in separate classes. It is used in document editing. A document can be in draft state, review state, publish state etc. State design pattern is commonly used in game development.
+
+```python
+from typing import Protocol
+
+
+class LightState:
+    def switch(self, bulb) -> None:
+        ...
+
+class OnState:
+    def switch(self, bulb) -> None:
+        bulb.state = OffState()
+        print("light is off")
+
+
+class OffState:
+    def switch(self, bulb) -> None:
+        bulb.state = OnState()
+        print("light is on")
+
+class Bulb:
+    def __init__(self) -> None:
+        self.state = OnState()
+
+    def switch(self) -> None:
+        self.state.switch(self)
+
+bulb = Bulb()
+bulb.switch()# light is off
+bulb.switch()# light is on
+```
 
 # Python Logging
 
