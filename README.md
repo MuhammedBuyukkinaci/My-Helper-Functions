@@ -5012,6 +5012,22 @@ bulb.switch()# light is off
 bulb.switch()# light is on
 ```
 
+216) Python vs Rust
+
+| Feature            | Rust                   |
+|--------------------|------------------------|
+| Interpreted        | Compiled               |
+| Dynamically typed  | Statically typed       |
+| Automated Garbage Colllection    | Ownership  |
+| GIL   | No GIL  |
+| Exceptions   | Monadic Error Handling  |
+| Flexible syntax   | Strict and Explicit Syntax |
+| More beginner friendly   | Less beginner friendly |
+| Less performant   | More performant |
+| Support for functional and OOP   | Mostly functional |
+| Duck typing   | More chaining style operations such as map, filter |
+| Objects are mutable   | Objects are constants |
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
