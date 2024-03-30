@@ -5102,7 +5102,7 @@ if salary <0:
 create_on_db(something=something)
 ```
 
-220) A good practice advised by Elon Musk is to distill red aundant things from the products and put 10% of the removed things back. Code is an expression of domain model.
+220) A good practice advised by Elon Musk is to distill redundant things from the products and put 10% of the removed things back. Code is an expression of domain model.
 
 
 
