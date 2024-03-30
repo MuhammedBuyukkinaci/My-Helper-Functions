@@ -5093,6 +5093,18 @@ if __name__ == "__main__":
         print("User not found")
 ```
 
+219) Fail Fast paradigm is used in client server architecture mostly and in other architectures. Its aim is to detect errors/issues/problems as soon as possible. Its second aim is to return specific exceptions instead of generic exceptions. An example usage is salary. Salary can't be negative. If Our API endpoints don't validate this probability, it is hard to detect the bug. Adding a validation mechanism like below can help us identify the problem earlier.
+
+```python
+if salary <0:
+    raise HTTPException(status_code=400, detail="Salary should be bigger than 0")
+
+create_on_db(something=something)
+```
+
+220) A good practice advised by Elon Musk is to distill red aundant things from the products and put 10% of the removed things back. Code is an expression of domain model.
+
+
 
 # Python Logging
 
