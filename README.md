@@ -1149,7 +1149,7 @@ print(''.join(random.choices(string.ascii_lowercase,k = 30)))
 ![regex2](./images/012.png)
 
 41) Regex in Python. `.` is a special character in RegEx. If we want to search `.` in text, we should escape it via backward slash(\). Meta characters should be escaped via `\` if you want to search them. Capital letters basicly negate whatever the lowercase version is (\d means digit and \D means not a digit). \b means word boundary and \B means not a word boundary. ^ means beginning of a string and $ means end of a string `[]` is character set that takes relevant characters inside and corresponding to one character in search pattern. `-` in [] means range (boundaries are inclusive)**[1-5]**. `^` negates the set and matches everything that isn't in that character set [^a-zA-Z]. `|` operator is meaning or and () are used to group **(Mr|Mrs|Ms)**. For some common usages like e-mail addresses, there are some patterns available online. Reading regex's of other people is harder than writing. To make the regex case insensitive,
-add **re.IGNORECASE** to **re.compile** method
+add **re.IGNORECASE** to **re.compile** method. The regex's whose sizes are more than 20 characters tend to run much slower. Prefer to use existing Regex's. ReDoS stands for Regular Expression Denial of Service. It is an attack aiming the software that uses RegEx. When a form has a low-quality RegEx, hackers might want to exploit it via entering bad inputs. This will degrade the performance of the server, incrase CPU and RAM utilization etc. To mitigate ReDos attacks, developers might introduce input length limits, input validation and rate limiting.
 
 ```regex.py
 import re
@@ -2231,6 +2231,12 @@ print(sys.path)
 - zenmode: it is distraction-free mode, it hides menus etc. Search toggle zen mode on Command Palette.
 - vscode-pdf
 - Error Lens: To highlight errors more
+- Postman: For backend tests on local machines.
+- Gitlens: A detailed git experience on the IDE.
+- [SQLite](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite): To view sqlite databases efficiently on Vscode.
+- Ruff: It is a combination of formatter and linter. Can be installed as an extension or via pip install.
+- Docker: To view which containers are running.
+
 
 - Some Mac Programs to increase efficiency:
 
@@ -5027,6 +5033,66 @@ bulb.switch()# light is on
 | Support for functional and OOP   | Mostly functional |
 | Duck typing   | More chaining style operations such as map, filter |
 | Objects are mutable   | Objects are constants |
+
+217) count method used for list objects. It outputs the number of a specific output in a list.
+
+```python
+element_list = [1,2,3,1,2,1]
+print(element_list.count(1))#3
+```
+
+218) Repository design pattern separates how we store data from how we access data. It makes our maintaince and extensions easier. It isn't just for databases. It can be used for object store or key-value store. SQLAlchemy is an implementation of Repository design pattern. When an entity is stored in different places such as MSSQL Server and MongoDB, repository design pattern hides the whole complexity.
+
+```python
+# Define a sample data model
+class User:
+    def __init__(self, user_id, username):
+        self.user_id = user_id
+        self.username = username
+
+# Define UserRepository
+class UserRepository:
+    def __init__(self):
+        self.users = {}
+
+    def add_user(self, user):
+        self.users[user.user_id] = user
+
+    def get_user_by_id(self, user_id):
+        return self.users.get(user_id)
+
+    def get_user_by_username(self, username):
+        for user in self.users.values():
+            if user.username == username:
+                return user
+        return None
+
+# Example usage
+if __name__ == "__main__":
+    # Create UserRepository instance
+    user_repository = UserRepository()
+
+    # Add some users
+    user1 = User(1, "user1")
+    user2 = User(2, "user2")
+    user_repository.add_user(user1)
+    user_repository.add_user(user2)
+
+    # Retrieve user by ID
+    retrieved_user = user_repository.get_user_by_id(1)
+    if retrieved_user:
+        print("User found by ID:", retrieved_user.username)
+    else:
+        print("User not found")
+
+    # Retrieve user by username
+    retrieved_user = user_repository.get_user_by_username("user2")
+    if retrieved_user:
+        print("User found by username:", retrieved_user.user_id)
+    else:
+        print("User not found")
+```
+
 
 # Python Logging
 
