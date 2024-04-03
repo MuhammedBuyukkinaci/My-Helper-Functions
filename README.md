@@ -2242,7 +2242,7 @@ print(sys.path)
 
     - Flycut: A clipboard program, free, and provides the history of Clipboard.
 
-    - Bitwarden and authy: Some authentication tools.
+    - Bitwarden and authy: Some authentication tools. Bitwarden is a password manager to store and share credentials.
 
     - Homebrew: A package manager
 
@@ -2257,6 +2257,14 @@ print(sys.path)
     - Fig: An autocomplete tool on terminal or elsewhere. Available on Vscode.
 
     - DevToys: An app to convert files into another format. From json to yaml etc. oTo install it, `brew install devtoys --cask`.
+
+    - [Espanso](https://github.com/espanso/espanso): Text expander for boilerplate things.
+
+    - [Warp](https://www.warp.dev/) is an alternative to iterm2.
+
+    - NordVPN is a VPN option. VPN's are protecting us in public networks.
+
+    
 
 - Some Youtube channels on Software development:
 
