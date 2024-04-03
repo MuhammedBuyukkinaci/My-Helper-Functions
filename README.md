@@ -5104,6 +5104,15 @@ create_on_db(something=something)
 
 220) A good practice advised by Elon Musk is to distill redundant things from the products and put 10% of the removed things back. Code is an expression of domain model.
 
+221) Password managers like [Vault](https://www.vaultproject.io/) and [Bitwarden](https://bitwarden.com/) help IT professionals share and store credentials.
+
+222) [gitleaks](https://github.com/gitleaks/gitleaks) and [trufflehog](https://github.com/trufflesecurity/trufflehog) can be used to prevent credentials from being exposed in the ways of being committed etc.
+
+
+
+
+
+
 
 
 # Python Logging
