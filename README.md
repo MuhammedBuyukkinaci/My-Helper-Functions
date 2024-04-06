@@ -1472,7 +1472,7 @@ image1.filter(ImageFilter.GaussianBlur(15)).save('mbk_blurred.jpg')
 
 46) **Context Managers** allow us to properly manage resources so that we can specify exactly what we want to set up and tear down when working with certain objects. We no longer have to close down opened files within context managers. If an error is thrown, it is still get closed properly. This is why context managers are super useful. Context managers can be used to read a file, connect to a database. There are a couple of ways to write our custom context managers. We can use them via creating classes or creating functions via decorators. Using context managers via functions is mostly preferred way. However, using context managers in Classes look prettyeasy when compared to using it in functions. Context managers are used in opening and closing DB connections; acquiring and releasing locks while using threads manually. COntext managers can be used with asyncio.
 
-```context_managers.py
+```python
 # Naive way to open a file
 with open('sample.txt') as f:
     f.write('Lorem ipsum etc')
@@ -3622,7 +3622,7 @@ print({value:key for (key,value) in b.items()})#{1: 'a', 2: 'b', 3: 'c'}
 
 124) Traditional way to deal with asyncronous code is to use threads. Async I/O program have become easier to deal with in Python 3.10. "Async I/O is a style of concurrent programming". Async I/O is used in I/O operations like connecting to a device and setting up a database connections. 
 
-An anology: Concurrency is two lines of customers from a single cashier(lines take turns ordering); Parallelism is two lines of customers ordering from two cashiers(each line gets its own cashier)
+- An anology: Concurrency is two lines of customers from a single cashier(lines take turns ordering); Parallelism is two lines of customers ordering from two cashiers(each line gets its own cashier)
 
 ![ASYNC](./images/016.png)
 
@@ -4942,7 +4942,7 @@ some_printer(**car)
 - Use existing libraries. Taipy is a pipeline library to manage ML pipelines.
 
 
-214) `from typing import TypeVar` can be used for static type checkers. If we have a generic function and it applies the same logic to the input irrespective of input's type, TypeVar can be used. TypeVar is more useful than Any. 
+214) `from typing import TypeVar` can be used for static type checkers. If we have a generic function and it applies the same logic to the input irrespective of input's type, TypeVar can be used. TypeVar is more useful than Any. Generics are one way of Type hinting in Python.
 
 
 ```python
@@ -5164,7 +5164,13 @@ create_on_db(something=something)
 
 - Use an appropriate model in terms of speed, accuracy and money.
 
+225) Dependency injection frameworks like [inject]() don't seem useful except logging purposes.
 
+226) async and await keywords are used in asyncronous programming. async is written in front of a context manager or a function. await is written when we wait for the result of a function call.
+
+227) SQLAlchemy maps a database table into a Class and a row of a table into an object of a class.
+
+228) [Oso](https://www.osohq.com/) is a tool for authorzation. When our app has different user levels such as viewer, editer, admin and super admin, Oso help us manage authorization.
 
 
 # Python Logging
@@ -5715,6 +5721,8 @@ pytest test_demo.py -m basics
 
 - @pytest.mark.trylast: mark a hook implementation function such that the plugin machinery will try to call it last/as late as possible.
 
+- pytest.mark.asyncio: To be used as a decorator in order to test asyncronous codes.
+
 34) To show the slowest 3 tests
 
 ```
@@ -5917,8 +5925,10 @@ poetry new poetry-demo
 poetry add dependency_name
 # an example
 poetry add pendulum
-# a specific version bigger than 2.0.5
-poetry add pendulum@^2.0.5
+# a specific version bigger than 2.0.5 but lower than 3.y.<>
+poetry add pendulum^2.0.5
+# to install latest version of pendulum 2.0 and lower than 2.1.x
+poetry add pendulum~2.0.5
 ```
 
 3) Another way to add a dependency is to add a dependency on pyproject.toml under **[tool.poetry.dependencies]**
