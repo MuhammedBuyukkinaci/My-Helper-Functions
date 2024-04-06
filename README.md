@@ -3174,7 +3174,7 @@ if __name__ == '__main__':
 
 92) Let's think about we are running an employee management system. There are many roles that employees have. To show employees' roles, we should use __enum__ module instead of strings. String are easy to collapse like "manager" and "Manager" are 2 different values. Using strings instead of auto() in Enum class might be better.
 
-```enum_usage1.py
+```python
 from enum import Enum, auto
 
 class Role(Enum):
@@ -3195,7 +3195,7 @@ print(employee_1.name,employee_1.role)
 print(employee_2.name,employee_2.role)
 ```
 
-```enum_usage2.py
+```python
 from enum import Enum, auto
 
 
@@ -3226,7 +3226,7 @@ print(regular_class1.AUDI == regular_class2.AUDI)# True
 
 - StrEnum is a new feature as of Python 3.11:
 
-```
+```python
 from enum import Enum, StrEnum, auto
 
 
@@ -3246,7 +3246,7 @@ print(ColorStrEnum.WHITE.value)#white
 
 - Enum can be used in type hints.
 
-```enum_type_hint.py
+```python
 from enum import Enum, auto
 
 
@@ -3266,6 +3266,44 @@ def temporary_function(action: Action):
 temporary_function(action=Action.DEPOSIT)
 
 ```
+
+- Enum usage with IntFlag. enum.IntFlag assigns values in the powers of 2, whereas enum.Enum assigns value incrementally by 1.
+
+```python
+
+from enum import IntFlag, auto
+
+
+class Role(IntFlag):
+    developer = auto()
+    analyst = auto()
+    product_owner = auto()
+    manager = auto()
+    admin = developer | analyst |  manager | product_owner
+
+role_developer = Role.developer
+print(role_developer)# Role.developer
+print(role_developer.value)# 1
+
+role_analyst = Role.analyst
+print(role_analyst)# Role.analyst
+print(role_analyst.value)# 2
+
+role_product_owner = Role.product_owner
+print(role_product_owner)# Role.product_owner
+print(role_product_owner.value)# 4
+
+role_manager = Role.manager
+print(role_manager)# Role.manager
+print(role_manager.value)# 8
+
+role_admin = Role.admin
+print(role_admin)# Role.admin
+print(role_admin.value)# 15
+
+
+```
+
 
 93) Code duplication is bad because if there is a bug, we should fix it in every duplicate. Instead of __find_manager__, __find_vicepresident__, __find_engineer__, use finder method with input paremeters like `president` and `vicepresident`.
 
