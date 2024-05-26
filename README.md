@@ -5180,6 +5180,18 @@ create_on_db(something=something)
 
 - Memory pools: Managing small objects whose size is less than 512 bytes efficiently.
 
+230) 5 most used Design Patterns:
+
+- Strategy: When you want to switch between options easily.
+
+- Decorator: When you consider open closed principle a lot. Coffee, CoffeDecorator, MilkDecorator, SugarDecorator are run in order.
+
+- Observer: When you have a publisher(subject) and many subscribers(observers).
+
+- Singleton: A database connection is created only once and used among the code.
+
+- Facade: When you don't want to deal with low level things. FOr example, you have a log function with log level parameter. According to your choice such as error, critical or info, a different object is crated from a different class.
+
 
 # Python Logging
 
