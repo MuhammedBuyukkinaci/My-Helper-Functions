@@ -5199,7 +5199,11 @@ create_on_db(something=something)
 
 - For RR, we need to run ETL jobs to pull data from databases of services to data lakes.
 
-![mvc](./images/022.png)
+![](./images/022.png)
+
+232) Vector databases can be used in recommendation engines, search engines and generative AI. Milvus, Weavite, Chroma, Pinecone are some popular vector databases. Chroma, Milvus and Weavite are open source solutions. Vectors databases extend LLM's with long term memory.
+
+![](./images/023.png)
 
 
 # Python Logging
