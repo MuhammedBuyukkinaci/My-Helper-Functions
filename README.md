@@ -5170,7 +5170,15 @@ create_on_db(something=something)
 
 227) SQLAlchemy maps a database table into a Class and a row of a table into an object of a class.
 
-228) [Oso](https://www.osohq.com/) is a tool for authorzation. When our app has different user levels such as viewer, editer, admin and super admin, Oso help us manage authorization.
+228) [Oso](https://www.osohq.com/) is a tool for authorization. When our app has different user levels such as viewer, editer, admin and super admin, Oso help us manage authorization.
+
+229) Python handles memory management via
+
+- Reference counting: Counting the reference counts. Take a look at `import sys; sys.getrefcount(object_name)`. When a reference count drops to zero, memory is reclaimed.
+
+- Cyclic garbage Collection: When 2 objects reference to each other but bot are deleted, memory isn't reclaimed. Thanks to **cyclic** garbage collection, the program is scanned behind the scenes. For explicit run, trigger `gc.collect()`
+
+- Memory pools: Managing small objects whose size is less than 512 bytes efficiently.
 
 
 # Python Logging
