@@ -5193,6 +5193,15 @@ create_on_db(something=something)
 - Facade: When you don't want to deal with low level things. FOr example, you have a log function with log level parameter. According to your choice such as error, critical or info, a different object is crated from a different class.
 
 
+231) Event Driven Architecture(EDA) vs Request Response(RR)
+
+- Thanks to Kafka Connectors, data stored in kafka can be transferred to data lakes, ml operations etc.
+
+- For RR, we need to run ETL jobs to pull data from databases of services to data lakes.
+
+![mvc](./images/022.png)
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)

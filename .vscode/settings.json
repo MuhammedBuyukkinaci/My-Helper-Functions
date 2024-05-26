@@ -14,7 +14,7 @@
     },
     "editor.formatOnSave": false,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": true
+        "source.organizeImports": "explicit"
     },
     "code-runner.executorMap": {
         "python": "$pythonPath -u $fullFileName"
