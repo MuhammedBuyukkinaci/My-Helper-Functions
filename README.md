@@ -4329,7 +4329,7 @@ print(timeit.timeit(second_code,setup))# 0.6562269149981148
 
 ```
 
-175) We can install Rust in a Python environment thanks to [Rustenv](https://pypi.org/project/rustenv/).
+175) We can install Rust in a Python environment thanks to [Rustenv](https://pypi.org/project/rustenv/). Rust manages memory with ownership model. In Rust, variables are immutable by default. Add mut to make a variable mutable. In some cases, Rust can be faster than C. Thanks to lifetime property of Rust, we can specify how long a reference should be valid.
 
 
 176) `...` is Ellipsis. Ellipsis is a special word equal to `...`. It is working like a placeholder for expressions and statement. It works the same way as *pass*. It is used in numpy for indexing. It can be used in type hints with `from typing import Tuple`. Ellipsis means any set of arguments can fit there.
@@ -5168,9 +5168,45 @@ create_on_db(something=something)
 
 226) async and await keywords are used in asyncronous programming. async is written in front of a context manager or a function. await is written when we wait for the result of a function call.
 
-227) SQLAlchemy maps a database table into a Class and a row of a table into an object of a class.
+227) SQLAlchemy maps a database table into a Class and a row of a table into an object of a class. Let's assume that we have 2 tables: Users and Posts. One user can have multiple posts and a post must be linked to one user. If a user is deleted, what happens to posts related to this deleted user is configured by cascade.
 
-228) [Oso](https://www.osohq.com/) is a tool for authorization. When our app has different user levels such as viewer, editer, admin and super admin, Oso help us manage authorization.
+```python
+
+import sqlalchemy as sa
+
+engine = sa.create_engine("sqlite:///:memory:", echo=True)
+
+connection = engine.connect()
+
+metadata = sa.MetaData()
+
+user_table = sa.Table(
+    "user",
+    metadata,
+    sa.Column("id",sa.Integer, primary_key=True),
+    sa.Column("username",sa.String),
+    sa.Column("email",sa.String),
+)
+
+def insert_user(username: str, email: str) -> None:
+    query = user_table.insert().values(username=username, email=email)
+    connection.execute(query)
+
+
+def select_user(username: str) -> sa.engine.Result:
+    query= user_table.select().where(user_table.c.username==username)
+    result = connection.execute(query)
+    return result.fetchone()
+
+
+def main() -> None:
+    metadata.create_all(engine)
+    insert_user("Arjan", "Arjan@arjancodes.com")
+    select_user("Arjan")
+    connection.close()
+```
+
+228) [Oso](https://www.osohq.com/) is a tool for authorization. When our app has different user levels such as viewer, editer, admin and super admin, Oso help us manage authorization. What oso does is role based access control.
 
 229) Python handles memory management via
 
@@ -5204,6 +5240,10 @@ create_on_db(something=something)
 232) Vector databases can be used in recommendation engines, search engines and generative AI. Milvus, Weavite, Chroma, Pinecone are some popular vector databases. Chroma, Milvus and Weavite are open source solutions. Vectors databases extend LLM's with long term memory.
 
 ![](./images/023.png)
+
+233) It is a good practice to have custom exception handlers for endpoints of Fastapi.
+
+234) Streamlit and Dash are 2 ways to make dashboards. Streamlit is problematic in cases of authentication and authorization.
 
 
 # Python Logging
