@@ -5156,7 +5156,7 @@ create_on_db(something=something)
 
 223) pyo3 is a libray to write rust based python modules. We can call rust code from python script to optimize the performance. [maturin](https://pypi.org/project/maturin/) can be used to build and deploy rust based python modules. maturin is similar to Poetry. `maturin init` command creates a src folder including lib.rs file, Cargo.toml, pyproject.toml file. `maturin develop` will compile everything. There is also another way named [rustimport](https://pypi.org/project/rustimport/), which enables us to import some pieces of rust codes into python directly instead of importing whole module.
 
-224) While working with OpenAI, take the below things into consideration
+224) While working with OpenAI, take the below things into consideration. You can also use jinja2 templating in order to beautify and optimize the query.
 
 - Token size
 
