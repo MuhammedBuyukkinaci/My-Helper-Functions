@@ -2314,7 +2314,7 @@ print(p2.stdout)
 
 63) Difference between **is** and **==** is that == check for equality and is check for identity, which means that the values are identical in terms of being the same object in memory.
 
-```
+```python
 # l1 is equal to l2 despite both different locations on Ram
 l1 = [1,2,3,4,5]
 l2 = [1,2,3,4,5]
@@ -2338,13 +2338,13 @@ print(l1)#[6, 2, 3, 4, 5]
 print(l2)#[6, 2, 3, 4, 5]
 ```
 
-64) Threading is going to be used to speed up our program. The speed up comes from running different tasks concurrently. Speed-ups aren't really guaranteed, it really depends on what we are doing. Running everything in order is called running syncronously. It actually isn't doing much on CPU and it is just waiting like this. If a task is IO-bound task(Reading write file system,network operations, downloading stuff online) it sounds logical to use threading. If a task is CPU bound, use multiprocessing. In Python 3.2, they added ThreadPoolExecutor, which is easier to work with. It is advised to use **concurrent.futures.ThreadPoolExecutor()** with **map** function. It reduces computation time of Corey's example from 180 seconds to 80 seconds.
+64) Threading is going to be used to speed up our program. The speed up comes from running different tasks concurrently. Speed-ups aren't really guaranteed, it really depends on what we are doing. Running everything in order is called running syncronously. It actually isn't doing much on CPU and it is just waiting like this. If a task is IO-bound task(Reading write file system,network operations, downloading stuff online) it sounds logical to use threading. If a task is CPU bound, use multiprocessing. In Python 3.2, they added ThreadPoolExecutor, which is easier to work with. It is advised to use **concurrent.futures.ThreadPoolExecutor()** with **map** function. It reduces computation time of Corey's example from 180 seconds to 80 seconds. Threading in python has lots of limitations due to GIL. asyncio is easier to use instead of threading.
 
 ![syncronous_code](./images/014.png)
 
 ![aimed_code](./images/015.png)
 
-```loop_map_ThreadPoolExecutor.py
+```python
 import concurrent.futures
 import time
 
@@ -3620,14 +3620,14 @@ print({value:key for (key,value) in b.items()})#{1: 'a', 2: 'b', 3: 'c'}
 
 123) Try to avoid instance variables in methods if they will not be used in the future.
 
-124) Traditional way to deal with asyncronous code is to use threads. Async I/O program have become easier to deal with in Python 3.10. "Async I/O is a style of concurrent programming". Async I/O is used in I/O operations like connecting to a device and setting up a database connections. 
+124) Traditional way to deal with asyncronous code is to use threads. Async I/O program have become easier to deal with in Python 3.10. "Async I/O is a style of concurrent programming". Async I/O is used in I/O operations like connecting to a device and setting up a database connections. Async I/O is ideal for I/O-bound tasks, especially those involving high-level structured network code. Async I/O is single-threaded.
 
 - An anology: Concurrency is two lines of customers from a single cashier(lines take turns ordering); Parallelism is two lines of customers ordering from two cashiers(each line gets its own cashier)
 
 ![ASYNC](./images/016.png)
 
 
-```async_example.py
+```python
 import numpy as np
 from datetime import datetime
 import asyncio
@@ -3722,7 +3722,7 @@ params:
 
     - Another example is that we want to filter some columns bigger than a user-specified threshold. In this scenario, we are using the same data but we are changing column name and threshold. Instead of using the same data in our function, we can use **functools.partial** not to call data much more times. Also, if we want to make filter operations on a determined column with different threshold, we can use partial one more time.
 
-```functools_with_partial.py
+```python
 from dataclasses import dataclass
 from typing import Callable, List
 from functools import partial
@@ -3764,7 +3764,7 @@ if __name__ == "__main__":
 
 ```
 
-```partial_usage.py
+```python
 from functools import partial
 
 
@@ -3779,7 +3779,7 @@ print(result)#29
 
 135) Currying is functional programming approach that nests multiple functions.
 
-```currying_example.py
+```python
 def currying(b, c, d):
     def a(x):
         return b(c(d(x)))
@@ -3831,7 +3831,7 @@ if __name__ == '__main__':
 
 138) In the constructor of a class, it shouldn't create an instance of another class. The constuctor should be responsible for initizaling first. It is related to dependency injection.
 
-```constructor_wrong_correct.py
+```python
 class Connector:
     def __init__(self) -> None:
         pass
@@ -5256,6 +5256,8 @@ def main() -> None:
 - If you introduce some bugfixes and keep backward compatibility, increase Z by 1.
 - If you introduce a new feature such as adding a new endpoint and keep backward compatibility, increase Y by 1.
 - If you introduce a completely new feature and don't keep backward compatibilty, increase X by 1 and set Y=0 and Z=0.
+
+237) FastAPI, Django and other frameworks use asyncronous programming behind the scenes.
 
 
 # Python Logging
