@@ -5245,6 +5245,18 @@ def main() -> None:
 
 234) Streamlit and Dash are 2 ways to make dashboards. Streamlit is problematic in cases of authentication and authorization.
 
+235) There are different types of debugging. There are also 3 types of breakpoints.
+
+- Line breakpoint: Added to a line
+- Conditional Breakpoint: I
+- Function Breakpoint
+
+236) Semantic versioning is used to identify the version of a software. X.Y.Z is an example. X means major version, Y means minor version, Z means patch version.
+
+- If you introduce some bugfixes and keep backward compatibility, increase Z by 1.
+- If you introduce a new feature such as adding a new endpoint and keep backward compatibility, increase Y by 1.
+- If you introduce a completely new feature and don't keep backward compatibilty, increase X by 1 and set Y=0 and Z=0.
+
 
 # Python Logging
 
