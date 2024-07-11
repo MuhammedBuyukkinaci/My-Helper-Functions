@@ -2264,6 +2264,8 @@ print(sys.path)
 
     - NordVPN is a VPN option. VPN's are protecting us in public networks.
 
+    - Keychron Q5 Max is an advised keyboard.
+
     
 
 - Some Youtube channels on Software development:
@@ -5260,6 +5262,9 @@ def main() -> None:
 237) FastAPI, Django and other frameworks use asyncronous programming behind the scenes.
 
 238) Unit of Work Design Pattern is useful if you are interacting with databases a lot. The essence of unit of work design pattern is that it gathers all transactions and executes them all at once. It is similar to Command Design Pattern. Unit Of Work focueses on operations, repository design pattern focuses on abstractions. Sqlalchemy library. uses unit of work. Unit of Work can be used in storage systems(dropbox), games, IaC tools(if further steps fail, why to pay for former steps).
+
+239) Githooks might be dangerous if used wrong. They allow git to execute scripts before and after events such as committing and merging. There are 2 types of git hooks: server side and client side. Server side hooks get triggered on network operations like pulling or pushing a repo. pre-commit is a client side git hook. Under *./git/hooks*, there are lots of hooks. All of them are disabled. In order to make one hook active, delete *.sample* from it.
+
 
 
 # Python Logging
