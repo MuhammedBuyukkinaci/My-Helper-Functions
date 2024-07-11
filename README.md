@@ -5259,6 +5259,8 @@ def main() -> None:
 
 237) FastAPI, Django and other frameworks use asyncronous programming behind the scenes.
 
+238) Unit of Work Design Pattern is useful if you are interacting with databases a lot. The essence of unit of work design pattern is that it gathers all transactions and executes them all at once. It is similar to Command Design Pattern. Unit Of Work focueses on operations, repository design pattern focuses on abstractions. Sqlalchemy library. uses unit of work. Unit of Work can be used in storage systems(dropbox), games, IaC tools(if further steps fail, why to pay for former steps).
+
 
 # Python Logging
 
