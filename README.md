@@ -5267,6 +5267,12 @@ def main() -> None:
 
 240) In order to make a streamlit app, have a public github repository wtiha requirements.txt file. Then register https://share.streamlit.io/ .Then choose branch and file name in order to run the app on the cloud. If you prefer more flexibility, go with dash instead of streamlit or taipy.
 
+241) It is a good practice to separate routing operations of our API servers and database operations. Let's assume that we want to have a CLI for our application. In this case, CLI will utilize from database operations without recoding.
+
+242) In a dockerfile, using ARG can easen our jobs. Let's assume we have 2 requirements.txt file, one for development and one for production. Thanks to `ARG`, we can pass a variable in build process and then customize the build process based on `ARG`. Let's assume that the name of ARG is DEV, wihch is false by default. If it is false, requirements.txt for production is called via `pip install requirements-prod.txt`. If it is true, requirements.txt for development is called via `pip install requirements-dev.txt`.
+
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
