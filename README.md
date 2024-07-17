@@ -5265,7 +5265,7 @@ def main() -> None:
 
 239) Githooks might be dangerous if used wrong. They allow git to execute scripts before and after events such as committing and merging. There are 2 types of git hooks: server side and client side. Server side hooks get triggered on network operations like pulling or pushing a repo. pre-commit is a client side git hook. Under *./git/hooks*, there are lots of hooks. All of them are disabled. In order to make one hook active, delete *.sample* from it.
 
-
+240) In order to make a streamlit app, have a public github repository wtiha requirements.txt file. Then register https://share.streamlit.io/ .Then choose branch and file name in order to run the app on the cloud. If you prefer more flexibility, go with dash instead of streamlit or taipy.
 
 # Python Logging
 
