@@ -454,7 +454,7 @@ print(index_finder(['a','b','c','d','e'],'b'))#prints 1
 print(index_finder(['a','b','c','d','e'],'f'))#prints -1
 ```
 
-16) Python generator don't hold entire results in memory therefore it improves performance. Holding millions of records in a generator is more performant than holding millions of records in list. Generator functions are more readable than generator classes. Generators come inhandy when writing memory efficient programs. A brute force way to check a group of possible characters may be done using generators.
+16) Python generator don't hold entire results in memory therefore it improves performance. Holding millions of records in a generator is more performant than holding millions of records in list. Generator functions are more readable than generator classes. Generators come inhandy when writing memory efficient programs. A brute force way to check a group of possible characters may be done using generators. Thanks to generators, we can lazily generate values instead of creating them all at once.
 
 ``` python_generator.py
 
@@ -497,9 +497,9 @@ for i in nums_generators:
 
 ```
 
-17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter. Python list comprehensions are faster in python 3.12 because it reduces the number of function calls. It will call less functions. Calling a function in python is a costly operation which should be avoided if possible.
+17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter. Python list comprehensions are faster in python 3.12 because it reduces the number of function calls. It will call less functions. Calling a function in python is a costly operation which should be avoided if possible. map is a higher order function. map applies a function to all elements of a sequence.
 
-```prefer_lc.py
+```python
 nums = [1,2,3]
 #Take squares in list comprehensions
 print([n**2 for n in nums])#prints: [1, 4, 9]
@@ -3720,7 +3720,7 @@ params:
 
 133) The code should explain itself. A lot of documentation isn't needed in the code via docstrings.
 
-134) In Python, functions are objects of type **Callable**. We can type aliases for them. We can pass functions as arguments to other functions. If we use functools, we can even call functions partially. Using closures solves the problem of not being able to pass parameters to functions. Using partial is shorter than closures. **partial** is neater than **closures**. 
+134) In Python, functions are objects of type **Callable**. We can type aliases for them. We can pass functions as arguments to other functions. If we use functools, we can even call functions partially. Using closures solves the problem of not being able to pass parameters to functions. Using partial is shorter than closures. **partial** is neater than **closures**. **partial** is a higher order function too.
 
     - Another example is that we want to filter some columns bigger than a user-specified threshold. In this scenario, we are using the same data but we are changing column name and threshold. Instead of using the same data in our function, we can use **functools.partial** not to call data much more times. Also, if we want to make filter operations on a determined column with different threshold, we can use partial one more time.
 
@@ -3918,6 +3918,8 @@ print(set_date(day = day,month= month, year= year))
 - Functions in Python are first class citizens and they are objects. We can pass a function as a parameter to another function. One method/function can return another function as a result.
 
 - Prefer immutability over mutability
+
+- In most functional programming languages such as erlang, elixir and haskell, data is immutable. It means that data can't be changed after creation. In rust, variables are immutable too. Immmutability makes it easier to work with concurrent programs. 
 
 147) Hungarian notation is expressing the type of an name in variable name. i_a means integer, f_b means float, s_c means string etc. Don't use them because our IDE's are capable of capturing the data structures of our variables.
 
@@ -4492,7 +4494,7 @@ print(c)#[1, 2, 3, 4, 5, 6]
 
 191) Pandera is a data validation library in Python for Pandas. It can be considered as pandas extension. We define a schema that corresponds to what our data looks like. We can automatically expect Pandera to detec data types or we can use Pydantic in a customized way. Pandera also has some data types like boolean, int, strings, int64. It has a FastAPI integration.
 
-```pandera_example.py
+```python
 
 import pandas as pd
 import pandera as pa
@@ -5271,6 +5273,7 @@ def main() -> None:
 
 242) In a dockerfile, using ARG can easen our jobs. Let's assume we have 2 requirements.txt file, one for development and one for production. Thanks to `ARG`, we can pass a variable in build process and then customize the build process based on `ARG`. Let's assume that the name of ARG is DEV, wihch is false by default. If it is false, requirements.txt for production is called via `pip install requirements-prod.txt`. If it is true, requirements.txt for development is called via `pip install requirements-dev.txt`.
 
+243)
 
 
 # Python Logging
