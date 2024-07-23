@@ -4687,7 +4687,7 @@ print(argument)
 
 201) Click is a library to parse command line arguments. It is an alternative to argparse.
 
-202) We can create a custom cli command via click package. An example demonstration is below. Run `python setup.py develop` to install **csv-linter**. `setup.py` and `csv_linter.py` are in the same directory. If main function was in the file main.py that is in a package named csv_linter, we should type `csv-linter=csv_linter.main:main` in the setup.py.
+202) We can create a custom cli command via click package. An example demonstration is below. Run `python setup.py develop` to install **csv-linter**. `setup.py` and `csv_linter.py` are in the same directory. If main function was in the file main.py that is in a package named csv_linter, we should type `csv-linter=csv_linter.main:main` in the setup.py. click automatically generates help and usage messages.
 
 ```setup.py
 #setup.py
@@ -5275,6 +5275,7 @@ def main() -> None:
 
 243) The most common memory organization modules are stack and heap. They have both pros and cons. Stack operates as a stack. You allocate memory by pushing something onto the stack. When you don't need something on stack, you pop it. In stack, it is easier to refer to memory because you know exactly where is what. It is also easy to deallocate the memory because a stack frame is popped, everything is cleaned up. Stack has only push and pop operations. When I function is on stack, the function, the metadata related to the function and the inner variables are stacked on top of each other. When the stack increases, it becomes stacks over flow. Heap is a place where you can freely allocate memory. In heap, memory allocation is not linked to any scope. How to refer to something on heap is achieved via pointers. A pointer is nothing more than a memory address. Most object oriented languages run on heap. Multiple pointers can point to the same address in memory. Objects are stored on heap in most OOP languages. You can access to the memory that the pointer points to by dereferencing it. Programming languages that support heap allocated memory typically have builtin dereferencing and pointers in the syntax. Python, Java and C# have automatic garbage collectors. In C/C++, developers are expected to allocate/deallocate the memory. When memory isn't deallocated, there is no way to refer to it any more and it is called as memory leak. Python uses Heap for everything including like basic values such as integer or float. Global variables are always stored on the heap. Storing data in stack is better than storing data in heap. Reference types are stored always on the heap, value types can be stored on the heap or stack. Static variables are always on the heap because you need to access them anywhere in the code.
 
+244) [Typer](https://typer.tiangolo.com/) is a python library to create CLI tools.
 
 # Python Logging
 
