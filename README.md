@@ -2340,7 +2340,7 @@ print(l1)#[6, 2, 3, 4, 5]
 print(l2)#[6, 2, 3, 4, 5]
 ```
 
-64) Threading is going to be used to speed up our program. The speed up comes from running different tasks concurrently. Speed-ups aren't really guaranteed, it really depends on what we are doing. Running everything in order is called running syncronously. It actually isn't doing much on CPU and it is just waiting like this. If a task is IO-bound task(Reading write file system,network operations, downloading stuff online) it sounds logical to use threading. If a task is CPU bound, use multiprocessing. In Python 3.2, they added ThreadPoolExecutor, which is easier to work with. It is advised to use **concurrent.futures.ThreadPoolExecutor()** with **map** function. It reduces computation time of Corey's example from 180 seconds to 80 seconds. Threading in python has lots of limitations due to GIL. asyncio is easier to use instead of threading.
+64) Threading is going to be used to speed up our program. The speed up comes from running different tasks concurrently. Speed-ups aren't really guaranteed, it really depends on what we are doing. Running everything in order is called running syncronously. It actually isn't doing much on CPU and it is just waiting like this. If a task is IO-bound task(Reading write file system,network operations, downloading stuff online) it sounds logical to use threading. If a task is CPU bound, use multiprocessing. In Python 3.2, they added ThreadPoolExecutor, which is easier to work with. It is advised to use **concurrent.futures.ThreadPoolExecutor()** with **map** function. It reduces computation time of Corey's example from 180 seconds to 80 seconds. Threading in python has lots of limitations due to GIL. asyncio is easier to use instead of threading. GIL ensures safety in python's memory management.
 
 ![syncronous_code](./images/014.png)
 
@@ -4488,7 +4488,7 @@ print(c)#[1, 2, 3, 4, 5, 6]
 
     - Raw SQL: The most powerful and flexible way. Directly interacting with SQL. Can be used with dictionary or with a separate file.
     - SQL Query Builder: An interface on top of SQL to construct SQL queries. A middle point between flexiblity and security. Pypika is an SQL Query Builder library in Python. A disadvantage is no Type Hints.
-    - ORM: Using object oriented programming to define a layer on top of a DB. Classes and objects are used to represent tables and records. A very common ORM is SQLAlchemy. PeeWee and PonyORM are also other alternatives instead of SQLAlchemy. Each table in a DB is represented by a class. It works independent of SQL dialects(postgresql, mysql, mariadb etc.). If you are using an ORM and want to switch to another one, there might happen some compatibility issues. More durable to SQL injection attacks. Supporting type hints.
+    - ORM: Using object oriented programming to define a layer on top of a DB. Classes and objects are used to represent tables and records. A very common ORM is SQLAlchemy. SQLAlchemy relies on PyDantic. PeeWee and PonyORM are also other alternatives instead of SQLAlchemy. Each table in a DB is represented by a class. It works independent of SQL dialects(postgresql, mysql, mariadb etc.). If you are using an ORM and want to switch to another one, there might happen some compatibility issues. More durable to SQL injection attacks. Supporting type hints.
 
 190) Object is a pandas datatype that Pandas assigns to unidentifed columns. Some data types are **string**, **boolean**, **category**. If we are dealing wtih string data, the data dtype should be string. In some cases, it might be more optimal to use **category** instead of **string**. Category data type should be used in the place that a columns has finite unique values. One example might be cityname. To obtain memory consumption of a dataframe, use `data.memory_usage(deep=True)`.
 
@@ -5276,6 +5276,20 @@ def main() -> None:
 243) The most common memory organization modules are stack and heap. They have both pros and cons. Stack operates as a stack. You allocate memory by pushing something onto the stack. When you don't need something on stack, you pop it. In stack, it is easier to refer to memory because you know exactly where is what. It is also easy to deallocate the memory because a stack frame is popped, everything is cleaned up. Stack has only push and pop operations. When I function is on stack, the function, the metadata related to the function and the inner variables are stacked on top of each other. When the stack increases, it becomes stacks over flow. Heap is a place where you can freely allocate memory. In heap, memory allocation is not linked to any scope. How to refer to something on heap is achieved via pointers. A pointer is nothing more than a memory address. Most object oriented languages run on heap. Multiple pointers can point to the same address in memory. Objects are stored on heap in most OOP languages. You can access to the memory that the pointer points to by dereferencing it. Programming languages that support heap allocated memory typically have builtin dereferencing and pointers in the syntax. Python, Java and C# have automatic garbage collectors. In C/C++, developers are expected to allocate/deallocate the memory. When memory isn't deallocated, there is no way to refer to it any more and it is called as memory leak. Python uses Heap for everything including like basic values such as integer or float. Global variables are always stored on the heap. Storing data in stack is better than storing data in heap. Reference types are stored always on the heap, value types can be stored on the heap or stack. Static variables are always on the heap because you need to access them anywhere in the code.
 
 244) [Typer](https://typer.tiangolo.com/) is a python library to create CLI tools.
+
+245) [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html) is a website showing us best conventions acording to Google. Google has a site showing us best practices via [here](https://google.github.io/eng-practices/review/).
+
+246) [OpenAPI](https://www.openapis.org/) is a standard to build API's. [Restful](https://restfulapi.net/) is a property of an API server if it follows REST principles.
+
+247) The difference between PUT and PATCH HTTP verbs is that PUT is used in order to update a whole object. PATCH is used in order to partially update an object.
+
+248) AI Code review tools:
+    - [Coderabbit](https://coderabbit.ai/)
+    - [Hacker One](https://www.hackerone.com/)
+
+249) Some advices against a software disaster. The source is [here](https://www.youtube.com/watch?v=IzU_5fT4m_M).
+
+![](./images/024.png)
 
 # Python Logging
 
