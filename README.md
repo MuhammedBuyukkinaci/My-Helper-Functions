@@ -5291,6 +5291,22 @@ def main() -> None:
 
 ![](./images/024.png)
 
+250) In order to sort an array composed of dictionaries, use key argument of sort method.
+
+- sorted(): Returns a new sorted list, does not change the original iterable.
+- sort(): Sorts the original list in place.
+- reversed(): Returns an iterator that yields elements in reverse order, does not change the original iterable.
+
+```python
+my_list = [{'a': 5, 'b': 6}, {'a': 3, 'b': 4}, {'a': 1, 'b': 2}]
+print(my_list)#[{'a': 5, 'b': 6}, {'a': 3, 'b': 4}, {'a': 1, 'b': 2}]
+my_list.sort(key=lambda x: x['a'])
+print(my_list)#[{'a': 1, 'b': 2}, {'a': 3, 'b': 4}, {'a': 5, 'b': 6}]
+```
+
+
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
