@@ -3580,7 +3580,7 @@ print(temp.get_b)
 
 - Verb/Subject: Try to avoid doing the computation in the class. For example, if we have an order class and the order has many items, it would be nice to compute total price for each item in the class of Item using `@property` and retreive the total price computation in Order class.
 
-- Try to avoind having lots of objects in the constructor
+- Try to avoid having lots of objects in the constructor. It is a good practice to have a simple initializer(constructor). It a constructor does a lot of things, it isn't good. 
 
 - If we are creating instances from a class, we should explicitly type the keyword arguments and the values we pass.
 
@@ -5303,6 +5303,13 @@ print(my_list)#[{'a': 5, 'b': 6}, {'a': 3, 'b': 4}, {'a': 1, 'b': 2}]
 my_list.sort(key=lambda x: x['a'])
 print(my_list)#[{'a': 1, 'b': 2}, {'a': 3, 'b': 4}, {'a': 5, 'b': 6}]
 ```
+
+251) Rate limiting can be implemented via a decorator and passed to an endpoint. Api throttling is a technique of rate limiting. Rate limit decorator locates between **def** keyword and endpoint definition. Rate limiting prevents server overload. Rate limiting can be implemented by IP, API keys, user tokens, user or function. [Zuplo](https://zuplo.link/arjancodes) is a startup that easens rate limiting. [Slowapi](https://slowapi.readthedocs.io/en/latest/api/) is a rate limiting library in Python. It is a good practice to pass an environment variable to turn on or turn off the rate limiting. `from slowapi import Limiter` has a parameter named **enabled**. An EV can be set to this binary flag to turn on or turn off Rate Limiting. Multiple rate limiters can be added to an endpoint like 100 requests per miniute or 10 requests per second. There are different strategies for rate limiting. Fixed window works enough. Mission critical rate limiting should be applied in API Gateway. If a project is deployed among multiple pods, a rate limited implemented in python code can only count its own requests. Therefore, the limits can be stored on memcached or redis for convenience.
+
+![](./images/025.png)
+
+252) When a load balancer takes requests, it redirects it to an API Server. API Gateway can be located between LB and API Server. API Gateway can direct requests to different API servers. Load balancer are dedicated servers that only deals with distributing requests.
+
 
 
 
