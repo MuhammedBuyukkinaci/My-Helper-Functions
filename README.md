@@ -5143,7 +5143,7 @@ if __name__ == "__main__":
         print("User not found")
 ```
 
-219) Fail Fast paradigm is used in client server architecture mostly and in other architectures. Its aim is to detect errors/issues/problems as soon as possible. Its second aim is to return specific exceptions instead of generic exceptions. An example usage is salary. Salary can't be negative. If Our API endpoints don't validate this probability, it is hard to detect the bug. Adding a validation mechanism like below can help us identify the problem earlier.
+219) Fail Fast paradigm is used in client server architecture mostly and in other architectures. Its aim is to detect errors/issues/problems as soon as possible. Its second aim is to return specific exceptions instead of generic exceptions. An example usage is salary. Salary can't be negative. If Our API endpoints don't validate this probability, it is hard to detect the bug. Adding a validation mechanism like below can help us identify the problem earlier. Using Fast Fast paradigm in microservices can lead to failures in many services. To overcome this issue, **Circuit Breaker Pattern** can be used. There is a library called `pybreaker` to implement **Circuit Breaker Pattern** in python.
 
 ```python
 if salary <0:
@@ -5310,7 +5310,11 @@ print(my_list)#[{'a': 1, 'b': 2}, {'a': 3, 'b': 4}, {'a': 5, 'b': 6}]
 
 252) When a load balancer takes requests, it redirects it to an API Server. API Gateway can be located between LB and API Server. API Gateway can direct requests to different API servers. Load balancer are dedicated servers that only deals with distributing requests.
 
+253) [Faker](https://github.com/joke2k/faker) is a Python library to generate fake data.
 
+254) A good implementation of Error Handling
+
+![](./images/026.png)
 
 
 

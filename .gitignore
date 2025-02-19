@@ -163,3 +163,5 @@ PYTHON_ENV/
 
 temp.py
 outputs/
+
+.DS_Store
