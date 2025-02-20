@@ -166,7 +166,7 @@ print(temp.__private)# AttributeError
 
 - Information Hiding: It is about hiding information from different components of the program in order to be flexible. It is related to Encapsulation.
 
-- It is not recommended to use multiple inheritance and mixins. THey are problematic in terms of cohesion and coupling.
+- It is not recommended to use multiple inheritance and mixins. THey are problematic in terms of cohesion and coupling. Prefer using composition instead of Mixins.
 
 - Some guides on classes:
     - Keep classes small
@@ -422,7 +422,7 @@ print(id(f))
 
 15) else statement in loops(for or while) should be considered as no-break. it is executed if for loop runs smoothly.
 
-```for_else.py
+```python
 a = [1,2,3,4,5]
 for i in a:
     print(i)
@@ -432,7 +432,7 @@ else:
     print("While else print executed at the end because no break happened")
 ```
 
-```while_else.py
+```python
 i = 1
 while i <= 5:
     print(i)
@@ -441,7 +441,7 @@ else:
     print("While else print executed at the end because no break happened")
 ```
 
-```practical_loop_else.py
+```python
 def index_finder(passed_list,searched_word):
     for index, i in enumerate(passed_list):
         if searched_word == i:
@@ -456,7 +456,7 @@ print(index_finder(['a','b','c','d','e'],'f'))#prints -1
 
 16) Python generator don't hold entire results in memory therefore it improves performance. Holding millions of records in a generator is more performant than holding millions of records in list. Generator functions are more readable than generator classes. Generators come inhandy when writing memory efficient programs. A brute force way to check a group of possible characters may be done using generators. Thanks to generators, we can lazily generate values instead of creating them all at once.
 
-``` python_generator.py
+``` python
 
 nums_list_comp = [pow(i,3) for i in [3,4,5]]
 print(nums_list_comp)
@@ -497,7 +497,7 @@ for i in nums_generators:
 
 ```
 
-17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter. Python list comprehensions are faster in python 3.12 because it reduces the number of function calls. It will call less functions. Calling a function in python is a costly operation which should be avoided if possible. map is a higher order function. map applies a function to all elements of a sequence.
+17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter. Python list comprehensions are faster in python 3.12 because it reduces the number of function calls. It will call less functions. Calling a function in python is a costly operation which should be avoided if possible. map is a higher order function. map applies a function to all elements of a sequence. The index used in list comprehensions can't be out of list comprehension.
 
 ```python
 nums = [1,2,3]
@@ -511,6 +511,11 @@ print(*mapped)# prints 1,4,9
 filtered = filter(lambda n: n%2==1, nums)
 print(filtered)#prints: <map object at 0x7f4b6bb5bbb0>
 print(*filtered)# prints 1,3
+```
+
+```python
+[x for x in range(5)]
+print(x)# raises NameError: name 'x' is not defined
 ```
 
 18) Memoization is a programming term meaning caching results of a computationally expensive operation recurring more than once instead of re-computation. The code below runs in 2 seconds thanks to memoization instead of 4 seconds.
@@ -3698,7 +3703,7 @@ params:
 
 - Instead of from `package_name.module_name import function_name`, prefer `from package_name import module_name; module_name.function_name()`.
 
-- Property should be used in simple operations. Getters should return the attribute of an object. Setters should set a value to the attribute of an object.
+- Property should be used in simple operations. Getters should return the attribute of an object. Setters should set a value to the attribute of an object. Excessive usage of getters and setters should be avoided.
 
 - Don't put a lot of try/except blocks in the code.
 
@@ -5315,6 +5320,47 @@ print(my_list)#[{'a': 1, 'b': 2}, {'a': 3, 'b': 4}, {'a': 5, 'b': 6}]
 254) A good implementation of Error Handling
 
 ![](./images/026.png)
+
+255) A good way of encapsulation by sending a message to the user of a class is to make the attribute of a class start with underscore. It tells that you shouldn't modify this attribute..
+
+```python
+
+class Order:
+    def __init__(self, amount: int):
+        self._amount = amount
+
+```
+
+256) NotImplemented is a special Singleton value. It is similar to None in this context. It is used in special methods (like __eq__, __add__, etc.) when an operation is not supported. Wheras, NotImplementedError is a builtin exception. It is raised when an abstraction method or unimplemented function is called.
+
+```python
+class A:
+    def __eq__(self, other):
+        if isinstance(other, A):
+            return self.value == other.value
+        return NotImplemented  # Let Python try other.__eq__(self)
+
+class B:
+    def __eq__(self, other):
+        return False  # Always returns False
+
+a = A()
+b = B()
+
+print(a == b)  # Tries B.__eq__(a) since A.__eq__(b) returned NotImplemented → False
+print(b == a)  # Calls B.__eq__(a) directly → False
+```
+
+257) A singleton value in python is an object that has only one instance throughout the runtime of the program. These objects are created and reused whenever needed. **None**,  **NotImplemented**, Ellipsis(**...**) and **True** & **False** are singleton values. In Python, True & False are subclasses of integer.
+
+258) In Python, functions are objects. Therefore, an function can have an attribute.
+
+```python
+def func():
+    pass
+
+func.att1 = False
+```
 
 
 
