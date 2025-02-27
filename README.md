@@ -5362,6 +5362,31 @@ def func():
 func.att1 = False
 ```
 
+259) If a function in a module isn'T going to be used out of the module, it can be started with underscore. Function names should include a verb which has an action like **process**, **import**, **export** etc.
+
+```python
+
+def used_out_of_module():
+    pass
+
+def _not_used_out_of_module():
+    pass
+
+```
+
+260) The former one is better
+
+```python
+
+def publish_info_to(library):
+    pass
+
+def publish_info_to_library(lib):
+    pass
+
+```
+
+261) If the function tends to have more than 4 arguments, it is a good practice to split it up.
 
 
 # Python Logging
