@@ -5388,6 +5388,8 @@ def publish_info_to_library(lib):
 
 261) If the function tends to have more than 4 arguments, it is a good practice to split it up.
 
+262) The input type should be made generic as much as possible. The return type must be specific as much as possible. While naming a function, prefer using **add_number_to_element** instead of **add_number_to_list_elements**. **add_number_to_list_elements** can't be generalized.
+
 
 # Python Logging
 
