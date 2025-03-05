@@ -5390,6 +5390,24 @@ def publish_info_to_library(lib):
 
 262) The input type should be made generic as much as possible. The return type must be specific as much as possible. While naming a function, prefer using **add_number_to_element** instead of **add_number_to_list_elements**. **add_number_to_list_elements** can't be generalized.
 
+263) A list of tuples can be unpacked.
+
+```python
+my_list = [('a',1),('b',2), ('c',3)]
+for letter, number in my_list:
+    print(letter, number)
+# a 1
+# b 2
+# c 3
+```
+
+264) If a function is going to be utilized in one place, lambda functions can come in handy. Lambda functions are anonymous.
+
+```python
+a = [1,2,3,4,5]
+a_filtered = list(filter(lambda x: x%2 == 0, a))
+print(a_filtered)#[2, 4]
+```
 
 # Python Logging
 
