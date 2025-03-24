@@ -5409,6 +5409,20 @@ a_filtered = list(filter(lambda x: x%2 == 0, a))
 print(a_filtered)#[2, 4]
 ```
 
+265) Some Powerful Databases are listed below. It is a good practice to limit the number of databases. It brings complexity.
+
+- InfluxDB: A time series db, high performance handling timestamp data. Its query language is flux query language.
+- Neo4j: It is a graph database. It is perfect for applications where relationships between entities are crucial such as linkedin. Its query language is different than SQL.
+- DuckDB: Lightweight,in process, anaytical database. It is used for analytical purposes. Easily integrate with pandas. Don't use it with huge data.
+- Redis: In memory data struture store. It runs on memory entirely. It supports different types of data such as string, hashes, lists, sets and geospatial indexes. It is useful for real time data such as displaying pageviews on frontend. You can assign expiry period to an object on redis such as 3600 seconds. If the time passes more than 3600 seconds, the object will disappear and can't be accessed. It isn't useful for the scenarios where data durability and persistency are crucial.
+- Milvus: A vector database. Optimized for storing and querying high dimensional vectors. Used in AI and similarity search. It is a highly specialized DB. MongoDB has a support for vector search.
+- Tile38: It is a geospatial database. Useful for fleet management management, asset tracking and location based services. It uses redis protocol behind the scenes. MongoDB also supports geospatial database.
+
+
+
+
+
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
