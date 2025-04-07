@@ -5418,6 +5418,18 @@ print(a_filtered)#[2, 4]
 - Milvus: A vector database. Optimized for storing and querying high dimensional vectors. Used in AI and similarity search. It is a highly specialized DB. MongoDB has a support for vector search.
 - Tile38: It is a geospatial database. Useful for fleet management management, asset tracking and location based services. It uses redis protocol behind the scenes. MongoDB also supports geospatial database.
 
+266) Some useful git commands:
+
+- git notes add -m "note message is here": It can be used to add extra information to a commit. It can be added to tag or patch.
+- git worktree: Use it for short term temporary things.
+- .gitkeep: A file used to add a folder to git.
+- git reflog: It is a dairy. It shows the operations such as checkout, clone, merge, rebase etc to HEAD. It is local, not pushed to remote.
+- git format-patch: Used to generate patch files from commits. These patch files contain the changes introduced by commits, formatted as email messages, and are often used for code reviews, sending patches via email, or submitting contributions to open-source projects.
+- man git: manual page
+- git request-pull origin/main https://REPO_URL: Pull request isn't a feature of git. It is a feature of remote provider such as bitbucket or github. However, `request-pull` is a feature of git. It gives us an email-formatted text about changes made to the code in order to share with other developers.
+- git bisect: It can be used to find the wrong commit in the history. You specify 2 commits: one for good start, one for bad end. Then, git shows you some commits and you label them as good or bad to find the kaput commit.
+- git rev-list: Used to count the commits, check for the different commits between local and remote.
+
 
 
 
