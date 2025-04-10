@@ -2281,7 +2281,7 @@ print(sys.path)
 
 62) subprocess module is enabling us to run external commands. Useful in scripts for web servers.
 
-```subprocess_example.py
+```python
 import subprocess
 
 # listing contents of current directory
@@ -5429,6 +5429,43 @@ print(a_filtered)#[2, 4]
 - git request-pull origin/main https://REPO_URL: Pull request isn't a feature of git. It is a feature of remote provider such as bitbucket or github. However, `request-pull` is a feature of git. It gives us an email-formatted text about changes made to the code in order to share with other developers.
 - git bisect: It can be used to find the wrong commit in the history. You specify 2 commits: one for good start, one for bad end. Then, git shows you some commits and you label them as good or bad to find the kaput commit.
 - git rev-list: Used to count the commits, check for the different commits between local and remote.
+
+267) `from typing import ReadOnly` is a feature in Python 3.13. It doesn't let python objects be modified in type checking. Python doesn't care type annotations in runtime.
+
+```python
+from typing import ReadOnly, TypedDict
+
+class Person(TypedDict):
+    name: str
+    birth_date: ReadOnly[str]
+
+person = Person(name="Hasan", birth_date = "2000-02-02")
+person["name"] = "Hasan Hamza"
+person["birth_date"] = "2000-02-03"# Raises Error in type checker
+
+```
+
+268)`from warnings import deprecated` is a new feature in python. It is used as a decorator. It shows a warning message in runtime. 
+
+```python
+from warnings import deprecated
+
+@deprecated("This function is deprecated. Use new_function . ")
+def former_function():
+    pass
+
+def new_function():
+    pass
+
+former_function()# Raises a warning message in runtime.
+
+```
+
+269) Cpython is the base python interpreter with GIL. As of python 3.13, GIL can be disabled. Disabling GIL means free threaded execution, which is full utilization of available processing power by running threads in parallel on the available cpu cores. The following times will differ when GIL is disabled or not. Threaded will outperform when GIL is disabled. However, single threaded and multiprocessed will be worse.
+
+- Single Threaded
+- Threaded
+- Multi Processed
 
 
 
