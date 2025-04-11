@@ -5467,8 +5467,25 @@ former_function()# Raises a warning message in runtime.
 - Threaded
 - Multi Processed
 
+270) Useful Python Libraries:
 
-
+- SQLAlchemy: Go to ORM for databases. If the queries are complicates, prefer using raw sql.
+- BeautifulSoup: A scraping tool
+- Sympy: A package to solve mathematical equations.
+- Cookiecutter: A template code to reduce boilerplate code
+- Pickle: To dump and load python objects
+- PyGame: A gaming library
+- Missingno: To visualize the missing values in data.
+- Jinja2: Flexible template engine. Used in html templates and AI prompts.
+```python
+from jinja2 import Template
+prompt_template = Template("Provide the origins of {{ nationality }}")
+prompt = prompt_template.render(nationality = "Mexicans")
+print(prompt)
+```
+- Watchdog: File system monitoring tool. You can automate tasks that depend on file changes or a change in a particular folder.
+- NiceGui: A quick tool if you need a basic UI in python.
+- [Screenshot To Code](https://github.com/abi/screenshot-to-code) is a tool to convert a screenshot to html code.
 
 
 
