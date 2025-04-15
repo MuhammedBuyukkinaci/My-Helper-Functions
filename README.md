@@ -5469,7 +5469,7 @@ former_function()# Raises a warning message in runtime.
 
 270) Useful Python Libraries:
 
-- SQLAlchemy: Go to ORM for databases. If the queries are complicates, prefer using raw sql.
+- SQLAlchemy: Go to ORM for databases. If the queries are complicated, prefer using raw sql.
 - BeautifulSoup: A scraping tool
 - Sympy: A package to solve mathematical equations.
 - Cookiecutter: A template code to reduce boilerplate code
@@ -5486,6 +5486,8 @@ print(prompt)
 - Watchdog: File system monitoring tool. You can automate tasks that depend on file changes or a change in a particular folder.
 - NiceGui: A quick tool if you need a basic UI in python.
 - [Screenshot To Code](https://github.com/abi/screenshot-to-code) is a tool to convert a screenshot to html code.
+
+271) Let's assume we have different functions that calculate the volume of different shapes such as cylindir, cube or rectangle etc. Merging the calculation into a big function such as **calculate_any_volume** with multiple parameters isn't a good option. Having different functions for each is a better alternative.
 
 
 
@@ -5795,7 +5797,7 @@ with self.assertRaises(ValueError):
     calc.divide(10,0)
 ```
 
-13) Programmers try to make their code DRY(Don't repeat yourself). If we are using some piece of code in multiple tests, we should use `setUp()` and `tearDown()` method in out test. **setUp** method will run its code before every single test and **tearDown** method will run its code after every test. For instance, we can create a DB in `setUp()` and destroy it in `tearDown()`.
+13) Programmers try to make their code DRY(Don't repeat yourself). If DRY isn't followed, fixing a bug should be done in many places. If we are using some piece of code in multiple tests, we should use `setUp()` and `tearDown()` method in out test. **setUp** method will run its code before every single test and **tearDown** method will run its code after every test. For instance, we can create a DB in `setUp()` and destroy it in `tearDown()`.
 
 ```file.py
 
