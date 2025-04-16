@@ -5489,6 +5489,8 @@ print(prompt)
 
 271) Let's assume we have different functions that calculate the volume of different shapes such as cylindir, cube or rectangle etc. Merging the calculation into a big function such as **calculate_any_volume** with multiple parameters isn't a good option. Having different functions for each is a better alternative.
 
+272) In order to have github workflow, place a file named **.github/workflows/release.yaml**. In yaml file, there are some jobs under **jobs**. Each job might have **runs_on** and **needs** flags. For each job, there is a **steps** option that have different steps for a job.
+
 
 
 # Python Logging
