@@ -928,7 +928,7 @@ display_info('Muhammed',30)
 
 31) Some commonly used os module functions
 
-```os_module.py
+```python
 # To create a directory in a nested way or one directory
 os.makedirs('path_to_out_directory/path_to_inner_directroy')
 # To remove a directory
@@ -958,7 +958,7 @@ os.path.splitext('/home/muhammed/temp.txt')#('/home/muhammed/temp', '.txt')
 
 32) open command can allow us to make these 4 operations: reading(r), writing(w), appending(a), reading & writing(r+). The default is reading. When we open a file, it is required to close it explicitly. This way(no context managers) isn't recommended. If we open a file via **open** and **as**, we don't have to close it explicitly.
 
-```open_command.py
+```python
 f = open('.gitignore','r')
 print(f.name)# .gitignore
 print(f.mode)# r
@@ -1190,7 +1190,7 @@ for match in matches:
 
 42) Regex expression examples are below:
 
-```regex.py
+```python
 # Data 1: 
 # 321-555-4321
 # 123.555.1234
@@ -2239,8 +2239,29 @@ print(sys.path)
 - Postman: For backend tests on local machines.
 - Gitlens: A detailed git experience on the IDE.
 - [SQLite](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite): To view sqlite databases efficiently on Vscode.
-- Ruff: It is a combination of formatter and linter. Can be installed as an extension or via pip install.
+- Ruff: It is a combination of formatter and linter. Can be installed as an extension or via pip install. For ruff, there can be a toml file named **ruff.toml** . You can edit formatting options such as which folders to exclude, indent-width, line-length, linting options etc.
 - Docker: To view which containers are running.
+- Even Better Toml: Fully featured Toml Support
+- Under *.vscode*, have an **extensions.json** file which can have recommended extensions for the rest of the team on Vscode. Accessable via *@recommended*.
+
+```json
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-toolsai.jupyter",
+        "github.copilot",
+        "tamasfe.even-better-toml",
+        "aaron-bond.better-comments",
+        "github.vscode-github-actions",
+        "bierner.markdown-mermaid",
+        "postman.postman-for-vscode",
+        "alexcvzz.vscode-sqlite",
+        "ms-vscode-remote.remote-containers",
+    ]
+}
+```
 
 
 - Some Mac Programs to increase efficiency:
@@ -5508,6 +5529,8 @@ class Hero(SQLModel, table=True):
 ```
 
 274) There are some critics on SQLModel. Some developers say that API couples with database due to SQLModel. It is considered to be a good practice to keep a service layer between DB transaction logic and API endpoint logic. API —> Service Layer —> DB Transaction. It is considered as a better practice to have Pydantic and SQLAlchemy separate.
+
+275) uv is package manager developed by the team of Ruff, which is a formatting tool.
 
 
 
