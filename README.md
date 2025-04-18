@@ -5491,6 +5491,25 @@ print(prompt)
 
 272) In order to have github workflow, place a file named **.github/workflows/release.yaml**. In yaml file, there are some jobs under **jobs**. Each job might have **runs_on** and **needs** flags. For each job, there is a **steps** option that have different steps for a job.
 
+273) Having SQLAlchemy and FastAPI together might lead to code duplication. SQLModel is introduced to eliminate this problem. SQLModel uses SQLAlchemy under the hood. SQLModel decreases redundancy. SQLModel includes asyncronous support, automatic data validation. Type hints are strictly enforced.
+
+```python
+from typing import Optional
+
+from sqlmodel import Field, SQLModel
+
+
+class Hero(SQLModel, table=True):
+    id: Optional[int] = Field(primary_key= True, index=True)
+    name: str
+    secret_name: str
+    age: Optional[int] = None
+
+```
+
+274) There are some critics on SQLModel. Some developers say that API couples with database due to SQLModel. It is considered to be a good practice to keep a service layer between DB transaction logic and API endpoint logic. API —> Service Layer —> DB Transaction. It is considered as a better practice to have Pydantic and SQLAlchemy separate.
+
+
 
 
 # Python Logging
