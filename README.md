@@ -3114,11 +3114,17 @@ print(vehicle1.__dict__['name'])# BMW
 
 - Pdoc
 
-- Better Comments: Available on Pycharm too.
+- Better Comments: Available on Pycharm too. Helping us cwrite human-friendly comments.
 
 - autoDocstring: To automatically generate docstrings. Available on Vscode.
 
 - [mkdocs](https://github.com/mkdocs/mkdocs): A way to automatically generate documentation on a GUI
+
+- Postman: For API testing
+
+- SQLite: To view the content of a database.
+
+- Dev containers: To get into a docker container and see the folders and files.
 
 86) In the book of gang of 4 design patterns, most design patterns recommend composition over inheritance. Composition is a "has a" relationship and Inheritance is a "is a" relationship. Inheritance leads to more coupling, which is something we don't want. For the same codebase, composition has less code over inheritance. Inheritance leads to a combinatorial explosion of code base.
 
@@ -3718,7 +3724,21 @@ params:
 
 - [Hackerdraw](https://www.hackerdraw.com/), [draw.io](https://app.diagrams.net/) are some visualization tools to draw.
 
-- Vscode settings in 3 layers: Global, Workspace(Opened window) and Folder.
+- Vscode settings in 3 layers: User, Workspace(Opened window, might be multiple) and Folder settings. User level is the most general setting. Workspace level is the moderate one. Folder is the most specific one.
+
+- user level
+```json
+{
+"workbench.sideBar.location": "right",
+"files.autoSave": "onFocusChange"
+}
+```
+
+- folder level, python interpreter
+```json
+"python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+```
+
 
 128) Some Google Tips to write better Python code:
 
@@ -5530,7 +5550,11 @@ class Hero(SQLModel, table=True):
 
 274) There are some critics on SQLModel. Some developers say that API couples with database due to SQLModel. It is considered to be a good practice to keep a service layer between DB transaction logic and API endpoint logic. API —> Service Layer —> DB Transaction. It is considered as a better practice to have Pydantic and SQLAlchemy separate.
 
-275) uv is package manager developed by the team of Ruff, which is a formatting tool.
+275) uv is package manager developed by the team of Ruff, which is a formatting tool. You can start a project with uv. YOu can install a dependency with uv.
+
+```bash
+uv add --dev pytest
+```
 
 
 
