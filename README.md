@@ -3760,7 +3760,7 @@ params:
 
 130) REST(Representational State Transfer) Interface is quite old. It was invented in 2000. REST is resource oriented. We can create a simple REST API using Flask. Swagger is providing interfaces for rest apis. We can look at API methods and their parameters on Swagger UI. Rest has multiple endpoints and uses various http words(GET, POST, PUT, DELETE). REST API is vulnerable to security bugs more. Rest is simple to use, great for small applications and public-facing API's.
 
-131) GrapQL uses single endpoint and query language to interact with the server. In Graphql, objects are connected by relationships and thus forming graphs. [ariadne](https://github.com/mirumee/ariadne) is a Python library to use Graphql server in our apps. Using GrapQL is better for frant end development. Sending a request to a server in Graphql is more complicated. GrapQL suffers from n+1 problem. IN order to solve this n+1 problem, local caching might come in handy. GrapQL is better for complex applications.
+131) GraphQL uses single endpoint and query language to interact with the server. In Graphql, objects are connected by relationships and thus forming graphs. [ariadne](https://github.com/mirumee/ariadne) is a Python library to use Graphql server in our apps. Using GrapQL is better for front end development. Sending a request to a server in Graphql is more complicated. GrapQL suffers from n+1 problem. In order to solve this n+1 problem, local caching might come in handy. GrapQL is better for complex applications.
 
 132) While loop can be an alternative to recursive approach.
 
@@ -5555,6 +5555,8 @@ class Hero(SQLModel, table=True):
 ```bash
 uv add --dev pytest
 ```
+
+276) gRPC is an alternative to REST to manage communication between services. RPC stands for remote procedure call. g stands for google or general. gRPC is language-agnostic. Protocol buffer is the language used in gRPC. Protocol buffer can be considered as simpler, faster and smaller version of XML. Protocol buffer(Proto file) is also smaller and faster than json. gRPC uses HTTP2. As of April 2025, most browsers support HTTP1.1. Therefore, there should be a proxy. gRPC is service-oriented. REST is entity-oriented. If you need a real time or low latency app, gRPC is better than REST. Both clients and servers can have a continuous stream of messages in gRPC, which is pretty useful in chat apps and IoT apps. REST isn't designed for real time communication or push notifications. REST is more human-readable and flexible. REST is easier to use. gRPC is more optimized. It is a good practice to handle intensive tasks with gRPC.
 
 
 
