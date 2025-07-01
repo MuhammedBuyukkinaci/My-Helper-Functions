@@ -2239,7 +2239,7 @@ print(sys.path)
 - Postman: For backend tests on local machines.
 - Gitlens: A detailed git experience on the IDE.
 - [SQLite](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite): To view sqlite databases efficiently on Vscode.
-- Ruff: It is a combination of formatter and linter. Can be installed as an extension or via pip install. For ruff, there can be a toml file named **ruff.toml** . You can edit formatting options such as which folders to exclude, indent-width, line-length, linting options etc.
+- Ruff: It is a combination of formatter and linter. Can be installed as an extension or via pip install. For ruff, there can be a toml file named **ruff.toml** . You can edit formatting options such as which folders to exclude, indent-width, line-length, linting options etc. `# type: ignore` can be added to a line in order for formatter to ignore the line.
 - Docker: To view which containers are running.
 - Even Better Toml: Fully featured Toml Support
 - Under *.vscode*, have an **extensions.json** file which can have recommended extensions for the rest of the team on Vscode. Accessable via *@recommended*.
@@ -2968,7 +2968,7 @@ cur.execute("SELECT TOP :top_limit * FROM table where department = :department",
 
 80) Some commonly used software architecture:
 
-- MVC: Data is in Model, Controller applies the logic and View shows the output.
+- MVC: Data is in Model, Controller applies the logic and View shows the output. MVC is a great architectural pattern for UI's.
 
 - Pipeline: Scikit-image follows this architecture.
 
@@ -3176,7 +3176,7 @@ print(a)#[[1, 2, 3], ['a', 'b', 'c']]
 90) Pydantic is an extension to dataclasses module of Python. Pydantic is similar to dataclasses. Pydantic incorporates validation mechanism for data on top of dataclasses. If you don't need data validation, dataclasses is just fine. Pydantic can generate json schema automatically from the base model defined. Pydantic supports Pathlib but dataclass doesn't support. PyDantic also has PositiveInt or NegativeFloat or other validations.
 
 
-```pydantic_example.py
+```python
 from pydantic import NegativeFloat, PositiveFloat
 import pydantic
 from typing import Optional, List
@@ -5550,7 +5550,7 @@ class Hero(SQLModel, table=True):
 
 274) There are some critics on SQLModel. Some developers say that API couples with database due to SQLModel. It is considered to be a good practice to keep a service layer between DB transaction logic and API endpoint logic. API —> Service Layer —> DB Transaction. It is considered as a better practice to have Pydantic and SQLAlchemy separate.
 
-275) uv is package manager developed by the team of Ruff, which is a formatting tool. You can start a project with uv. YOu can install a dependency with uv.
+275) uv is package manager developed by the team of Ruff, which is a formatting tool. You can start a project with uv. You can install a dependency with uv.
 
 ```bash
 uv add --dev pytest
@@ -5558,6 +5558,7 @@ uv add --dev pytest
 
 276) gRPC is an alternative to REST to manage communication between services. RPC stands for remote procedure call. g stands for google or general. gRPC is language-agnostic. Protocol buffer is the language used in gRPC. Protocol buffer can be considered as simpler, faster and smaller version of XML. Protocol buffer(Proto file) is also smaller and faster than json. gRPC uses HTTP2. As of April 2025, most browsers support HTTP1.1. Therefore, there should be a proxy. gRPC is service-oriented. REST is entity-oriented. If you need a real time or low latency app, gRPC is better than REST. Both clients and servers can have a continuous stream of messages in gRPC, which is pretty useful in chat apps and IoT apps. REST isn't designed for real time communication or push notifications. REST is more human-readable and flexible. REST is easier to use. gRPC is more optimized. It is a good practice to handle intensive tasks with gRPC.
 
+277) It is a good pactice to use relative imports rather than absolute imports under packages. It we rename a package, we don't need to rename the imports in this way.
 
 
 
@@ -6032,7 +6033,15 @@ def test_fixture(my_fixture):
 
 19) There is a library called pytest django, which is an extension to Django Framework.
 
-20) capsys is a pretty cool tool to capture system output.
+20) capsys is a pretty cool tool to capture system output. It is generally used in testing CLI's.
+
+```python
+# do_sth is a function printing something
+def test_do_sth(capsys):
+    do_sth()
+    out, err = capsys.readouterr()
+    assert out == "Some expected print"
+```
 
 21) Monkeypatch is a fixture. monkeypatching is a terminology used when you want to dynamically add runtimes, swap out the behavior of a thing. It is a mocking procedure that make tests runnable. An alternative is that we can create a Mock instance and use it in our tests instead of creating real instances.
 
