@@ -178,7 +178,7 @@ print(temp.__private)# AttributeError
 
 3) Double underscores is called as dunder. \__init__ is a special method. \__repr__ and \__str__. These 2 special methods allow us to change how our objects are printed and displayed. len is a special method too, which runs a dunder method named \__len__ .
 
-```
+```python
 print(1+2)#
 print(int.__add__(1,2))#3
 print(str.__add__('a','b')) # 'ab'
@@ -2230,7 +2230,41 @@ print(sys.path)
 - Run linting via searching on command palette(pylance or pylint)
 - Code runner to run via a green triangle appearing on right upper
 - use terminal instead of right upper green logo if your code has **input**
-- debugging: choose a configuration option like python file or flask or django etc. debugging enables us to be able to jump into the code at a specific location and see the current values. it is better than dropping down and print statements. Put a red brakpoint to debug your code and use debug console.
+- debugging: choose a configuration option like python file or flask or django etc. debugging enables us to be able to jump into the code at a specific location and see the current values. it is better than dropping down and print statements. Put a red brakpoint to debug your code and use debug console. Debugging is much more useful than print statements. We can add breakpoint to our code via a red spot on Vscode and Pycharm. Conditional breakpoint can be used, which means breakpoint is run if a condition is satisfied. In PyCharm, there are 3 options on debugging with breakpoint: step over, step into, step into my code. **Step over** jumps to the next line. **Step into** enters any code block. **Step into my code** enters the code block if it isn't a 3rd party option. In the following code, `df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})` isn't run if **Step into my code** is clicked. Breakpoint on IDE is more useful than `breakpoint()`.
+
+```python
+import pandas as pd
+
+
+def square_single(x):
+    return x ** 2
+
+
+def square_sum(x, y, z):
+    x_square = square_single(x)
+    y_square = square_single(y)
+    df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+    z_square = square_single(z)
+    return x_square + y_square + z_square
+
+
+a = 3
+
+b = 4
+
+c = 5
+
+# Breakpoint below
+print(a)
+
+a_square = square_sum(a, b, c)
+
+print(a_square)
+
+
+```
+
+
 - install code command on path using command palette
 - testing: search configure tests on command palette and choose pytest or unittest library. We can run a single test of a Class rather than whole tests.
 - zenmode: it is distraction-free mode, it hides menus etc. Search toggle zen mode on Command Palette.
@@ -5588,7 +5622,7 @@ uv add --dev pytest
 
 4) Python logging is similar to print statement in terms of functionality. An example code for logging is as follows:
 
-```logging_similar.py
+```python
 import logging
 def add(x,y):
     return x + y
@@ -5604,7 +5638,7 @@ logging.debug("{} + {} = {}".format( a, b, add_result ) )
 
 5) To change logging level
 
-```change_log_level.py
+```python
 import logging
 #logging.DEBUG is different than logging.debug. logging.DEBUG is an integer in the background.
 logging.basicConfig(level=logging.DEBUG)
@@ -5616,7 +5650,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 8) Store your logs in a log file like I did below
 
-```store_log.py
+```python
 import logging
 logging.basicConfig(filename='test.log',level=logging.DEBUG)
 ```
@@ -5633,7 +5667,7 @@ logging.basicConfig(filename='test.log',level=logging.DEBUG,format='%(asctime)s:
 
 11) Name like root can be specified in format of logging.basicConfig like below:
 
-```change_config.py
+```python
 import logging
 # Log in this format: time:loglevel:message
 logging.basicConfig(filename='test.log',level=logging.DEBUG,format='%(asctime)s:%(name)s:%(message)s')
@@ -5643,7 +5677,7 @@ logging.basicConfig(filename='test.log',level=logging.DEBUG,format='%(asctime)s:
 
 13)  Despite we define a logger using logging.getLogger, we are still configuring using logging.basicConfig()
 
-```file01.py
+```python
 import logging
 
 logger = logging.getLogger(__name__)
