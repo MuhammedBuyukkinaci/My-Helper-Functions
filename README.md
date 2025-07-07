@@ -3676,14 +3676,28 @@ class Temp:
 - Deposit, Withdraw, Transfer Classes similar to Transaction class, but no inheritance deu to Protocol.
 - A Controller class to manage Deposit, Withdraw, Transfer.
 
-122) Like list comprehensions, we can have set comprehensions and dict comprehensions
+122) Like list comprehensions, we can have set comprehensions, dict comprehensions and generator comprehensions.
 
-```
+```python
+# Set comprehension
 a = set([6,3,4,5,5,6,6])
 print({x*2 for x in a})#{8, 10, 12, 6}
 
+# Dict comprehensions
 b = {'a':1,'b':2,'c':3}
 print({value:key for (key,value) in b.items()})#{1: 'a', 2: 'b', 3: 'c'}
+
+# Generator Comprehension
+c = (x**2 for x in range(1,6))
+for element in c:
+    print(c)
+
+# The element=1
+# The element=4
+# The element=9
+# The element=16
+# The element=25
+
 ```
 
 123) Try to avoid instance variables in methods if they will not be used in the future.
@@ -5593,6 +5607,8 @@ uv add --dev pytest
 276) gRPC is an alternative to REST to manage communication between services. RPC stands for remote procedure call. g stands for google or general. gRPC is language-agnostic. Protocol buffer is the language used in gRPC. Protocol buffer can be considered as simpler, faster and smaller version of XML. Protocol buffer(Proto file) is also smaller and faster than json. gRPC uses HTTP2. As of April 2025, most browsers support HTTP1.1. Therefore, there should be a proxy. gRPC is service-oriented. REST is entity-oriented. If you need a real time or low latency app, gRPC is better than REST. Both clients and servers can have a continuous stream of messages in gRPC, which is pretty useful in chat apps and IoT apps. REST isn't designed for real time communication or push notifications. REST is more human-readable and flexible. REST is easier to use. gRPC is more optimized. It is a good practice to handle intensive tasks with gRPC.
 
 277) It is a good pactice to use relative imports rather than absolute imports under packages. It we rename a package, we don't need to rename the imports in this way.
+
+278)
 
 
 
