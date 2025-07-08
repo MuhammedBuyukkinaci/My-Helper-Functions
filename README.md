@@ -1614,16 +1614,25 @@ s4 = s1.symmetric_difference(s2)
 print(s4)#{1, 4}
 ```
 
-48) f-string is a new property of Python 3.6 +. It should be used instead of concatenation. f-string is easier than formatting. If you are using single quotes inside your f-string, use double quates to create f-strings. We can zero pad in f-strings. We can specify floating points. We can also specify dates on strings via f-strings.
+48) f-string is a new property of Python 3.6 +. It should be used instead of concatenation. f-string is easier than formatting. If you are using single quotes inside your f-string, use double quates to create f-strings. We can zero pad in f-strings. We can specify floating points. We can also specify dates on strings via f-strings. We can align text to left, right or center. Don't use f-strings to construct SQL queries in order to avoid SQL Injection attacks.
 
-```f_string.py
+```python
 s = 1
 mystring = f"{s} is zero padded as {s:04}"
 print(mystring)#1 is zero padded as 0001
 
 pi = 3.14159265
 mystring = f"{pi} is formatted as {pi:.4f}"
-print(mystring)#3.14159265 is zero padded as 3.1416
+print(mystring)#3.14159265 is printed as 3.1415
+
+
+huge_number = 123456789
+mystring = f"{huge_number} is formatted as {huge_number:,}"
+print(mystring)#123456789 is displayed as 123,456,789
+
+decimal_number = 0.7922135
+mystring = f"{decimal_number} is formatted as {decimal_number:.3%}"
+print(mystring)#0.7922135 is formatted as 79.221%
 ```
 
 49) If you are using aliases a lot, it isn't reasonable to use which command on Terminal. The reason why python3 works on terminal is that /usr/bin directory is in our path. By path, we mean $PATH environment variable. If a program is in /**usr/local/sbin** and **/snap/bin**, the program in the former runs. If you  are using Anaconda Python and it isn't in your path, you should call it explicity like anaconda/sbin/python3.6 etc. We can add specific versions of Python to .bash_profile on Mac or .bashrc on Linux. To get elaboration for a package, run `pip show pytest`.
@@ -5608,7 +5617,13 @@ uv add --dev pytest
 
 277) It is a good pactice to use relative imports rather than absolute imports under packages. It we rename a package, we don't need to rename the imports in this way.
 
-278)
+278) We can use max and min built-in function with key parameters that we pass functions in place.
+
+```python
+my_list = ["tiger", "lion", "ape"]
+max_length_item = max(my_list, key = len)
+print(max_length_item)# tiger
+```
 
 
 
