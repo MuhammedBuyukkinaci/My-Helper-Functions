@@ -454,7 +454,7 @@ print(index_finder(['a','b','c','d','e'],'b'))#prints 1
 print(index_finder(['a','b','c','d','e'],'f'))#prints -1
 ```
 
-16) Python generator don't hold entire results in memory therefore it improves performance. Holding millions of records in a generator is more performant than holding millions of records in list. Generator functions are more readable than generator classes. Generators come inhandy when writing memory efficient programs. A brute force way to check a group of possible characters may be done using generators. Thanks to generators, we can lazily generate values instead of creating them all at once.
+16) Python generator don't hold entire results in memory therefore it improves performance. Holding millions of records in a generator is more performant than holding millions of records in list. Generator functions are more readable than generator classes. Generators come in handy when writing memory efficient programs. A brute force way to check a group of possible characters may be done using generators. Thanks to generators, we can lazily generate values instead of creating them all at once. Generators load numbers lazily.
 
 ``` python
 
@@ -1565,6 +1565,24 @@ with change_dir('logs/'):
     print(os.listdir())
 
 #['display_info.log', 'app.log', 'basic.log', 'app2.log', 'closure.log']
+```
+
+```python
+from contextlib import contextmanager
+import time
+@contextmanager
+def timer():
+    start = time.time()
+    yield
+    end = time.time()
+    print(f"Elapsed time is {end - start:.2f} seconds")
+
+with timer():
+    summed_value = sum(range(10_000_000))
+    print(summed_value)
+
+#49999995000000
+#Elapsed time is 0.13 seconds
 ```
 
 47) set approach is faster than any approach making the same job. It is singularizing an iterable. set is faster than list in checking a value in an iterable. If we are searching a value in a list, its complexity is O(n). However, in a set, it is O(1).
@@ -3084,7 +3102,7 @@ cur.execute("SELECT TOP :top_limit * FROM table where department = :department",
 
 82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. A of Python 3.10, dataclass decorator has an argument named slots. When slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance. Dataclasses also support validations via `__post_init__` method, however this is carried out after the creation of the object; not in the phase of creating object.
 
-```dataclasses_example.py
+```python
 from dataclasses import dataclass,field
 from typing import List
 
@@ -3102,7 +3120,7 @@ vehicle3 = Vehicle('BMW',20)
 print(vehicle1 == vehicle3)# False
 ```
 
-```
+```python
 from dataclasses import dataclass,field
 import random
 import string
@@ -3143,7 +3161,7 @@ print(vehicle1.__dict__['name'])# BMW
 - Object of that type has passed as parameter to method.
 - Inheritance: Class inherits from another class. The strongest dependency relationship is inheritance. Inheritance introduces coupling, which is hard to remove.
 
-84) Dependency injection is a design pattern. Dependency injection is all about splitting creation of an object and using of object by passing the object as a parameter. Depdency injection is that if a class uses an instance of a certain class, we aren't making the class responsible for creating that object. Dependency injection makes our code to be tested easily. Without dependency injection, there is no dependency inversion.
+84) Dependency injection is a design pattern. Dependency injection is all about splitting creation of an object and using of object by passing the object as a parameter. Depedency injection is that if a class uses an instance of a certain class, we aren't making the class responsible for creating that object. Dependency injection makes our code to be tested easily. Without dependency injection, there is no dependency inversion.
 
 85) Some tools to improve code quality on Vscode
 
@@ -4277,7 +4295,7 @@ validate_card(card_info=consumer)
 
 167) Don't use boolean flags to run 2 different logics in the same function. Split the function into 2 different functions.
 
-```boolean_flag.py
+```python
 # Bad implementation
 def boolean_flag(x: float, increment: bool):
     if increment:
@@ -4665,7 +4683,7 @@ def retrieve_data_pydantic(path: str) -> DataFrame[OutputSchema]:
     - When talking to ChatGPT, ask it to prepare the docstrings in numpy style.
 
 
-193) Functions are action-focused and Classes are state-focused. Functions care about the flow. Functions are easy to test. Reading a file and processing and obtaining some statistics can be an example of where functions fit better. Bank Account case is a better example of where classes fit better, in which state is more important.
+193) Functions are action-focused and Classes are state-focused. Functions care about the flow. Functions are easy to test. Reading a file and processing and obtaining some statistics can be an example of where functions fit better. Bank Account case is a better example of where classes fit better, in which state is more important. Functions are used for stateless operations. Data classes sit between functions and classes.
 
 194) [ElevenLabs](https://beta.elevenlabs.io/) is a startup focusing on Voice.
 
