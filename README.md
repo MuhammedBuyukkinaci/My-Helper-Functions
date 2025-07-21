@@ -5529,7 +5529,30 @@ print(a_filtered)#[2, 4]
 
 - InfluxDB: A time series db, high performance handling timestamp data. Its query language is flux query language.
 - Neo4j: It is a graph database. It is perfect for applications where relationships between entities are crucial such as linkedin. Its query language is different than SQL.
-- DuckDB: Lightweight,in process, anaytical database. It is used for analytical purposes. Easily integrate with pandas. Don't use it with huge data.
+- DuckDB: Lightweight, in process, anaytical database. It has Python, R clients etc. It is used for analytical purposes. Easily integrate with pandas. Don't use it with huge data. It supports in memory, temporary and persistent disk based storage. In memory databases are super useful in writing unit tests. 
+```python
+import duckdb
+import pandas as pd
+
+data = pd.DataFrame({'value':[1,2,3,4,5,6]})
+agg_stats = duckdb.query("SELECT AVG(value) AS avg_value FROM data").to_df()
+print(agg_stats)
+
+#   avg("value")
+# 0           3.5
+
+with duckdb.connect() as conn:
+    conn.sql("CREATE TABLE my_table AS SELECT * FROM data;")
+    conn.sql("INSERT INTO my_table VALUES (7);")
+    print(conn.sql("SELECT MAX(value) FROM my_table"))#7
+    print("Describe:")
+    print(conn.sql("DESCRIBE my_table"))
+    print("Explain:")
+    print(conn.sql("EXPLAIN SELECT MAX(value) FROM my_table"))
+    print("Summarize:")
+    print(conn.sql("SUMMARIZE my_table"))
+```
+
 - Redis: In memory data struture store. It runs on memory entirely. It supports different types of data such as string, hashes, lists, sets and geospatial indexes. It is useful for real time data such as displaying pageviews on frontend. You can assign expiry period to an object on redis such as 3600 seconds. If the time passes more than 3600 seconds, the object will disappear and can't be accessed. It isn't useful for the scenarios where data durability and persistency are crucial.
 - Milvus: A vector database. Optimized for storing and querying high dimensional vectors. Used in AI and similarity search. It is a highly specialized DB. MongoDB has a support for vector search.
 - Tile38: It is a geospatial database. Useful for fleet management management, asset tracking and location based services. It uses redis protocol behind the scenes. MongoDB also supports geospatial database.
@@ -5642,6 +5665,12 @@ my_list = ["tiger", "lion", "ape"]
 max_length_item = max(my_list, key = len)
 print(max_length_item)# tiger
 ```
+
+279) OLAP and OLTP are 2 terms about databases. OLAP means **online analytical processing**. OLTP means **online transactional processing**. OLTP is generally used in write-heavy operations(insert, update, delete) such as banking, e-commerce etc. OLTP cares data integrity and reliability. PostgreSQL, MSSQL, MySQL, Oracle are OLTP databases. Whereas, OLAP databases are used for analytical purposes. If you want to follow an increase in the trend of icecream sales, go with OLAP databases such as DuckDB, AWS RedShift and other BI databases.
+
+280) DESCRIBE, SUMMARIZE, EXPLAIN are some keywords in SQL. EXPLAIN is available in postgresql. DESCRIBE shows the columns, foreign keys, null flag etc. EXPLAIN explains a query. SUMMARIZE gives some statistics like median, quantiles etc.
+
+![](./images/027.png)
 
 
 
