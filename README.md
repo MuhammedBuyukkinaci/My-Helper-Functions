@@ -3681,7 +3681,7 @@ print(temp.get_b)
 
 120) If we want to use type hints with `staticmethod` that returns an instance of the class of staticmethod, import annotations from \__future__. Type hints makes less documentation possible. Use type hints precisely. Don't use `a: List`. Prefer using `a: List[int, int]`
 
-```
+```python
 from __future__ import annotations
 
 class Temp:
@@ -3693,6 +3693,15 @@ class Temp:
         obj = Temp(a = b)
         return obj
 
+```
+
+```python
+# How to access type hints via dunder variables
+def make_it_double(a:int) -> int:
+    return a * 2
+
+print(make_it_double.__annotations__)
+#{'a': <class 'int'>, 'return': <class 'int'>}
 ```
 
 121) "The command design pattern is a behavioral pattern that provides a way to encapsulate all knowledge of a certain operation into a single object". Banks are great examples in which command patterns work. Command pattern is used in video/audio editing programs. We can take the banking app to a next step by preferring transaction based systems (taking transactions as ground truths)instead of state based systems(taking state as ground truths). 3D modelling applications use command pattern.
@@ -5672,6 +5681,9 @@ print(max_length_item)# tiger
 
 ![](./images/027.png)
 
+281) Go programming language doesn't support inheritance. Go favors composition over inheritance.
+
+282) In order to contribute to Python, take a look at [Python Developer Guide](https://devguide.python.org/).
 
 
 # Python Logging
