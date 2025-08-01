@@ -1248,7 +1248,7 @@ subbed_urls = pattern.sub(r'\2\3',urls)
 
 43) Web scraping with Beautiful Soup. Install it via `pip install beautifulsoup4` . Beautiful soup recommends lxml parser via `pip install lxml`. There is another parser named **html5lib**. Finally, install requests library via `pip install requests`. We should call `prettify` method of BeautifulSoup object. We can access the information in BeautifulSoup object as the attributes. **find** method returns the first match in html object. **find_all** method returns all matches as a list. If we want to get attribute(src) of a tag(iframe), we can access it like a dictionary  `article.find('iframe',class_ = 'youtube-player')['src']`.
 
-```web_scrape.py
+```python
 from bs4 import BeautifulSoup
 import requests
 import csv
@@ -1359,11 +1359,11 @@ for article in soup.find_all('article'):
 csv_file.close()
 ```
 
-44) JSON means Javascript object notation. json is pre-installed library in Python. We should treat json files like getting values of Python dictionaries via keys.
+44) JSON means Javascript object notation. json is pre-installed library in Python. We should treat json files like getting values of Python dictionaries via keys. Javascript is dynamically typed. Typescript is statically typed.
 
 ![json_conversion](./images/013.png)
 
-```json_usage.py
+```python
 
 import json
 ## Convert json to Python object
