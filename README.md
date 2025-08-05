@@ -511,6 +511,19 @@ print(*mapped)# prints 1,4,9
 filtered = filter(lambda n: n%2==1, nums)
 print(filtered)#prints: <map object at 0x7f4b6bb5bbb0>
 print(*filtered)# prints 1,3
+
+```
+
+```python
+# filter can be used with a function returning True or False
+def is_even(x: int):
+    if x%2 == 0:
+        return True
+    return False
+
+nums = [1,2,3]
+evens = filter(is_even, nums)
+print(list(evens))#[2]
 ```
 
 ```python
@@ -1141,7 +1154,24 @@ import random
 print(''.join(random.choices(string.ascii_lowercase,k = 30)))
 ```
 
-37) In Python 2, xrange is working like a generator and range is loading all results into memory and returning all results once. In dictionaries, iteritems works like a generator and items works like lists.
+37) In Python 2, xrange is working like a generator and range is loading all results into memory and returning all results once. In dictionaries, iteritems works like a generator and items works like lists. range creates immutable object. range is a subclass of collections.abc.Sequence.
+
+```python
+from collections.abc import Sequence
+
+range_obj = range(1,4)
+
+print(range_obj)# range(1, 4)
+print(range_obj[0])# 1
+
+
+
+print(issubclass(range,Sequence ))# True
+print(issubclass(list,Sequence ))# True
+print(issubclass(tuple,Sequence ))# True
+print(issubclass(dict,Sequence ))# False
+print(issubclass(set,Sequence ))# False
+```
 
 38) [reveal.js](https://revealjs.com/) is a JS library which provides slides on browser.
 
@@ -1359,7 +1389,7 @@ for article in soup.find_all('article'):
 csv_file.close()
 ```
 
-44) JSON means Javascript object notation. json is pre-installed library in Python. We should treat json files like getting values of Python dictionaries via keys. Javascript is dynamically typed. Typescript is statically typed.
+44) JSON means Javascript object notation. json is pre-installed library in Python. We should treat json files like getting values of Python dictionaries via keys. Javascript is dynamically typed. Typescript is statically typed. To run javascript or typescript, we need a browser or nodejs.
 
 ![json_conversion](./images/013.png)
 
@@ -1690,7 +1720,7 @@ print(sys.version)
 
 50) Iterators and iterables are 2 different terms. List is an iterable and not an iterator. Iterable is something that can be looped over. We can loop over tuples, dictionaries,generators,strings, files and all kinds of different objects. If something is iterable, it has a method named \__iter__ . Iterator is an object with a state so that it remember where it is during iteration. Iterators can get the next value via \__next__ method. next method runs \__next__ method and iter function runs \__iter__ in the background. Iterators are also iterables but the opposite isn't true. \__iter__ method of an iterators returns self. Iterators only go forward. Generators are extremely useful in creating easy-to-read iterators. Generators are iterators as well but \__iter__ and \__next__ methods are created automatically.
 
-```iterator_vs_iterable.py
+```python
 
 # Generators as iterators
 def my_range(start,end):
@@ -1740,7 +1770,7 @@ for num in nums:
     print(num)
 ```
 
-```iterators.py
+```python
 # Class solution
 class Sentence:
     def __init__(self,sentence):
@@ -1802,7 +1832,7 @@ print(next(my_sentence))# Raises an error.
 
 51) The iterators module is a collection of functions that allows us to work with iterators efficiently. Iterator is an object that is used to traverse some sequence of items. zip function takes 2 iterators and return an iterator. Files are also iterators. itertools.groupby expects its input iterator as sorted to group efficiently. In python 3.12, itertools.batched was introduced.
 
-```itertools_module.py
+```python
 import itertools
 from timeit import repeat
 counter = itertools.count(start =5, step=-2)
@@ -2016,7 +2046,14 @@ for a,b in itertools.batched(my_list, 2):
 #7,8
 # it prompts a ValueError. 
 
+# zip function is lazy.
 
+a = [1,2,3]
+b = [5,6,7]
+c = zip(a,b)
+a.append(4)
+b.append(8)
+print(list(c))# [(1, 5), (2, 6), (3, 7), (4, 8)]
 
 
 ```
@@ -2090,7 +2127,7 @@ print(r)#requests.exceptions.ReadTimeout
 
 53) Monitoring a website through some python code is a practical usage of Python. [python-digitalocean](https://github.com/koalalorenzo/python-digitalocean) is a library to connect DigitalOcean via Python. We can create a new droplet and shut down an existing droplet etc.
 
-```monitoring.py
+```python
 import requests
 import smtplib
 import os
@@ -2145,6 +2182,15 @@ letters.remove('c')
 #print 2 lines
 for letter,number,check in zip(letters,numbers,checks):
     print(f"letter {letter} corresponds to number {number}; it is {check} ")
+```
+
+```python
+# zip with strict parameter. zip function should be used with strict parameter.
+a = [1,2]
+b = [3]
+c = zip(a,b,strict=True)
+print(list(c))#ValueError: zip() argument 2 is shorter than argument 1
+
 ```
 
 55) Any time we want to ignore a variable in Python, the convention is to use _ as variable name. The convention to use _ as a variable name is basicly just telling Python or code reviews that we aren't using that variable in the next lines no more.
@@ -2524,7 +2570,7 @@ print(f'Finished in {t2-t1} seconds')
 
 65) multiprocessing is a Python module which speeds up jobs bottlenecked by CPU(known a CPU bound). Its API is similar to threading. The argument passed via **multiprocessing.Process** must be serialized using **pickle**. Serializing something with pickle means converting python objects into a format that can be deconstructed and reconstructed in another python script. In Python 3.2, they added ProcessPoolExecutor, which made multiprocessing easier and faster. We can use map method to run our functions over alist of values. **submit** method of ProcessPoolExecutor returns a future object and **map** method returns the result directly. If map function raises an exception, it won't raise that exception while running the process. The exception will be raised when its value is retreived from _results_ iterator via a for loop. Multiprocessing can be also beneficial for I/O bound processes. multiprocessing can be used in image processing and other cpu-consuming jobs. It reduced computatiton time from 13 seconds to 4 seconds for 15 images.
 
-```must_be_used_mp.py
+```python
 import time
 import concurrent.futures
 from unittest import result
@@ -2560,7 +2606,7 @@ print(f"Finished in {round(finish - start, 2)} seconds")
 #Finished in 5.03 seconds
 ```
 
-```corey_mp_example.py
+```python
 import time
 import concurrent.futures
 from PIL import Image, ImageFilter
@@ -4012,7 +4058,7 @@ class RegularClassWithoutSlot:
 
 142) Input usage in CLI example:
 
-```input_usage.py
+```python
 day = int(input("enter your birth day info"))
 month = int(input("enter your birth month"))
 year = int(input("enter your enter year"))
@@ -4484,7 +4530,7 @@ print(my_func())
 
 178) Always prefer using `and` and `or` instead of `&` or `|` as much as possible.
 
-```compare.py
+```python
 import timeit
 
 setup = 'import random; random_list = random.sample(range(1,1001),1000)'
@@ -5685,6 +5731,29 @@ print(max_length_item)# tiger
 
 282) In order to contribute to Python, take a look at [Python Developer Guide](https://devguide.python.org/).
 
+283) Slicing operation can be used explicity via `slice` or colon(:) as `1:4:2`. Slicing can be used in numpy.
+
+```python
+slice_obj = slice(1,4,2)
+
+nums = [0,1,2,3,4,5,6,7,8,9]
+print(nums[slice_obj])#[1,3]
+print(nums[1:4:2])#[1,3]
+```
+
+284) `vars` can be used to check the attributes of a class. Dynamically setting an attribute to an object via `setattr` isn't recommended. It leads to brittle code. One of the usage of `vars` is to take a look at an object that we want to export as a json in the upcoming code.
+
+```python
+class MyClass:
+    def __init__(self, a: int):
+        self.a = a
+my_object = MyClass(a=3)
+print(vars(my_object))# {'a': 3}
+
+setattr(my_object,'b',2)
+print(vars(my_object))# {'a': 3, 'b': 2}
+```
+
 
 # Python Logging
 
@@ -6191,7 +6260,7 @@ pytest --fixtures
 
 27) If we have 4 tests in our script and only want to test 2 of these 4, filter them via pytest -k 'test_add'. Usage is `pytest test_demo.py -k 'test_with_param'`.
 
-```test_filter_based_on_name.py
+```python
 def test_add_tuple():
     #some code here
 def test_add_list():
