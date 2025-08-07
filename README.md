@@ -6260,7 +6260,7 @@ pytest --fixtures
 
 26) F means test failed and E means there is an unexpected exception.
 
-27) If we have 4 tests in our script and only want to test 2 of these 4, filter them via pytest -k 'test_add'. Usage is `pytest test_demo.py -k 'test_with_param'`.
+27) If we have 4 tests in our script and only want to test 2 of these 4, filter them via pytest -k 'test_add'. Usage is `pytest test_demo.py -k 'test_with_param'`. `pytest -v` gives more robust output of our tests.
 
 ```python
 def test_add_tuple():
@@ -6327,6 +6327,7 @@ pytest --durations=3
 - pytest-cov
 - pytest-django
 - pytest-bdd
+- pytest-mock: A pytest plugin for mock objects.
 
 36) Place your tests into a **tests** and put a \__init__.py to make it a package.
 
@@ -6384,6 +6385,8 @@ def test_with_setup_teardown(setup_teardown):
 ```
 
 40) @pytest.fixture decorator has different parameter options like autouse=True/False or scope = 'module', 'function', 'package', 'session'. We can also rename a pytest fixture too. A fixture with the same name can overwrite other fixtures with the same name.
+
+41) `tests` folder should be at the same level with `src` package. `tests` folder should have the same structure like `src`. If there is a module `extract_infos.py` under `src`, the test file should have the name of `test_extract_infos.py`.
 
 
 
@@ -6460,7 +6463,7 @@ def spark_df(spark):
 
 10) We can use a fixture in another fixture in conftest.py like above.
 
-11) Mocking in pytest
+11) Mocking in pytest. `from unittest.mock import Mock` can be used to create Mock objects.
 
 ![property](./images/006.png)
 
