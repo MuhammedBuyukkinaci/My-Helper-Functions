@@ -5754,6 +5754,8 @@ setattr(my_object,'b',2)
 print(vars(my_object))# {'a': 3, 'b': 2}
 ```
 
+285) On Dockerfile, `FROM python`(1600 mb) consumes much more space than `FROM ubuntu`(937 mb). `python:slim-bookworm` consumes 870 mb. Prefer to use `RUN apt-get install --no-install-recommends -y` over `RUN apt-get install -y`. Add `RUN rm -rf /var/lib/apt/lists/*`. Multi stage build might contribute to the optimization of Dockerfile more than 80 %. Avoid using `COPY .`, just copy the necessary files like `COPY src/`.
+
 
 # Python Logging
 
