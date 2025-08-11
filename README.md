@@ -5756,6 +5756,17 @@ print(vars(my_object))# {'a': 3, 'b': 2}
 
 285) On Dockerfile, `FROM python`(1600 mb) consumes much more space than `FROM ubuntu`(937 mb). `python:slim-bookworm` consumes 870 mb. Prefer to use `RUN apt-get install --no-install-recommends -y` over `RUN apt-get install -y`. Add `RUN rm -rf /var/lib/apt/lists/*`. Multi stage build might contribute to the optimization of Dockerfile more than 80 %. Avoid using `COPY .`, just copy the necessary files like `COPY src/`.
 
+286) [Lokalise](https://lokalise.com/) is a tool that can be used in multilanguage projects.
+
+287) Value constraints such as an integer being positive, a list having elements should be implemented in the function/method. Arjan prefers returning error rather than returning some value that isn't useful. Returning none creates brittle situation. Avoid using `from typing import Optional` and prefer passing default values.
+
+288) There are different types of coupling. Removing one coupling might introduce other problems.
+
+- Global Coupling
+- Data Coupling
+- Content Coupling
+- Stamp Coupling
+
 
 # Python Logging
 
