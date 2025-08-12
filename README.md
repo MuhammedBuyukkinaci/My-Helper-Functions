@@ -5767,6 +5767,10 @@ print(vars(my_object))# {'a': 3, 'b': 2}
 - Content Coupling
 - Stamp Coupling
 
+289) In git, merging preserves history but it might seem messy. Fast word keeps history clean and works if main(master) branch has not changed. Rebase rewrites the past and you might encounter conflicts. *main*, *develop*, *feature/*, *release/*, *hotfix/* are some conventions in git. Git Kraken is a tool
+
+290) Trunk based development is about having one master branch and adding features and activating them via feature flags. Trunk based development can be used if the new feature is independent of the existing codebase. Trunk based development might work but lead to complication in reading the code.
+
 
 # Python Logging
 
