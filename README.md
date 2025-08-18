@@ -876,9 +876,9 @@ def display_info(name,age):
 display_info('Muhammed',28)
 ```
 
-29) If we stack 2 decorators for one function, the inner decorator(my_timer) returns a wrapper function and that wrapper function gets fed into the outer decorator(my_logger). This may result in unexpected names in logfiles or in prints. We can decorate decorators via functools.
+29) If we stack 2 decorators for one function, the inner decorator(my_timer) returns a wrapper function and that wrapper function gets fed into the outer decorator(my_logger). This may result in unexpected names in logfiles or in prints. We can decorate decorators via functools. It is a good practice to use `from functools import wraps` to wrap the function. If there are 2 decorators, the bottom one is wrapped by the upper one. Therefore, the bottom one runs first. Decorators complicate unit testing. Arjan's advice is to avoid using decorators as much as possible. Mypy also might complain about decorators.
 
-```decorating_multiple_decorators.py
+```python
 from functools import wraps
 import time
 import logging
@@ -913,7 +913,7 @@ display_info('Muhammed',28)
 
 30) We can define decorators with arguments via decorating a decorator.
 
-```decorator_with_arguments.py
+```python
 
 def prefix_decorator(prefix):
     def decorator_function(original_function):
