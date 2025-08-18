@@ -4478,7 +4478,7 @@ print(f"{person2.name}, {person2.age}, {person2.is_big}")
 
 172) `from typing import Iterable` is providing a new abstraction for type hints. Let's assume we want to pass a list or a tuple to a function. If the function expects a List, it will prompt a warning if we pass a tuple. If the function expects an Iterable, passing a List or a Tuple doesn't matter. `from typing import Sized` can be used to describe an element that is able to call \__len__ method. Prefer to be flexible in argument types and specific in return types.
 
-```iterable.py
+```python
 from typing import Iterable
 
 
@@ -5600,7 +5600,7 @@ def publish_info_to_library(lib):
 
 261) If the function tends to have more than 4 arguments, it is a good practice to split it up.
 
-262) The input type should be made generic as much as possible. The return type must be specific as much as possible. While naming a function, prefer using **add_number_to_element** instead of **add_number_to_list_elements**. **add_number_to_list_elements** can't be generalized.
+262) The input type should be made generic(contravariant) as much as possible. The return type must be specific(covariant) as much as possible. While naming a function, prefer using **add_number_to_element** instead of **add_number_to_list_elements**. **add_number_to_list_elements** can't be generalized. "be conservative in what you send, be liberal in what you accept".
 
 263) A list of tuples can be unpacked.
 
