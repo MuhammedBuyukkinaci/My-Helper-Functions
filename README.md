@@ -296,7 +296,7 @@ print(issubclass(B,A))# True, B is a sub class of A.
 
 ```
 
-9) Always try to make code DRY(don't repeat yourself)
+9) Always try to make code DRY(don't repeat yourself). YAGNI is a principle in software development. It means you ain't gonna need it. We shouldn't write unnecessary code.
 
 10) String interpolations should be used instead of string concatenation. String interpolation is less prone to errors. If we are repeating placeholders, we can assign indexes to them. WE can make the same operation like zfill in formatting strings via `:`.
 
@@ -3469,6 +3469,47 @@ if a < 2000:
 96) __Structural Pattern Matching__ is a new feature as of Python 3.10 . It is simiar to switch case statements of other languages. It provides the code with the possibility of if-else statements. If the code has lots of if-else or switch-case statements, think about changing the design pattern to __strategy pattern__.
 
 97) Factory is a design pattern which separates the creation from the use. Factory allows us to group objects that belong together. Factory works less well if you want to allow any combination of things.
+
+```python
+from abc import ABC, abstractmethod
+
+
+class Notification:
+    @abstractmethod
+    def send_notification(self, message: str):
+        pass
+
+
+class SMSNotification(Notification):
+    def send_notification(self, message: str):
+        print(f"SMS to be sent with {message}")
+
+class EmailNotification(Notification):
+    def send_notification(self, message: str):
+        print(f"Email to be sent with {message}")
+
+class PushNotification(Notification):
+    def send_notification(self, message: str):
+        print(f"Push to be sent with {message}")
+
+
+class NotificationFactory:
+    @staticmethod
+    def create_notification(notification_type: str) -> Notification:
+        if notification_type == "sms":
+            return SMSNotification()
+        elif notification_type == "email":
+            return EmailNotification()
+        elif notification_type == "push":
+            return PushNotification()
+        else:
+            raise ValueError("A different notification type is entered.")
+
+notification_factory = NotificationFactory.create_notification(notification_type="sms")
+notification_factory.send_notification(message="You have a debt")
+# SMS to be sent with You have a debt
+
+```
 
 98) Github CoPilot is an AI Pair Programmer available on VS code extensions. Its fee is 10 dollar per month and requires subsciprtion. For Python, It just needs the name of a function and then bring code suggestions derived from function name. An alternative to github co pilot is [Tabnine](https://www.tabnine.com/).
 

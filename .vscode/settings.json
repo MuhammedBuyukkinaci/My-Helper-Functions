@@ -27,5 +27,13 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "python.languageServer": "Pylance",
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+    },
+    "editor.suggestOnTriggerCharacters": true,
+    "editor.tabCompletion": "on",
+    "python.analysis.completeFunctionParens": true,
 
 }
