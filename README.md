@@ -497,7 +497,7 @@ for i in nums_generators:
 
 ```
 
-17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter. Python list comprehensions are faster in python 3.12 because it reduces the number of function calls. It will call less functions. Calling a function in python is a costly operation which should be avoided if possible. map is a higher order function. map applies a function to all elements of a sequence. The index used in list comprehensions can't be out of list comprehension.
+17) map&lambda and filter&lambda functions in python3 are evaluated lazily. Prefer list comprehensions over map&lambda and filter&lambda pairs. asteriks(*) is used to show map or filter. Python list comprehensions are faster in python 3.12 because it reduces the number of function calls. It will call less functions. Calling a function in python is a costly operation which should be avoided if possible. map is a higher order function. map applies a function to all elements of a sequence. The index used in list comprehensions can't be out of list comprehension. filter and map functions are useful in generator expressions. It is a good practice to use map and filter in chain operations of data pipelines.
 
 ```python
 nums = [1,2,3]
@@ -3067,7 +3067,7 @@ cur.execute("SELECT TOP :top_limit * FROM table where department = :department",
 
 - Software Design: How to structure functions and classes. Strategy, Observer, Template, Bridge.
 
-    - Creational Patterns: Singleton.
+    - Creational Patterns: Singleton. Factory.
     - Structural Patterns: Bridge pattern is structural.
     - Behavioral Patterns: Allowing to choose between different algorithms. Strategy and Observer are 2 types.
 
@@ -5811,6 +5811,27 @@ print(vars(my_object))# {'a': 3, 'b': 2}
 289) In git, merging preserves history but it might seem messy. Fast word keeps history clean and works if main(master) branch has not changed. Rebase rewrites the past and you might encounter conflicts. *main*, *develop*, *feature/*, *release/*, *hotfix/* are some conventions in git. Git Kraken is a tool
 
 290) Trunk based development is about having one master branch and adding features and activating them via feature flags. Trunk based development can be used if the new feature is independent of the existing codebase. Trunk based development might work but lead to complication in reading the code.
+
+291) Python is a batteries included library, which means it is installed with many libraries such as json, math etc. Don't reinvent the wheel.
+
+292) `from typing import TypedDict` is a strict version of a python dictionary. It lets define the expected structure of dictionaries with type hints. It is a lightweight alternative to pydantic and dataclass.
+
+```python
+from typing import TypedDict
+
+
+class User(TypedDict):
+    name: str
+    male: bool
+
+
+my_list: list[User] = [
+    User(name="Hasan", male=True),
+    User(name="Zeynep", male=False)
+]
+
+print(my_list)# [{'name': 'Hasan', 'male': True}, {'name': 'Zeynep', 'male': False}]
+```
 
 
 # Python Logging
