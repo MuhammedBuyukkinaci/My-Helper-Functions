@@ -5833,6 +5833,38 @@ my_list: list[User] = [
 print(my_list)# [{'name': 'Hasan', 'male': True}, {'name': 'Zeynep', 'male': False}]
 ```
 
+293) MCP stands for model context protocol. It is an open standard that allows AI models like LLM's to integrate with external tools and data sources. Think of mCP like a USB-c port fır AI applications. Language models operate in safe sand environments. They don't have network access by default. MCP Server can have 3 types of capabilities: They can have **resources**(data)(similar to GET request in REST API), **tools**(functions that can be called by LLM) and **prompt**(prewritten template that helps uses accomplish specific tasks). The way to communicate with MCP server is client-server architecture. There is a library called `mcp` in python. MCP servers will communicate with REST API's. "Model Context Protocol (MCP) is like a standard "USB port" for LLMs, letting them safely connect to external tools (e.g., a calendar or database). Instead of just text in/text out, MCP allows the LLM to make structured, controlled function calls—for example, list_events("2025-08-23")—and get back JSON data it can use to answer naturally. In Python, this works by running an MCP server that exposes tools (like list_events), and an agent that connects to it and invokes those tools automatically when prompted. The big advantage: safety, reusability, and standardization—you don’t need custom integrations for each LLM."
+
+```python
+# --- Mock calendar tool (exposed via MCP) ---
+def list_events(date: str):
+    # In reality, this could call Google Calendar API
+    return [
+        {"time": "09:00", "title": "Team Standup"},
+        {"time": "13:30", "title": "Client Meeting with Acme Corp"},
+    ]
+
+
+# --- Example of how an LLM might call via MCP ---
+# Normally the LLM generates this JSON call:
+tool_call = {
+    "tool": "calendar",
+    "action": "list_events",
+    "args": {"date": "2025-08-23"}
+}
+
+# Dispatcher handles it safely
+if tool_call["tool"] == "calendar" and tool_call["action"] == "list_events":
+    events = list_events(**tool_call["args"])
+
+# The tool returns structured data
+print(events)
+
+# LLM would then summarize it for the user
+for event in events:
+    print(f"{event['time']} - {event['title']}")
+```
+
 
 # Python Logging
 
