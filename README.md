@@ -3146,7 +3146,7 @@ cur.execute("SELECT TOP :top_limit * FROM table where department = :department",
 81) Don't prefer to use singleton and object pool design patterns in Python.
 
 
-82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and order provides comparing different instances. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. A of Python 3.10, dataclass decorator has an argument named slots. When slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance. Dataclasses also support validations via `__post_init__` method, however this is carried out after the creation of the object; not in the phase of creating object.
+82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and read only and order provides comparing different instances. **frozen = True** doesn’t protect against mutation of mutable objects inside. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. As of Python 3.10, dataclass decorator has an argument named slots. When slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance. Dataclasses also support validations via `__post_init__` method, however this is carried out after the creation of the object; not in the phase of creating object. Use -- parameter for primitive type(immutable) attributes such as int, str, tuple in dataclasses.field(default=). Use **default_factory** parameter for mutable attributes such as list, dict, set in dataclasses.field(default_factory=). default and default_factory can't be used together. Pydantic also has `from pydantic.dataclasses import dataclass`. There are some differences between pydantic's dataclasses and `from pydantic import BaseModel`.BaseModel has more features than dataclasses in pydantic.
 
 ```python
 from dataclasses import dataclass,field
@@ -3198,6 +3198,22 @@ vehicle3 = VehicleWithDataclass('BMW',20)
 print(vehicle1 == vehicle3)# False
 print(vehicle1)#VehicleWithDataclass(name='BMW', age=20, torque=350, specs=[], id=['xoonkedpmbhg'])
 print(vehicle1.__dict__['name'])# BMW
+```
+
+```python
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Book:
+    title: str
+    publish_year: int
+
+book = Book(title="sth", publish_year=2000)
+print(book)
+
+book.title = "sth2"# dataclasses.FrozenInstanceError: cannot assign to field 'title'
+
 
 ```
 
@@ -3929,7 +3945,100 @@ params:
 
 129) Encapsulation and Information Hiding is helping to reduce coupling and increase cohesion. Encapsulation is about using protected and private attributes in class. Information Hiding is about hiding information of critical attributes or methods in different ways.
 
-130) REST(Representational State Transfer) Interface is quite old. It was invented in 2000. REST is resource oriented. We can create a simple REST API using Flask. Swagger is providing interfaces for rest apis. We can look at API methods and their parameters on Swagger UI. Rest has multiple endpoints and uses various http words(GET, POST, PUT, DELETE). REST API is vulnerable to security bugs more. Rest is simple to use, great for small applications and public-facing API's.
+130) REST(Representational State Transfer) Interface is quite old. It was invented in 2000. REST is resource oriented. We can create a simple REST API using Flask. Swagger is providing interfaces for rest apis. We can look at API methods and their parameters on Swagger UI. Rest has multiple endpoints and uses various http words(GET, POST, PUT, DELETE). REST API is vulnerable to security bugs more. Rest is simple to use, great for small applications and public-facing API's. A simple book creation project in fastapi. BookCreate, BookResponse and Book should be separate.
+
+```python
+
+
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, Session
+from pydantic import BaseModel
+
+# ---------------------------
+# Database setup
+# ---------------------------
+SQLALCHEMY_DATABASE_URL = "sqlite:///./books.db"
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+
+# ---------------------------
+# Models
+# ---------------------------
+class Book(Base):
+    __tablename__ = "books"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    author = Column(String, nullable=False)
+
+
+# ---------------------------
+# Schemas
+# ---------------------------
+class BookBase(BaseModel):
+    title: str
+    author: str
+
+class BookCreate(BookBase):
+    pass
+
+class BookResponse(BookBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+# ---------------------------
+# FastAPI app
+# ---------------------------
+app = FastAPI()
+
+# Create DB tables
+Base.metadata.create_all(bind=engine)
+
+# Dependency to get DB session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+# 1. Create a Book
+@app.post("/books/", response_model=BookResponse)
+def create_book(book: BookCreate, db: Session = Depends(get_db)):
+    db_book = Book(title=book.title, author=book.author)
+    db.add(db_book)
+    db.commit()
+    db.refresh(db_book)
+    return db_book
+
+
+# 2. Get a single Book by ID
+@app.get("/books/{book_id}", response_model=BookResponse)
+def get_book(book_id: int, db: Session = Depends(get_db)):
+    book = db.query(Book).filter(Book.id == book_id).first()
+    if not book:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return book
+
+
+# 3. List all Books
+@app.get("/books/", response_model=list[BookResponse])
+def list_books(db: Session = Depends(get_db)):
+    return db.query(Book).all()
+
+```
 
 131) GraphQL uses single endpoint and query language to interact with the server. In Graphql, objects are connected by relationships and thus forming graphs. [ariadne](https://github.com/mirumee/ariadne) is a Python library to use Graphql server in our apps. Using GrapQL is better for front end development. Sending a request to a server in Graphql is more complicated. GrapQL suffers from n+1 problem. In order to solve this n+1 problem, local caching might come in handy. GrapQL is better for complex applications.
 
@@ -5884,6 +5993,8 @@ print(events)
 for event in events:
     print(f"{event['time']} - {event['title']}")
 ```
+
+294) Serverless is generally triggered by an http request or a pops-up message or file upload. Google cloud only offers single entry point per function.
 
 
 # Python Logging
