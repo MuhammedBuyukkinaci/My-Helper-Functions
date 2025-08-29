@@ -2757,7 +2757,7 @@ with open('mbk.jpg','rb') as rf:
 
 - The goal should be to increase cohesion and reduce coupling.
 
-67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future. Abstract classes can have abstract methods and hook methods. Abstract methods should be implemented obligatorily. Whereas, hook methods defined in abstract classes don't have be implemented in child classes but they can be reimplemented in child classes. No logic should be coded in abstract base classes. If you want to use `@staticmethod` decorator within Abstract class, add `@staticmethod` before `@abstractmethod`.
+67) Dependency inversion help us separate components. It helps us to reduce coupling. Whenever writing any code, think about how it depends on another piece of code. Use @abstractmethod to separate them via abc module. Abstraction faciliates us in changing our code in the future. Abstract classes can have abstract methods and hook methods. Abstraction is a shift of describing from what the code does to how the code does. Abstraction can be implemented via classes or functions. Abstract methods should be implemented obligatorily. Whereas, hook methods defined in abstract classes don't have be implemented in child classes but they can be reimplemented in child classes. No logic should be coded in abstract base classes. If you want to use `@staticmethod` decorator within Abstract class, add `@staticmethod` before `@abstractmethod`.
 
 ```python
 
@@ -3596,7 +3596,7 @@ print(3 <= 4 <= 5 and 7 > 6 > 5)  # True
 print(3 <= 4 <= 5 and 7 > 4 > 4)  # False
 ```
 
-107) Protocol is an alternative to Abstract Base Classes(ABC). It is available in Python as of version 3.8 . We don't have to inherit it to use it and we don't have to type abstractmethod as a decorator for each method of abstract class. We can even use inheritance relationship with Protocol. Protocol is more similar to Interfaces in other languages. If Inheritance is going to be kept, prefer to use ABC. Otherwise, use Protocol if you don't have Inheritance relationship. Protocol is more convenient to Python's Duck Typing rather than ABC. Protocols rely on structural typing and ABC relies on nomial typing. Protocol defines the interface that is expected in a part of the program that refers to it. Protocol is more suitable to duck typing rater than ABC. Use `...`(3 dots) instead of pass in the method of class which is inheriting from Protocol. Using Protocols instead of ABC reduces coupling because there is no inheritance relationship in Protocols. Protocols is much more natural rather ABC. Protocols are really useful if we want to connect different libraries together and still be able to reduce coupling.
+107) Protocol is an alternative to Abstract Base Classes(ABC). It is available in Python as of version 3.8 . We don't have to inherit it to use it and we don't have to type abstractmethod as a decorator for each method of abstract class. We can even use inheritance relationship with Protocol. Protocol is more similar to Interfaces in other languages. If Inheritance is going to be kept, prefer to use ABC. Otherwise, use Protocol if you don't have Inheritance relationship. Protocol is more convenient to Python's Duck Typing rather than ABC. Protocols rely on structural typing and ABC relies on nomial typing. Protocol defines the interface that is expected in a part of the program that refers to it. Protocol is more suitable to duck typing rater than ABC. Use `...`(3 dots) instead of pass in the method of class which is inheriting from Protocol. Using Protocols instead of ABC reduces coupling because there is no inheritance relationship in Protocols. Protocols is much more natural rather ABC. Protocols are really useful if we want to connect different libraries together and still be able to reduce coupling. If the codebase is huge, prefer ABC over Protocol.
 
 ```protocol_usage.py
 from typing import Protocol
@@ -4046,7 +4046,7 @@ def list_books(db: Session = Depends(get_db)):
 
 133) The code should explain itself. A lot of documentation isn't needed in the code via docstrings.
 
-134) In Python, functions are objects of type **Callable**. We can type aliases for them. We can pass functions as arguments to other functions. If we use functools, we can even call functions partially. Using closures solves the problem of not being able to pass parameters to functions. Using partial is shorter than closures. **partial** is neater than **closures**. **partial** is a higher order function too.
+134) In Python, functions are objects of type **Callable**. We can type aliases for them. `partial` is a feature of Functional Programming. It isn't Pythonic in fact. We can pass functions as arguments to other functions. If we use functools, we can even call functions partially. Using closures solves the problem of not being able to pass parameters to functions. Using partial is shorter than closures. **partial** is neater than **closures**. **partial** is a higher order function too. partial doesn't have \__name__ attribute. Take care in debugging.
 
     - Another example is that we want to filter some columns bigger than a user-specified threshold. In this scenario, we are using the same data but we are changing column name and threshold. Instead of using the same data in our function, we can use **functools.partial** not to call data much more times. Also, if we want to make filter operations on a determined column with different threshold, we can use partial one more time.
 
@@ -5995,6 +5995,8 @@ for event in events:
 ```
 
 294) Serverless is generally triggered by an http request or a pops-up message or file upload. Google cloud only offers single entry point per function.
+
+295) SDK is a python package that provides a layer on top of API. You can interact with API in a more python way. Interacting with SDK is better than interacting with API directly(i.e requests.get). Instead of calling endpoints directly, low level operations are carried out in Python class.
 
 
 # Python Logging
