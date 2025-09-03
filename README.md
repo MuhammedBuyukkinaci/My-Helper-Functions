@@ -3067,7 +3067,7 @@ cur.execute("SELECT TOP :top_limit * FROM table where department = :department",
 
 - Software Design: How to structure functions and classes. Strategy, Observer, Template, Bridge.
 
-    - Creational Patterns: Singleton. Factory.
+    - Creational Patterns: Singleton, Factory, Builder
     - Structural Patterns: Bridge pattern is structural.
     - Behavioral Patterns: Allowing to choose between different algorithms. Strategy and Observer are 2 types.
 
@@ -3323,7 +3323,7 @@ if __name__ == '__main__':
 
 ```
 
-91) __Refactoring by Martin Fowler__ is book to refactor an existing codebase.
+91) __Refactoring by Martin Fowler__ is a book to refactor an existing codebase. [Refactoring Guru](https://refactoring.guru/) is a website that guides in refactoring. Pandas library follows this pattern.
 
 - Some code problem are easy to fix
 - Some code problems are realted to deeper design pattern and take some time to fix.
@@ -5997,6 +5997,42 @@ for event in events:
 294) Serverless is generally triggered by an http request or a pops-up message or file upload. Google cloud only offers single entry point per function.
 
 295) SDK is a python package that provides a layer on top of API. You can interact with API in a more python way. Interacting with SDK is better than interacting with API directly(i.e requests.get). Instead of calling endpoints directly, low level operations are carried out in Python class.
+
+296) [Squarespace](https://www.squarespace.com/) is an all-in-one website building and hosting platform. It allows individuals, freelancers, and businesses to create websites without needing deep technical knowledge.
+
+297) Builder design pattern is a creational design pattern that separates object construction from representation. An example is in the below image. It prevents us from passing a bunch of parameters to the constructor. If you are building a n object with most of optional fields, builder design pattern can be used. Arjan used HtmlBuilder for setting header, adding metadata etc.  Configuration files, nested queries, UI components are other use places. One of its con is that builder design pattern introduces boilerplate code. A rule of thumb is that if the object has more than 5 optional fields and it is likely to increase, builder pattern can be used.
+
+```python
+class SqlQueryBuilder:
+    def __init__(self) -> None:
+        self.cols: list = []
+        self.table_name = ""
+    
+    def add_a_field(self, field: str) -> None:
+        self.cols.append(field)
+    
+    def remove_a_field(self, field: str) -> None:
+        self.cols.remove(field)
+    
+    def pass_table_name(self, table_name: str) -> None:
+        self.table_name = table_name
+    
+    def build_sql_statement(self):
+        return f"SELECT {', '.join(self.cols)} FROM {self.table_name};"
+
+
+sql_query_builder = SqlQueryBuilder()
+sql_query_builder.add_a_field(field="order_time")
+sql_query_builder.add_a_field(field="order_id")
+sql_query_builder.add_a_field(field="order_amount")
+sql_query_builder.remove_a_field(field="order_id")
+sql_query_builder.pass_table_name(table_name="orders")
+sql_query = sql_query_builder.build_sql_statement()
+print(sql_query)# SELECT order_time, order_amount FROM orders;
+
+```
+
+![](./images/028.png)
 
 
 # Python Logging
