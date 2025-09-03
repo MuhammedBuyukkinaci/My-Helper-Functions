@@ -3668,7 +3668,7 @@ print(fruit)#cherry
 
 - Snapshot Testing: A black box testing used in web development. It may be useful in comparing the expected result of HTML and the HTML output of our application. Jest library in React is a library for snapshot testing. Low level testing.
 
-- Property based testing: [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) is a Python Library to make property based testing. Low level testing. It is well known in functional programming. Encoding and Decoding a string, sorting an array and its affect on array length. In property based testing, we aren't actually defining what the input data is going to be like we did in unit testing. We can write our custom strategies using `from hypothesis.strategies.composite`. Some default strategies are `floats` and `integers`. We can let hypothesis create some tests via the command below
+- Property based testing: [Hypothesis](https://hypothesis.readthedocs.io/en/latest/) is a Python Library to make property based testing. Instead of writing unit tests where we provide specific inputs and outputs, hypothesis generates hundreds or thousands test cases for us to explore edge cases. Low level testing. It is well known in functional programming. Encoding and Decoding a string, sorting an array and its affect on array length. In property based testing, we aren't actually defining what the input data is going to be like we did in unit testing. We can write our custom strategies using `from hypothesis.strategies.composite`. Some default strategies are `floats` and `integers`. We can let hypothesis create some tests via the command below
 
 ```hypo.sh
 hypothesis write module_name.function_name > test_file_to_export.py
@@ -3696,7 +3696,7 @@ def test_fuzz_pop_list(x):
 
 ```
 
-- Integration Testing and Acceptance Testings are 2 different high-level testing types. DTAP mean Development, Testing, Acceptance, Production.
+- Integration Testing and Acceptance Testings are 2 different high-level testing types. DTAP means Development, Testing, Acceptance, Production.
 
 ```property_based_testing.py
 # Property based testing
@@ -4245,7 +4245,9 @@ print(set_date(day = day,month= month, year= year))
 
 - Prefer immutability over mutability
 
-- In most functional programming languages such as erlang, elixir and haskell, data is immutable. It means that data can't be changed after creation. In rust, variables are immutable too. Immmutability makes it easier to work with concurrent programs. 
+- In most functional programming languages such as erlang, elixir and haskell, data is immutable. It means that data can't be changed after creation. In rust, variables are immutable too. Immmutability makes it easier to work with concurrent programs.
+
+- [Toolz](https://github.com/pytoolz/toolz) is a python library for functional programming. This library introduces functional programming concepts to Python syntax.
 
 147) Hungarian notation is expressing the type of an name in variable name. i_a means integer, f_b means float, s_c means string etc. Don't use them because our IDE's are capable of capturing the data structures of our variables.
 
@@ -5239,7 +5241,12 @@ exec(compile(code, filename="", mode="exec"))
     - [xarray](https://github.com/pydata/xarray): "Xarray makes working with labelled multi-dimensional arrays in Python simple, efficient, and fun!"
     - [polars](https://www.pola.rs/): An alternative to pandas
     - [SQLModel](https://github.com/tiangolo/sqlmodel): A library for ORM. Pretty useful. SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
-    - [httpx](https://www.python-httpx.org/): An alternative to requests.
+    - [httpx](https://www.python-httpx.org/): An alternative to requests. It has async support, connection pooling. If we create a client and us it instead of single connection request, it would boost performance.
+    - [fastapi-pagination](https://uriyyo-fastapi-pagination.netlify.app/): It is a library to simplify pagination in fastapi.
+    - [Fast Stream](https://github.com/ag2ai/faststream): It is a modern, asynchronous framework for building event-driven microservices that interact with message brokers like Kafka, RabbitMQ, NATS, and Redis.
+    - [Reflex](https://reflex.dev/): It allows to build full stack web apps in react style component tree. It combines state management, component rendering using a declarative approach.
+    - [Langgraph](): It is built on langchain, more focused on defining agent flows as graphs.
+    - [Marimo](https://marimo.io/): An alternative to jupyter notebook. It is git-friendly.
 
 210) [GPT Engineer](https://github.com/AntonOsika/gpt-engineer) is a tool to build up a project using chatgpt. "Specify what you want it to build, the AI asks for clarification, and then builds it".
 
