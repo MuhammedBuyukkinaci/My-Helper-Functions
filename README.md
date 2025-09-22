@@ -6460,21 +6460,21 @@ class TestEmployee(unittest.TestCase):
 
 13) If we want to raise an error and run our test properly, use below
 
-```demo.py
+```python
 def add(a,b):
     if a==99:
         raise MysteryError()
     return a + b
 ```
 
-```test_demo.py
+```python
 def test_error():
     # Waiting the code to fail. The test runs properly in terminal
     with pytest.raises(demo.MysteryError):
         demo.add(99,1)s
 ```
 
-``` error_raise.py
+``` python
 import pytest
 
 def converter(x):
@@ -6506,7 +6506,7 @@ scenarios.
 - Fixtures are providing data.
 - Fixtures are also similar to unittest's mocking.
 
-18) Create a conftext.py and define a fixture named *my_fixture*. Feed this **my_fixture** in test_fixture of test_demo.py.
+18) Create a conftest.py and define a fixture named *my_fixture*. Feed this **my_fixture** in test_fixture of test_demo.py.
 
 ```conftest.py
 import pytest
@@ -6532,12 +6532,16 @@ def test_do_sth(capsys):
     assert out == "Some expected print"
 ```
 
-21) Monkeypatch is a fixture. monkeypatching is a terminology used when you want to dynamically add runtimes, swap out the behavior of a thing. It is a mocking procedure that make tests runnable. An alternative is that we can create a Mock instance and use it in our tests instead of creating real instances.
+21) Monkeypatch is a fixture. monkeypatching is a terminology used when you want to dynamically add runtimes, swap out the behavior of a thing. It is a mocking procedure that make tests runnable. An alternative is that we can create a Mock instance and use it in our tests instead of creating real instances. Monkey patching is replacing a funtion or an attribute at runtime. It is replacing something with fake something else.
 
-```
+```python
 from pytest import monkeypatch
 #usage
 monkeypatch.setattr(ClassName,attribute_name,attribute_value)
+```
+
+```python
+from pytest import MonkeyPatch
 ```
 
 22) tmpdir is creating a new file and prints results on it and delete it ultimately.
@@ -6757,7 +6761,7 @@ def spark_df(spark):
 
 10) We can use a fixture in another fixture in conftest.py like above.
 
-11) Mocking in pytest. `from unittest.mock import Mock` can be used to create Mock objects.
+11) Mocking in pytest. `from unittest.mock import Mock` can be used to create Mock objects. `from unittest.mock import MagicMock` allows us to set up objects with different attributes and methods. Mocking is a structured, controlled form of monkey patching, Mocking is safer and more test-friendyly than monkey patching.
 
 ![property](./images/006.png)
 
@@ -6797,6 +6801,16 @@ assert 1 > a, 'the input bigger than 1'
 ```
 
 17) For one-off analyses, writing tests isn't advised. Focusing on clear documentation sounds more logical.
+
+18) The difference between monkey patching, mocking and fixtures:
+
+- Fixtures = test setup.
+
+- Mocking = simulate dependencies.
+
+- Monkey patching = brute-force replacement of real code.
+
+![](./images/029.png)
  
 # Poetry
 
