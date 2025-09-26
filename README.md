@@ -6050,6 +6050,8 @@ print(sql_query)# SELECT order_time, order_amount FROM orders;
 
 ![](./images/028.png)
 
+298) PyDanticAI is a pydantic extension that helps build AI-powered agents. Agent is an LLM that is aware of business logic.
+
 
 # Python Logging
 
