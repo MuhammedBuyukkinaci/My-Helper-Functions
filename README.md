@@ -6050,7 +6050,35 @@ print(sql_query)# SELECT order_time, order_amount FROM orders;
 
 ![](./images/028.png)
 
-298) PyDanticAI is a pydantic extension that helps build AI-powered agents. Agent is an LLM that is aware of business logic.
+298) [PyDanticAI](https://ai.pydantic.dev/) is a pydantic extension that helps build AI-powered agents. These agents can use domain data models, they can access dependencies like databases or API's. Agents can return strutured outputs with validation. Agent is an LLM that is aware of business logic. OpenAI Agents is an alternative to PyDanticAI.
+
+```python
+from pydantic_ai import Agent
+from pydantic import BaseModel
+# DependencyClass and OutputClass are pydantic BaseModel
+class DependencyClass:
+    pass
+
+class OutputClass:
+    pass
+
+agent = Agent(
+    "openai:gpt-4o",
+    deps_type=DependencyClass,
+    output_type=OutputClass,
+    system_prompt= "You are a triage assistant helping patients"
+deps)
+
+@agent.system_prompt
+def place_holder_func_1():
+    pass
+
+@agent.tool
+def place_holder_func_2():
+    pass
+
+agent.run("some string")
+```
 
 
 # Python Logging
