@@ -4286,9 +4286,9 @@ print(temp)#I am Muhammed. I like to play chess
 
 151) Pulumi is an open source infrastracture as code platform. Instead of dealing with yaml configurations and manul workload, you write everything in code. We can create cloud resource by just writing Python code.
 
-152) Pathlib is  python package to deal with files and directories. It is available as of Python 3.6.
+152) Pathlib is python package to deal with files and directories. It is available as of Python 3.6. It is a modern way of dealing with file paths.
 
-```pathlib_usage.py
+```python
 
 import os
 from pathlib import Path
@@ -4369,7 +4369,7 @@ call_usage(3,4)#the result is 81
 
 154) Default dict usage of collection, setdefault
 
-```default_dict.py
+```python
 county_city_map = {
     'Kadıköy': 'İstanbul',
     'Üsküdar':'İstanbul',
@@ -4397,7 +4397,7 @@ print(dct)
 
 155) sys.path is showing us the directories that python looks for. sys.path doesn't force use to make a directory as a package by adding a \__init__.py file. When you look for files on package1/ directory, you will see no \__init__.py file there.
 
-```temp.py
+```python
 import sys
 # Append a directory to sys.path
 sys.path.append('./package1/')
@@ -4896,7 +4896,7 @@ def retrieve_data_pydantic(path: str) -> DataFrame[OutputSchema]:
 
 195) **cached_property** can be used to compute a property in a class and store it in the RAM once. It is used for caching.
 
-```cached.py
+```python
 
 from dataclasses import dataclass
 from functools import cached_property
@@ -4930,9 +4930,9 @@ print(car.consumption)
         
 ```
 
-196) `lru_cache` is a functional way of cached_property. lru means least recently used. For country function, it caches `TOGG`'s mapping to `Turkish`. Therefore, cached value of step 1 will be used in step 2 without recomputing.
+196) `lru_cache` is a functional way of cached_property. lru means least recently used. For country function, it caches `TOGG`'s mapping to `Turkish`. Therefore, cached value of step 1 will be used in step 2 without recomputing. cache is available as of Python 3.9. cache is a simple version of lru_cache without memory constraints.
 
-```lru_cache_file.py
+```python
 from dataclasses import dataclass
 from functools import cached_property, lru_cache
 
@@ -4977,10 +4977,30 @@ print(consumption_value)
 
 ```
 
+```python
+#cache decorator usage
+import time
+from functools import cache
+
+
+@cache
+def multiply(a, b):
+    time.sleep(2)
+    return a * b
+
+start_time = time.time()
+print(multiply(3, 4))
+print(f"First call took {time.time() - start_time} seconds")#First call took 2.005276918411255 seconds
+second_time = time.time()
+print(multiply(3,4))# Retrieved from cache
+print(f"Second call took {time.time() - second_time} seconds")#Second call took 1.0967254638671875e-05 seconds
+
+```
+
 
 197) You should prefer using Decimal over Float. Actually, you shouldn't use Decimals too. Decimals are Python-specific objects, which means it is required to convert Decimal to another type for DB operations.. Decimals aren't high-performant. Using integer for money is a way that Stripes uses. They store 100 dollars as 10000. Numpy data dtypes like np.int64, np.int32 can be used too.
 
-```decimal_usage.py
+```python
 from decimal import Decimal, getcontext
 
 print(Decimal(2.2) + Decimal(1.1))# 3.300000000000000266453525910
@@ -6079,6 +6099,17 @@ def place_holder_func_2():
 
 agent.run("some string")
 ```
+
+299) shutil is standard python package to copy or archive a file. It is for high level file operations. It is useful in automatic backups.
+```
+import shutil
+
+shutil.copy("temp.py", "temp2.py")  # Copy file
+
+shutil.make_archive("archive", "zip", ".")  # Archive current directory into archive.zip
+```
+
+300) textwrap is a python package to deal with text. It wraps, indents or strips text.
 
 
 # Python Logging
