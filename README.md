@@ -5581,7 +5581,7 @@ def main() -> None:
 
 - Observer: When you have a publisher(subject) and many subscribers(observers).
 
-- Singleton: A database connection is created only once and used among the code.
+- Singleton: A database connection is created only once and used among the code. The Pythonic way of Singleton design pattern is to use modules. It is thread-safe and testable instead of a custom class. One of the biggest issue that Single introduces is shared memory space.
 
 - Facade: When you don't want to deal with low level things. FOr example, you have a log function with log level parameter. According to your choice such as error, critical or info, a different object is crated from a different class.
 
@@ -6110,6 +6110,12 @@ shutil.make_archive("archive", "zip", ".")  # Archive current directory into arc
 ```
 
 300) textwrap is a python package to deal with text. It wraps, indents or strips text.
+
+301) 3 design principles for AI agents:
+
+- Chain of Responsibility: handle_destination, handle_flight, handle_hotel, handle_destinations
+- Observer: An example usage is that instead of having explicit log messages, use a log agent to log details.
+- Strategy: fun_agent, budget_agent, professional_agent
 
 
 # Python Logging
