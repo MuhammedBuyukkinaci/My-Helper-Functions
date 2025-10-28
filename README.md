@@ -3096,11 +3096,11 @@ cur.execute("SELECT TOP :top_limit * FROM table where department = :department",
 - O: Open/Closed: Writing code which is open to extension but closed to modification.
 
     - In th example above, move pay_debit and pay_credit to a subclass of Payment like DebitPayment or CreditPayment. Inherit DebitPayment and CreditPayment from Payment class, which is a subclass of ABC.
-- L: Liskov Substitution: Instances of Subclasses should also be passable to main objects.
+- L: Liskov Substitution: Instances of Subclasses should also be passable to main objects. Sub types should behave like their parent types.
 
     - If you have objects in your program, you should be able to replace them with instances of their subclasses without altering the correctness of our program. One of the solution may be moving the subclass-specific attributes to constructor of sublasses. In Sales example, remove security_code from Payment class and move it as an argument to constructors of DebitPayment and CreditPayment. Also, add e-mail address to constructor of PaypalPayment. After these changes, pay method of Payment class can be callable by PaypalPayment, CreditPayment, DebitPayment.
 
-- I: Interface Segregation: Having several specific interfaces as opposed to one general purpose interface.
+- I: Interface Segregation: Having several specific interfaces as opposed to one general purpose interface. It is a good practice to prefer small and focused interfaces over large interfaces.
 
     - Instead of one general interface or base class(Payment), write a new class named Payment_SMS(which is inherited from Payment) and inherit DebitPayment and PaypalPayment from Payment_SMS. Inherit CreditPayment from Payment. Interface Segregation can be used via Inheritance or Composition(an alternative method which splits the code into many classes instead inheriting from many parent classes).
 
@@ -3125,7 +3125,7 @@ cur.execute("SELECT TOP :top_limit * FROM table where department = :department",
     ```
 
 
-- D: Dependency Inversion: Dependency inversion help us separate components. It helps us to reduce coupling.
+- D: Dependency Inversion: Dependency inversion help us separate components. It helps us to reduce coupling. High level code shouldn't depdend on low level details.
 
     - For instance, we have an SMS authenticator but we also want to add a Google authenticator. What is required is to define a class named Authenticator. Create 2 new classes named SMSAuthenticator and GoogleAuthenticator which will inherit from Authenticator class.
 
@@ -6116,6 +6116,21 @@ shutil.make_archive("archive", "zip", ".")  # Archive current directory into arc
 - Chain of Responsibility: handle_destination, handle_flight, handle_hotel, handle_destinations
 - Observer: An example usage is that instead of having explicit log messages, use a log agent to log details.
 - Strategy: fun_agent, budget_agent, professional_agent
+
+302) It is a good practice to have .python-version file in the root of the project.
+
+303) A well-designed FastAPI project structure. Each one is a separate package.
+    - api: Responsible for routing. It deals with http requests.
+    - services: Applying business logic in the same package(CRUD operations)
+    - db: table definitions as sqlachemy.
+    - core: cross cutting functionalities such as logging and config(pydantic_settings can be used)
+    - model: model definitions as pydantic such as UserCreate, UserRead. To be used in response model of api endpoints.
+
+
+
+304) If we have a complex application that requires several different business logic in a FastAPI project, we should have a separate Service class that deals with CRUD operations. Then, we should pass this Service as dependency in endpoint definition via Depends instead of SessionLocal. This is going to make our code easily testable.
+
+305) Let's assume we want to test our api endpoints and we need a test database. We can override a dependency via `app.dependency_overrides`.
 
 
 # Python Logging
