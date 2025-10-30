@@ -6145,6 +6145,46 @@ shutil.make_archive("archive", "zip", ".")  # Archive current directory into arc
 - `import compression.zstd` is faster and more efficient than `gzip` and `bz2`.
 - Template strings: Improved version f-strings. Easening the usage of template. `t"{evil}"`. It can be used in logging or html rendering.
 
+307) Registry is a central place where you can keep track of different things. It can replace complex if-else statements with a dictionary in Python. It faciliates to add new features without touching the core logic. Overuse of registry design pattern can complicate things. If you have a CLI and want to add a new feature to your CLI, registry design pattern can be pretty useful like Arjan's video with text processor by shout, whisper, count etc.
+
+```python
+#If else version
+def predict_via_boosted_tree(x):
+    print(f"This is a dummy function for boosted tree prediction with input {x}")
+
+def predict_via_random_forest(x):
+    print(f"This is a dummy function for random forest prediction with input {x}")
+
+if __name__ == "__main__":
+    model_name = "boosted_tree"
+    if model_name == "boosted_tree":
+        predict_via_boosted_tree("sample input")
+    elif model_name == "random_forest":
+        predict_via_random_forest("sample input")
+    else:
+        raise ValueError("Unknown model name")
+```
+
+```python
+# Registry pattern
+def predict_via_boosted_tree(x):
+    print(f"This is a dummy function with registry for boosted tree prediction with input {x}")
+def predict_via_random_forest(x):
+    print(f"This is a dummy function with registry for random forest prediction with input {x}")
+
+MODEL_REGISTRY = {
+    "boosted_tree": predict_via_boosted_tree,
+    "random_forest": predict_via_random_forest,
+}
+if __name__ == "__main__":
+    model_name = "boosted_tree"
+    try:
+        prediction_function = MODEL_REGISTRY[model_name]
+        prediction_function("sample input")
+    except KeyError:
+        raise ValueError(f"Unknown model name: {model_name}")
+```
+
 
 # Python Logging
 
