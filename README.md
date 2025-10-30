@@ -5880,7 +5880,7 @@ class Hero(SQLModel, table=True):
 
 274) There are some critics on SQLModel. Some developers say that API couples with database due to SQLModel. It is considered to be a good practice to keep a service layer between DB transaction logic and API endpoint logic. API —> Service Layer —> DB Transaction. It is considered as a better practice to have Pydantic and SQLAlchemy separate.
 
-275) uv is package manager developed by the team of Ruff, which is a formatting tool. It is written in Rust. You can start a project with uv. You can install a dependency with uv. You can instal uv via homebrew on mac. `--workplace` flag allows us to manage projects that have similar dependencies. `uv_build` is an alternative to setuptools to make our code pages.
+275) uv is package manager developed by the team of Ruff, which is a formatting tool. It is written in Rust. You can start a project with uv. You can install a dependency with uv. You can instal uv via homebrew on mac. `--workplace` flag allows us to manage projects that have similar dependencies. Thanks to uv workpsaces, multiple projects having the same dependencies can use the same installed libraries. `uv_build` is an alternative to setuptools to make our code pages.
 
 ```bash
 # To start uv, it creates a pyproject.toml and main.py
@@ -5893,6 +5893,8 @@ uv add httpx
 uv remove httpx
 # To run a file
 uv run main.py
+# To sync packages
+uv sync --all-packages
 ```
 
 276) gRPC is an alternative to REST to manage communication between services. RPC stands for remote procedure call. g stands for google or general. gRPC is language-agnostic. Protocol buffer is the language used in gRPC. Protocol buffer can be considered as simpler, faster and smaller version of XML. Protocol buffer(Proto file) is also smaller and faster than json. gRPC uses HTTP2. As of April 2025, most browsers support HTTP1.1. Therefore, there should be a proxy. gRPC is service-oriented. REST is entity-oriented. If you need a real time or low latency app, gRPC is better than REST. Both clients and servers can have a continuous stream of messages in gRPC, which is pretty useful in chat apps and IoT apps. REST isn't designed for real time communication or push notifications. REST is more human-readable and flexible. REST is easier to use. gRPC is more optimized. It is a good practice to handle intensive tasks with gRPC.
