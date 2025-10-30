@@ -6132,6 +6132,19 @@ shutil.make_archive("archive", "zip", ".")  # Archive current directory into arc
 
 305) Let's assume we want to test our api endpoints and we need a test database. We can override a dependency via `app.dependency_overrides`.
 
+306) New Features on Python 3.14:
+
+- Syntax Highlightinng on Terminal
+- Being able to remove paranthesis in except block. The below one runs properly with paranthesis.
+    ```python
+    try:
+        int("a33")
+    except ValueError, KeyError as e:
+        print(f"An error occurred: {e}")
+    ```
+- `import compression.zstd` is faster and more efficient than `gzip` and `bz2`.
+- Template strings: Improved version f-strings. Easening the usage of template. `t"{evil}"`. It can be used in logging or html rendering.
+
 
 # Python Logging
 
