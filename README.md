@@ -6187,6 +6187,30 @@ if __name__ == "__main__":
         raise ValueError(f"Unknown model name: {model_name}")
 ```
 
+308) Let's assume there are 2 packages as cli and api. They have similar dependencies. In order for them to use a similar set of dependencies, uv's `[tool.uv.workspace]` is so useful. In order to add a local package like core2, add it under `[tool.uv.sources]`.
+
+```pyproject.toml
+[project]
+name = "uv_workspace"
+version = "0.1.0"
+description = "example of something"
+requires-python = ">=3.13"
+
+[dependencies] = [
+    "fastapi",
+    "uvicorn",
+    "core2"
+]
+
+
+[tool.uv.workspace]
+members=["packages/*"]
+
+[tool.uv.sources]
+core2 = { workspace = true }
+
+```
+
 
 # Python Logging
 
