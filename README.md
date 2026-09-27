@@ -6211,6 +6211,8 @@ core2 = { workspace = true }
 
 ```
 
+309) Using singleton to pack multiple arguments into one is a good way. However Context Object pattern is also handy. Context object group things such as configuration, logger, ML model etc using `from dataclasses import dataclass`. It is a better approach to use Context Object pattern in high level objects rather than low level objects. Context Object pattern simplifies mocking, testing and refactoring. Don't put all things under a Context object. It is not a silver bullet.
+
 
 # Python Logging
 
