@@ -190,10 +190,10 @@ print('test'.__len__())
 
 ![property](./images/010.png)
 
-5)  What does `if __name__ == '__main__'` mean? Whenever Python runs a file, it first goes through before even runs any code, it sets a few special variables. \__name__ is one of these special variables. `if __name__ == '__main__'` checks whether a file in being run directly or imported from a different module. It returns True if directly run from script and returns False if it called from another script. The reason why we use our codes in main function in first_module.py is to make it importable in another script. If we don't put our codes in a main function, our global scope will be polluted.
+5)  What does `if __name__ == '__main__'` mean? Whenever Python runs a file, it first goes through before even runs any code, it sets a few special variables. \__name__ is one of these special variables. `if __name__ == '__main__'` checks whether a file in being run directly or imported from a different module. It returns True if directly run from script and returns False if it called from another script. The reason why we use our codes in main function in first_module.py is to make it importable in another script. If we don't put our codes in a main function, our global scope will be polluted. `main()` function is an explicit entry point to the program.
 
 
-```first_module.py
+```py
 #first_module.py
 
 print("This will always be run")
@@ -209,7 +209,7 @@ else:
 
 ```
 
-```second_module.py
+```py
 import first_module
 print("Second module's name: {}".format(__name__))
 ```
@@ -217,7 +217,7 @@ print("Second module's name: {}".format(__name__))
 
 6) property usage in Python classes. property is making a method as an attribute of a Class. It is a decorator. peperty decorator allows us to define method but we can access it like an attribute. Properties shoul be cheap, simple and unsurprising, which means it shouldn't make complex computations.
 
-```property_usage.py
+```py
 # Property Decorator
 class Personnel:
     def __init__(self,first,last,pay):
@@ -280,7 +280,7 @@ del wor_1.fullname# delete name !
 
 8) To check if a variable has a numeric type of Float, integer, Decimal etc; use isinstance. If you want check whether a class is a subclass of another class, use `issubclass`
 
-```filename.py
+```py
 import numbers
 isinstance(variable_name,numbers.Number)
 ```
@@ -300,7 +300,7 @@ print(issubclass(B,A))# True, B is a sub class of A.
 
 10) String interpolations should be used instead of string concatenation. String interpolation is less prone to errors. If we are repeating placeholders, we can assign indexes to them. WE can make the same operation like zfill in formatting strings via `:`.
 
-```string_interpolation.py
+```py
 
 a = 2
 b = 'Muhammed'
@@ -350,7 +350,7 @@ func_idempotent(-10) == func_idempotent(func_idempotent(-10)) == func_idempotent
 
 12) namedtuple is more readable. Its is also immutable. It is an alternative to Python dictionaries but less prone to typing errors.
 
-```namedtuple.py
+```py
 from collections import namedtuple
 
 Color = namedtuple('Color',['red','green','blue'])
@@ -3146,7 +3146,7 @@ cur.execute("SELECT TOP :top_limit * FROM table where department = :department",
 81) Don't prefer to use singleton and object pool design patterns in Python.
 
 
-82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and read only and order provides comparing different instances. **frozen = True** doesn’t protect against mutation of mutable objects inside. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. As of Python 3.10, dataclass decorator has an argument named slots. When slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance. Dataclasses also support validations via `__post_init__` method, however this is carried out after the creation of the object; not in the phase of creating object. Use -- parameter for primitive type(immutable) attributes such as int, str, tuple in dataclasses.field(default=). Use **default_factory** parameter for mutable attributes such as list, dict, set in dataclasses.field(default_factory=). default and default_factory can't be used together. Pydantic also has `from pydantic.dataclasses import dataclass`. There are some differences between pydantic's dataclasses and `from pydantic import BaseModel`.BaseModel has more features than dataclasses in pydantic.
+82) Dataclasses don't need constructor but needs types of constructor parameters. In VehicleWithDataclass, we didn't create a constructor but specified constructor parameters in class like `name: str`. The decorator of VehicleWithDataclass can be passed with different parameters like frozen & order. **frozen = True** makes the instance unchangable and read only and order provides comparing different instances. **frozen = True** doesn’t protect against mutation of mutable objects inside. Dataclasses don't need dunder str method. Dataclass is data oriented and regular classes are behavior oriented. Dataclasses remove boilerplate codes of regular classes by not defining __repr__ and other methods. There might be any custom value in factory_list parameter of field function. As of Python 3.10, dataclass decorator has a parameter called kw_only and it prevens the code from defining an instance of class via arguments. It is obligatory to use keyword arguments to create a new instance. As of Python 3.10, dataclass decorator has an argument called match_args. Regular classes use \**__dict__** method to access instance variables. As of Python 3.10, dataclass decorator has an argument named slots. When slots = True, we can access the data of dataclass fast compared to \__dict__ method. One of the cons of slots is that they break in the case of multiple inheritance. Dataclasses also support validations via `__post_init__` method, however this is carried out after the creation of the object; not in the phase of creating object. Use -- parameter for primitive type(immutable) attributes such as int, str, tuple in dataclasses.field(default=). Use **default_factory** parameter for mutable attributes such as list, dict, set in dataclasses.field(default_factory=). default and default_factory can't be used together. Pydantic also has `from pydantic.dataclasses import dataclass`. There are some differences between pydantic's dataclasses and `from pydantic import BaseModel`.BaseModel has more features than dataclasses in pydantic. Let's assume we want to set the datetime of the creation time in a dataclass object. We should use field default_factory with custom function rather than setting the datetime_field to function name directly.
 
 ```python
 from dataclasses import dataclass,field
@@ -3213,6 +3213,17 @@ book = Book(title="sth", publish_year=2000)
 print(book)
 
 book.title = "sth2"# dataclasses.FrozenInstanceError: cannot assign to field 'title'
+
+# Dynamic datetime
+
+def get_current_datetime():
+    return str(datetime.now())
+
+@dataclass
+class Helper:
+    correct_current_datetime:str = field(default_factory = get_current_datetime)
+    # The below shouldn't be implemented
+    wrong_current_datetime: str = get_current_time()
 
 
 ```
@@ -6210,6 +6221,8 @@ members=["packages/*"]
 core2 = { workspace = true }
 
 ```
+
+309) In order to list Python's Zen, run `import this`.
 
 
 # Python Logging
