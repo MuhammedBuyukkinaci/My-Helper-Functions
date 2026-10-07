@@ -558,7 +558,7 @@ print(result)
 
 19) Slicing in list is programmed in the format of `list_name[start:end:step]`. The default step is 1.
 
-```slicing.py
+```py
 my_list = [0,1,2,3,4,5,6,7,8,9]
 print( my_list[2:-1:1] )# prints [2, 4, 6, 8]
 #Reverse with respect to start, end and step
@@ -575,7 +575,7 @@ print(my_string[::-1]) #ereh si gnirts a
 
 21) `try`, `except`, `else` and `finally` are keywords in exceptions. THere may be multiple except keyword in error handling. Put the specific exceptions in above excepts and put general ones in below excepts. else runs if try doesn't raise an exception. `finally` is run in every condition. To manually raise an exception, use `raise Exception`. `try` and `finally` can be used without `except` statement. `finally` can be used to clean up the resources.
 
-```exception01.py
+```py
 
 # Definin a custom exception
 class MyDefinedException(Exception):
@@ -4361,6 +4361,10 @@ print(f"current working directory = {Path.cwd()}")#current working directory = /
 # Delete the directory
 new_folder.rmdir()
 
+# Rename all files under a folder
+for file in Path(folder_name).glob("*.jpeg"):
+    file.rename(file.with_suffix(".jpg"))
+
 ```
 
 153) \__call__ is a dunder method or magic method. It makes us capable of calling a function via passing parameters to class, not to methods.
@@ -5825,6 +5829,9 @@ person = Person(name="Hasan", birth_date = "2000-02-02")
 person["name"] = "Hasan Hamza"
 person["birth_date"] = "2000-02-03"# Raises Error in type checker
 
+mapping_dict: dict[str, int] = {}
+mapping_dict["Ali"] = 34
+
 ```
 
 268)`from warnings import deprecated` is a new feature in python. It is used as a decorator. It shows a warning message in runtime. 
@@ -6223,8 +6230,21 @@ core2 = { workspace = true }
 ```
 
 309) Using singleton to pack multiple arguments into one is a good way. However Context Object pattern is also handy. Context object group things such as configuration, logger, ML model etc using `from dataclasses import dataclass`. It is a better approach to use Context Object pattern in high level objects rather than low level objects. Context Object pattern simplifies mocking, testing and refactoring. Don't put all things under a Context object. It is not a silver bullet.
-=======
-309) In order to list Python's Zen, run `import this`.
+
+310) In order to list Python's Zen, run `import this`.
+
+311) In order to wrap text to a fixed width, you can use
+
+```python
+import textwrap
+text = "this is the text that is going to be wrapped"
+print(textwrap.fill(text, width=20))
+
+# this is the text
+# that is going to be
+# wrapped
+
+```
 
 
 # Python Logging
