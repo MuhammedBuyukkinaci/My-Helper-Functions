@@ -6246,6 +6246,97 @@ print(textwrap.fill(text, width=20))
 
 ```
 
+312) If you maintain the state, you lose history. This point is where event sourcing pattern comes in. You don't store final state, you store each change that leads to it. Event is immutable. These changes are called events. This pattern is useful in banking and cryptocurrencies and git version control. The inventory of a character in a game can be an example. It is a good practice to specify events as Enums. It is better to use when audit, tracibility, roll back are desired. You don't keep track of the state. You keep track of the changes. Caching is also integrated into event sourcing systems. There are alsom some cons. If event schema changes, there needs to be a migration.
+
+```py
+from collections import Counter
+from dataclasses import dataclass, field
+from datetime import datetime
+from enum import StrEnum
+from functools import cache
+
+
+# event.py
+class EventType(StrEnum):
+    ITEM_ADDED = "Item Added"
+    ITEM_REMOVED = "Item Removed"
+
+
+@dataclass(frozen=True)
+class Event:
+    type: EventType
+    data: str
+    timestamp: datetime = field(default_factory=datetime.now) 
+
+
+# event_store.py
+class EventStore:
+    def __init__(self) -> None:
+        self._events: list[Event] = []
+
+    def append(self, event: Event) -> None:
+        self._events.append(event)
+
+    def get_all_events(self) -> list[Event]:
+        return list(self._events)
+
+
+# inventory.py
+class Inventory:
+    def __init__(self, store: EventStore) -> None:
+        self.store = store
+
+    def add_item(self, item: str) -> None:
+        self.store.append(Event(EventType.ITEM_ADDED, item))
+        self._invalidate_cache()
+
+    def remove_item(self, item: str) -> None:
+        if self.get_count(item) <= 0:
+            raise ValueError(f"{item} not found in inventory") 
+        self.store.append(Event(EventType.ITEM_REMOVED, item))
+        self._invalidate_cache()
+
+    def _invalidate_cache(self) -> None:
+        self.get_items.cache_clear()
+
+
+    @cache
+    def get_items(self) -> list[tuple[str, int]]:
+        counts = Counter[str]()
+        for event in self.store.get_all_events():
+            if event.type == EventType.ITEM_ADDED:
+                counts[event.data] += 1
+            elif event.type == EventType.ITEM_REMOVED:
+                counts[event.data] -= 1
+
+        return [
+            (item, count) for item, count in counts.items() if count > 0
+        ]
+
+    def get_count(self, item: str) -> int:
+        return dict(self.get_items()).get(item, 0)
+
+store = EventStore()
+inventory = Inventory(store=store)
+
+inventory.add_item("sword")
+inventory.add_item("potion")
+inventory.add_item("bow")
+inventory.add_item("shield")
+inventory.add_item("torch")
+inventory.remove_item("shield")
+
+print(inventory.get_items())
+print(inventory.get_count("banana"))
+
+inventory.remove_item("bow")
+inventory.add_item("banana")
+print(inventory.get_items())
+
+```
+
+313) [Flox](flox.dev) is a software development tool that covers many things such as python, redis, nodejs etc.
+
 
 # Python Logging
 
