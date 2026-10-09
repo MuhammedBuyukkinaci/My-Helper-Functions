@@ -3234,7 +3234,7 @@ class Helper:
 - Object of that type has passed as parameter to method.
 - Inheritance: Class inherits from another class. The strongest dependency relationship is inheritance. Inheritance introduces coupling, which is hard to remove.
 
-84) Dependency injection is a design pattern. Dependency injection is all about splitting creation of an object and using of object by passing the object as a parameter. Depedency injection is that if a class uses an instance of a certain class, we aren't making the class responsible for creating that object. Dependency injection makes our code to be tested easily. Without dependency injection, there is no dependency inversion.
+84) Dependency injection is a design pattern. Dependency injection is all about splitting creation of an object and using of object by passing the object as a parameter. Depedency injection is that if a class uses an instance of a certain class, we aren't making the class responsible for creating that object. Dependency injection makes our code to be tested easily. Without dependency injection, there is no dependency inversion. Dependency injection easens testing business logic. `from fastapi import Depends` is an example of dependency injection. The advantage of using `from fastapi import Depends` is that it is much easier to replace a dependency with a mock. **A container setup** where you register different objects can be useful in Dependency injection. However, container setup is optional in terms of dependency injection. Container setup is rarely used. 
 
 85) Some tools to improve code quality on Vscode
 
