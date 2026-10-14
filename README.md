@@ -6337,6 +6337,9 @@ print(inventory.get_items())
 
 313) [Flox](flox.dev) is a software development tool that covers many things such as python, redis, nodejs etc.
 
+314) Eager loading is about loading data into memory before running the application logic. Applying lazy loading combined with `from functools import cache` is a powerful feature. We can define a custom function such as ttl_cache as decorator and use it in other functions. This ttl_cache function caches a function for a period of time. Lazy loading is used in operating systems and websites. Use Lazy Loading when loading a large amont of data and starting speed is important. Using Lazy Loading for rarely used objects is ridiculous. Lazy loading may introduce extra complexity. Caching mutable objects like dictionary and list may lead to inconsistent results. Don't cache functions that utilize external states like API's. Using cache with time can be a solution to this problem.
+
+315) `from typing import Generator` can be used for type annotating Generator.
 
 # Python Logging
 
