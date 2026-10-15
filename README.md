@@ -573,7 +573,7 @@ print(my_string[::-1]) #ereh si gnirts a
 
 20) In Python, to list all builtin attributes or exceptions or errors, run `print(dir(locals()['__builtins__']))` .
 
-21) `try`, `except`, `else` and `finally` are keywords in exceptions. THere may be multiple except keyword in error handling. Put the specific exceptions in above excepts and put general ones in below excepts. else runs if try doesn't raise an exception. `finally` is run in every condition. To manually raise an exception, use `raise Exception`. `try` and `finally` can be used without `except` statement. `finally` can be used to clean up the resources.
+21) `try`, `except`, `else` and `finally` are keywords in exceptions. THere may be multiple except keyword in error handling. Put the specific exceptions in above excepts and put general ones in below excepts. else runs if try doesn't raise an exception. `finally` is run in every condition. To manually raise an exception, use `raise Exception`. `try` and `finally` can be used without `except` statement. `finally` can be used to clean up the resources. If you don't have any clear reason to use exception, don't use it and let the program crash. It is called let it burn approach.
 
 ```py
 
@@ -6340,6 +6340,42 @@ print(inventory.get_items())
 314) Eager loading is about loading data into memory before running the application logic. Applying lazy loading combined with `from functools import cache` is a powerful feature. We can define a custom function such as ttl_cache as decorator and use it in other functions. This ttl_cache function caches a function for a period of time. Lazy loading is used in operating systems and websites. Use Lazy Loading when loading a large amont of data and starting speed is important. Using Lazy Loading for rarely used objects is ridiculous. Lazy loading may introduce extra complexity. Caching mutable objects like dictionary and list may lead to inconsistent results. Don't cache functions that utilize external states like API's. Using cache with time can be a solution to this problem.
 
 315) `from typing import Generator` can be used for type annotating Generator.
+
+316) Before starting refactoring, start with writing tests. Refactoring doesn't change business logic. Therefore, writing tests before refactoring is a safety net. Writing tests enable us to refactor the code without the fear of breaking code. While refactoring, try to reduce indentation as much as possible.
+
+317) any and all usage in Python. The example is below. lambda can be utilized more. Using lambda functions in a list to check a condition is reducing return statement duplication.
+
+```python
+# lambda function usage
+from dataclasses import dataclass
+
+
+@dataclass
+class Item:
+    is_rare: bool
+    is_perishable: bool
+    is_expensive: bool
+    
+
+item = Item(is_rare=False, is_perishable=True, is_expensive=False)
+
+check_list = [
+    lambda: item.is_rare,
+    lambda: item.is_perishable,
+    lambda: item.is_expensive
+]
+
+if any(check_function() for check_function in check_list):
+    print("At least one of check functions is True")
+
+if all(check_function() for check_function in check_list):
+    print("All check functions are True")
+else:
+    print("All check functions aren't True")
+
+# At least one of check functions is True
+# All check functions aren't True
+```
 
 # Python Logging
 
