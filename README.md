@@ -6377,6 +6377,72 @@ else:
 # All check functions aren't True
 ```
 
+318) **Transient failure** is that most modern systems rely on external services like DB's, LLM's, API's. These external systems might fail sometimes. Therefore, **Retry mechanism** can be considered as a solution to this failure. If the error is temporary because of network, reate limit etc, retry mechanism is handy. Avoid retry mechanism if the failure is permanent. You should also make sure that the operation is safe to repeat. It is useful to have resilient backend code. Serpapi is an intermediary layer between target and client. It serves as a proxy between our client and Google or Youtube or any other engine. Adding a delay whose maginuted increases exponentially is called **exponential backoff**. Exponential backoff is to increase time between attempts. Using a decorator to mimic retry mechanism is not the best solution. Using retry decorator when utilizing LLM's is useful. Let's assume our credentials became stale and started not functioning. In this scenario, using a **fallback strategy** is to follow a different path. [Tenacity](https://tenacity.readthedocs.io/en/latest/) is a python library that deals with **retry mechanism**. Tenacity covers exponential backoff, selective retry, logging etc. `from tenacity import retry` is a decorator that wraps a function.
+
+```py
+import random
+import time
+from typing import Callable
+
+
+def retry[T](operation: Callable[[],T], retries: int = 3, delay: float = 5.0) -> T:
+    for attempt in range(retries):
+        try:
+            return operation()
+        except:
+            print(f"{attempt=} failed")
+            if attempt == retries:
+                raise
+            time.sleep(delay)
+
+
+def send_a_request():
+    if random.random() < 0.5:
+        raise ValueError("Value error is existent")
+    print("Api request is sent successfully")
+
+retry(send_a_request)
+
+# 1 fail, then success
+#attempt=0 failed
+#Api request is sent successfully
+```
+
+```py
+import random
+import time
+from typing import Callable
+
+
+def retry_with_fallback[T](operation: Callable[[],T], retries: int = 3, delay: float = 2.0) -> T:
+    for attempt in range(retries):
+        try:
+            return operation()
+        except:
+            print(f"{attempt=} failed")
+            if attempt+1 == retries:
+                return "Fall back is called"
+            time.sleep(delay**3)
+            print(f"{attempt=} failed. retrying is used with {attempt**3}")
+
+
+def send_a_request():
+    if random.random() < 0.95:
+        raise ValueError("Value error is existent")
+    return "Request is sent successfully."
+
+
+with_fallback = retry_with_fallback(send_a_request,retries=3)
+print(with_fallback)
+
+# attempt=0 failed
+# attempt=0 failed. retrying is used with 0
+# attempt=1 failed
+# attempt=1 failed. retrying is used with 1
+# attempt=2 failed
+# Fall back is called
+```
+
 # Python Logging
 
 [Video Link 1](https://www.youtube.com/watch?v=-ARI4Cz-awo)
