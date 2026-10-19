@@ -6148,7 +6148,7 @@ shutil.make_archive("archive", "zip", ".")  # Archive current directory into arc
 
 
 
-304) If we have a complex application that requires several different business logic in a FastAPI project, we should have a separate Service class that deals with CRUD operations. Then, we should pass this Service as dependency in endpoint definition via Depends instead of SessionLocal. This is going to make our code easily testable.
+304) If we have a complex application that requires several different business logic in a FastAPI project, we should have a separate Service class that deals with CRUD operations. Then, we should pass this Service as dependency in endpoint definition via `from fastapi import Depends` instead of SessionLocal. This is going to make our code easily testable.
 
 305) Let's assume we want to test our api endpoints and we need a test database. We can override a dependency via `app.dependency_overrides`.
 
@@ -6442,6 +6442,36 @@ print(with_fallback)
 # attempt=2 failed
 # Fall back is called
 ```
+
+319) It is a better practice to use Decimal instead of Float in working with currency. `from decimal import Decimal`.
+
+320) Router usage in FastAPI.
+
+```py
+# api.py
+from fastapi import APIRouter
+router = APIRouter()
+@router.get("/calculate")
+def calculate_sth():
+    return "something"
+
+# main.py
+from fastapi import FastAPI
+app = FastAPI()
+app.include_router(router)
+```
+
+321) Kubernetes wants to know whether our service functions. To do this, we should add a healthcheck endpoint to our backend as below.
+
+```py
+from fastapi import APIRouter
+router = APIRouter()
+@router.get("health")
+def check_health():
+    return {"status": True}
+
+```
+
 
 # Python Logging
 
