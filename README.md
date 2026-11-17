@@ -6472,6 +6472,42 @@ def check_health():
 
 ```
 
+322) `from typing import Annotated` was introduced as of Python 3.9. It enables us to add metadata to a type hint. It doesn't enforce. There can be multiple annotations in Annotated. Single Annotated usage is `Annotated[float, "the number should be positive"]`.Multiple Annotated usage is `Annotated[int, "the number should be positive", "it is try"]`. `from fastapi import Query` can be used as an enforcement to Annotated.
+
+```py
+from typing import Annotated, get_type_hints
+
+dollar_to_try_rate = 50
+
+def without_annotated(amount: float) -> float:
+    return dollar_to_try_rate*amount
+
+def with_annotated(
+    amount: Annotated[float, "Amount shouls be positive", "Amont is TRY"]
+    ) -> Annotated[float, "Amount shouls be positive"]:
+    return dollar_to_try_rate*amount
+
+print(without_annotated(amount=3.5))# 175
+print(with_annotated(amount=3.5)) # 175
+
+hints = get_type_hints(with_annotated, include_extras=True)
+
+print(hints)
+
+#{'amount': typing.Annotated[float, 'Amount shouls be positive', 'Amont is TRY'],
+# 'return': typing.Annotated[float, 'Amount shouls be positive']}
+
+# FastAPI Usage
+
+app = FastAPI()
+
+@app.get("/items/")
+def get_items(
+    limit: Annotated[int, Query(ge=1, le=100)] = 10
+):
+    return {"limit": limit}
+```
+
 
 # Python Logging
 
